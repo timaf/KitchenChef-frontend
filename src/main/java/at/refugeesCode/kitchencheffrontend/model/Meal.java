@@ -1,6 +1,5 @@
 package at.refugeesCode.kitchencheffrontend.model;
 
-import java.time.Duration;
 import java.time.LocalTime;
 
 public class Meal {
@@ -9,11 +8,11 @@ public class Meal {
         private String mealName;
         private String mealDescription;
         private String ingredients;
-
-        private LocalTime startTime;
-        private LocalTime cookTime;
-        private Duration preparationTime;
+        private String participant;
+        private LocalTime mealStart;
+        private LocalTime cookStart;
         private String dateTime;
+        private String foodImage;
 
 
         public String getCookName() {
@@ -48,28 +47,28 @@ public class Meal {
                 this.ingredients = ingredients;
         }
 
-        public LocalTime getStartTime() {
-                return startTime;
+        public String getParticipant() {
+                return participant;
         }
 
-        public void setStartTime(LocalTime startTime) {
-                this.startTime = startTime;
+        public void setParticipant(String participant) {
+                this.participant = participant;
         }
 
-        public LocalTime getCookTime() {
-                return cookTime;
+        public LocalTime getMealStart() {
+                return mealStart;
         }
 
-        public void setCookTime(LocalTime cookTime) {
-                this.cookTime = cookTime;
+        public void setMealStart(LocalTime mealStart) {
+                this.mealStart = mealStart;
         }
 
-        public Duration getPreparationTime() {
-                return preparationTime;
+        public LocalTime getCookStart() {
+                return cookStart;
         }
 
-        public void setPreparationTime(Duration preparationTime) {
-                this.preparationTime = preparationTime;
+        public void setCookStart(LocalTime cookStart) {
+                this.cookStart = cookStart;
         }
 
         public String getDateTime() {
@@ -78,5 +77,13 @@ public class Meal {
 
         public void setDateTime(String dateTime) {
                 this.dateTime = dateTime;
+        }
+
+        public String getFoodImage() {
+                return foodImage;
+        }
+
+        public void setFoodImage(String foodImage) {
+                this.foodImage = foodImage;
         }
 }

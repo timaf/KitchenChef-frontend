@@ -8,14 +8,19 @@
 <h2>Thank you for making a meal </h2>
 <h4> People can sign up as a helper,shopper,or cleaner</h4>
 
-<form name="form" th:action="@{/addMeal}" th:object="${meal}" method="POST">
+<form name="form" th:action="@{/addMeal}" th:object="${meal}" method="POST" enctype="multipart/form-data">
     <fieldset>
+        <div class="container">
 
-        <div >
-            <input  type="text" th:field="*{mealName}" value=""  autofocus="autofocus" id="sample1">
-            <label  for="sample1">Name</label>
+            <hr>
+            <label for="file"><b>Foto</b></label>
+            <input type="file" id="file" name="file" placeholder="Enter Foto">
+            <input th:field="*{mealName}"/><br/><br/>
+            <label>Meal name</label>
+           <br/>
+            <button type="submit">Submit</button>
+
         </div>
-
 
     </fieldset>
    </form>
