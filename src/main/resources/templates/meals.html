@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Index</title>
+</head>
+<body>
+<table>
+    <thead>
+    <th>Cook Name</th>
+    <th>Meal Name</th>
+    <th>Description</th>
+    <th>Ingredients</th>
+    <th>Number Of People</th>
+    <th>Start Cooking Time</th>
+    <th>Start Eating Time</th>
+    <th>Preparation Time</th>
+    <th>Date</th>
+    </thead>
+    <tbody th:each="meal: ${meals}">
+    <td th:text="${meal.cookName}"></td>
+    <td th:text="${meal.mealName}"></td>
+    <td th:text="${meal.mealDescription}"></td>
+    <td th:text="${meal.ingredients}"></td>
+    <td th:text="${meal.numberOfPeople}"></td>
+    <td th:text="${meal.startCookingTime}"></td>
+    <td th:text="${meal.startEatingTime}"></td>
+    <td th:text="${meal.preparationTime}"></td>
+    <td th:text="${meal.dateTime}"></td>
+    </tbody>
+</table>
+<a th:href="@{/create-meal}">I want to cook</a>
+
+</body>
+</html>
