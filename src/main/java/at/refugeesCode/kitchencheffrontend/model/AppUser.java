@@ -1,19 +1,10 @@
-package at.refugeesCode.ktichencheffrontend.model;
+package at.refugeesCode.kitchencheffrontend.model;
 
 public class AppUser {
 
     private String id;
     private String username;
     private String password;
-
-
-    public AppUser(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public AppUser() {
-    }
 
 
     public String getId() {
@@ -40,13 +31,4 @@ public class AppUser {
         this.password = password;
     }
 
-
-    @Override
-    public String toString() {
-        return "AppUser{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-}
+   }

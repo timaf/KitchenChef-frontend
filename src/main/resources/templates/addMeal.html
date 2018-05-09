@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Index</title>
+</head>
+<body>
+<h2>Thank you for making a meal </h2>
+<h4> People can sign up as a helper,shopper,or cleaner</h4>
+
+<form name="form" th:action="@{/addMeal}" th:object="${meal}" method="POST">
+    <fieldset>
+
+        <div >
+            <input  type="text" th:field="*{mealName}" value=""  autofocus="autofocus" id="sample1">
+            <label  for="sample1">Name</label>
+        </div>
+
+
+    </fieldset>
+   </form>
+</body>
+</html>
