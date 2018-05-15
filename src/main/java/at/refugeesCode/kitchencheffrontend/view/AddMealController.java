@@ -30,6 +30,12 @@ public class AddMealController {
         return "meals";
     }
 
+    @GetMapping("/create-meal")
+    String createAMeal(Model model) {
+        Meal[] meal = addMealService.mealsList();
+        model.addAttribute("meals", meal);
+        return "createmeal";
+    }
     @PostMapping("meals")
     String createNewMeal(@RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
                         @RequestParam("ingredients") String ingredients, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
