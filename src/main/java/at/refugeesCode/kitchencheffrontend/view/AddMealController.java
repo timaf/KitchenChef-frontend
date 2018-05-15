@@ -39,7 +39,7 @@ public class AddMealController {
     @PostMapping("meals")
     String createNewMeal(@RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
                         @RequestParam("ingredients") String ingredients, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
-                        @RequestParam("startEatingTime") LocalTime startEatingTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
+                        @RequestParam("preparationTime") Long preparationTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
         Meal meal = new Meal();
         meal.setCookName(cookName);
         meal.setMealName(mealName);
@@ -47,12 +47,11 @@ public class AddMealController {
         meal.setIngredients(ingredients);
         meal.setNumberOfPeople(numberOfPeople);
         meal.setStartCookingTime(startCookingTime);
-        meal.setStartEatingTime(startEatingTime);
+        meal.setPreparationTime(preparationTime);
         meal.setYear(year);
         meal.setMonth(month);
         meal.setDay(day);
-        //addMealService.createMeal(meal);
-        restTemplate.postForEntity("http://localhost:8080/meals", meal, Meal.class);
+        addMealService.createMeal(meal);
         return "redirect:/";
     }
 
