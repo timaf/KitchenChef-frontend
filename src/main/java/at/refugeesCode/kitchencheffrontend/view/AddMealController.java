@@ -2,35 +2,52 @@ package at.refugeesCode.kitchencheffrontend.view;
 
 import at.refugeesCode.kitchencheffrontend.cotroller.AddMealService;
 import at.refugeesCode.kitchencheffrontend.model.Meal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Controller
-@RequestMapping("/addMeal")
+@RequestMapping()
 public class AddMealController {
 
     private AddMealService addMealService;
+    private RestTemplate restTemplate;
 
-    public AddMealController(AddMealService addMealService) {
+    public AddMealController(AddMealService addMealService, RestTemplate restTemplate) {
         this.addMealService = addMealService;
-    }
-
-    @ModelAttribute("meal")
-    Meal meal(){
-        return new Meal();
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping
-    String page(){
-        return "addMeal";
+    String getAllMeals(Model model) {
+        Meal[] meal = addMealService.mealsList();
+        model.addAttribute("meals", meal);
+        return "meals";
     }
 
-    @PostMapping
-    String post(Meal meal){
-    addMealService.send(meal);
-    return "redirect:/";
+    @PostMapping("meals")
+    String createNewMeal(@RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
+                        @RequestParam("ingredients") String ingredients, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
+                        @RequestParam("startEatingTime") LocalTime startEatingTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
+        Meal meal = new Meal();
+        meal.setCookName(cookName);
+        meal.setMealName(mealName);
+        meal.setMealDescription(mealDescription);
+        meal.setIngredients(ingredients);
+        meal.setNumberOfPeople(numberOfPeople);
+        meal.setStartCookingTime(startCookingTime);
+        meal.setStartEatingTime(startEatingTime);
+        meal.setYear(year);
+        meal.setMonth(month);
+        meal.setDay(day);
+        //addMealService.createMeal(meal);
+        restTemplate.postForEntity("http://localhost:8080/meals", meal, Meal.class);
+        return "redirect:/";
     }
+
 }

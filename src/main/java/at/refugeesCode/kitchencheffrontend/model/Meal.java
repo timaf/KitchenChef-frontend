@@ -1,82 +1,165 @@
 package at.refugeesCode.kitchencheffrontend.model;
 
-import java.time.Duration;
+
 import java.time.LocalTime;
 
 public class Meal {
 
-        private String cookName;
-        private String mealName;
-        private String mealDescription;
-        private String ingredients;
+    private String id;
+    private String cookName;
+    private String mealName;
+    private String mealDescription;
+    private String ingredients;
 
-        private LocalTime startTime;
-        private LocalTime cookTime;
-        private Duration preparationTime;
-        private String dateTime;
+    private int year;
+    private int month;
+    private int day;
 
+    private int numberOfPeople;
+    private LocalTime startCookingTime;
+    private LocalTime startEatingTime;
+    private Long preparationTime;
+    private String dateTime;
 
-        public String getCookName() {
-                return cookName;
-        }
+    public Meal(String id, String cookName, String mealName, String mealDescription, String ingredients, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime) {
+        this.id = id;
+        this.cookName = cookName;
+        this.mealName = mealName;
+        this.mealDescription = mealDescription;
+        this.ingredients = ingredients;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.numberOfPeople = numberOfPeople;
+        this.startCookingTime = startCookingTime;
+        this.startEatingTime = startEatingTime;
+        this.preparationTime = preparationTime;
+        this.dateTime = dateTime;
+    }
 
-        public void setCookName(String cookName) {
-                this.cookName = cookName;
-        }
+    public Meal() {
+    }
 
-        public String getMealName() {
-                return mealName;
-        }
+    public String getId() {
+        return id;
+    }
 
-        public void setMealName(String mealName) {
-                this.mealName = mealName;
-        }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-        public String getMealDescription() {
-                return mealDescription;
-        }
+    public String getCookName() {
+        return cookName;
+    }
 
-        public void setMealDescription(String mealDescription) {
-                this.mealDescription = mealDescription;
-        }
+    public void setCookName(String cookName) {
+        this.cookName = cookName;
+    }
 
-        public String getIngredients() {
-                return ingredients;
-        }
+    public String getMealName() {
+        return mealName;
+    }
 
-        public void setIngredients(String ingredients) {
-                this.ingredients = ingredients;
-        }
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
+    }
 
-        public LocalTime getStartTime() {
-                return startTime;
-        }
+    public String getMealDescription() {
+        return mealDescription;
+    }
 
-        public void setStartTime(LocalTime startTime) {
-                this.startTime = startTime;
-        }
+    public void setMealDescription(String mealDescription) {
+        this.mealDescription = mealDescription;
+    }
 
-        public LocalTime getCookTime() {
-                return cookTime;
-        }
+    public String getIngredients() {
+        return ingredients;
+    }
 
-        public void setCookTime(LocalTime cookTime) {
-                this.cookTime = cookTime;
-        }
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
 
-        public Duration getPreparationTime() {
-                return preparationTime;
-        }
+    public int getYear() {
+        return year;
+    }
 
-        public void setPreparationTime(Duration preparationTime) {
-                this.preparationTime = preparationTime;
-        }
+    public void setYear(int year) {
+        this.year = year;
+    }
 
-        public String getDateTime() {
-                return dateTime;
-        }
+    public int getMonth() {
+        return month;
+    }
 
-        public void setDateTime(String dateTime) {
-                this.dateTime = dateTime;
-        }
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+    }
+
+    public LocalTime getStartCookingTime() {
+        return startCookingTime;
+    }
+
+    public void setStartCookingTime(LocalTime startCookingTime) {
+        this.startCookingTime = startCookingTime;
+    }
+
+    public LocalTime getStartEatingTime() {
+        return startEatingTime;
+    }
+
+    public void setStartEatingTime(LocalTime startEatingTime) {
+        this.startEatingTime = startEatingTime;
+    }
+
+    public Long getPreparationTime() {
+        return preparationTime;
+    }
+
+    public void setPreparationTime(Long preparationTime) {
+        this.preparationTime = preparationTime;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "id='" + id + '\'' +
+                ", cookName='" + cookName + '\'' +
+                ", mealName='" + mealName + '\'' +
+                ", mealDescription='" + mealDescription + '\'' +
+                ", ingredients='" + ingredients + '\'' +
+                ", year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                ", numberOfPeople=" + numberOfPeople +
+                ", startCookingTime=" + startCookingTime +
+                ", startEatingTime=" + startEatingTime +
+                ", preparationTime=" + preparationTime +
+                ", dateTime='" + dateTime + '\'' +
+                '}';
+    }
 }
