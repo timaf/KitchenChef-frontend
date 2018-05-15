@@ -1,4 +1,4 @@
-package at.refugeesCode.ktichencheffrontend;
+package at.refugeesCode.kitchencheffrontend;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class KtichenChefFrontendApplicationTests {
+public class KitchenChefFrontendApplicationTests {
 
 	@Test
 	public void contextLoads() {

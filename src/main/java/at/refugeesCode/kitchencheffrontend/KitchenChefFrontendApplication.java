@@ -1,12 +1,12 @@
-package at.refugeesCode.ktichencheffrontend;
+package at.refugeesCode.kitchencheffrontend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KtichenChefFrontendApplication {
+public class KitchenChefFrontendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KtichenChefFrontendApplication.class, args);
+		SpringApplication.run(KitchenChefFrontendApplication.class, args);
 	}
 }
