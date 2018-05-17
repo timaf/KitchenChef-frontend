@@ -32,11 +32,16 @@ public class AddMealController {
         return new Meal();
     }
 
-    @GetMapping
+    @GetMapping("/meals")
     String getAllMeals(Model model) {
         Meal[] meal = addMealService.mealsList();
         model.addAttribute("meals", meal);
         return "meals";
+    }
+
+    @GetMapping
+    String index() {
+        return "index";
     }
 
     @GetMapping("/create-meal")
