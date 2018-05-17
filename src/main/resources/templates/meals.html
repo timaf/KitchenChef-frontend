@@ -16,6 +16,7 @@
     <th>Start Eating Time</th>
     <th>Preparation Time</th>
     <th>Date</th>
+    <th>Image</th>
     </thead>
     <tbody th:each="meal: ${meals}">
     <td th:text="${meal.cookName}"></td>
@@ -27,6 +28,7 @@
     <td th:text="${meal.startEatingTime}"></td>
     <td th:text="${meal.preparationTime}"></td>
     <td th:text="${meal.dateTime}"></td>
+    <img th:src="@{${'/images/' + meal.foodImage}}" height="120" width="150" />
     </tbody>
 </table>
 <a th:href="@{/create-meal}">I want to cook</a>
