@@ -63,7 +63,7 @@ public class AddMealController {
 
         if (!file.isEmpty()) {
             try {
-                //"C:/Users/Wael/IdeaProjects/Kitchen cheff/Kitchen-app-frontend/src/main/resources/static/images"
+                // Most change the Path according to your path at least just for now
                 String UPLOADED_FOLDER = "/Users/Wael/Desktop/KitchenChef-frontend/src/main/resources/static/images";
                 byte[] bytes = file.getBytes();
                 File serverFile = new File(UPLOADED_FOLDER + File.separator + file.getOriginalFilename());
@@ -71,9 +71,6 @@ public class AddMealController {
                 stream.write(bytes);
                 stream.close();
                 meal.setFoodImage(file.getOriginalFilename());
-                //save in database
-                //this.meal = meal;
-                // profilesRepository.save(this.meal);
                 redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded");
             } catch (Exception e) {
                 redirectAttributes.addFlashAttribute("flash.message", "Failed to upload");
@@ -83,7 +80,6 @@ public class AddMealController {
         } else {
             return "You failed to upload " + " because the file was empty.";
         }
-        System.out.println(meal.toString());
         addMealService.createMeal(meal);
         return "redirect:/";
     }
