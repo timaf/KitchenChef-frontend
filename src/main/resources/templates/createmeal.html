@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Create an event</title>
 </head>
 <body>
 
-<form th:action="@{/meals}" method="post">
+<form th:action="@{/meal}" method="post" enctype="multipart/form-data">
     <input type="text" name="cookName" id="cookName" required>
     <input type="text" name="mealName" id="mealName" required>
     <input type="text" name="mealDescription" id="mealDescription" required>
@@ -14,6 +14,7 @@
     <input type="text" name="numberOfPeople" id="numberOfPeople" placeholder="5" required>
     <input type="text" name="startCookingTime" id="startCookingTime" placeholder="04:30" required>
     <input type="text" name="preparationTime" id="preparationTime" placeholder="30" required>
+    <input type="file" name="file" id="file" placeholder="image">
     <div >
         <select id="year" name="year">
             <option value="">Select a year</option>
@@ -43,7 +44,6 @@
         <select id="day" name="day">
             <option value="">Select a day</option>
             <option value="22" th:text="01"></option>
-            <option value="22" th:text="02"></option>
             <option value="22" th:text="03"></option>
             <option value="22" th:text="04"></option>
             <option value="22" th:text="05"></option>
@@ -77,8 +77,6 @@
     </div>
     <input type="submit">
 </form>
-<p th:text="after uploading this meal, people can sign up as a helper, shopper, or cleaner.">
-
-</p>
+<p>after uploading this meal, people can sign up as a helper, shopper, or cleaner.</p>
 </body>
 </html>

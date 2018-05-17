@@ -1,97 +1,9 @@
 package at.refugeesCode.kitchencheffrontend.model;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8c9a0ce939763ba4670c8e44c5d45715a153772e
 import java.time.LocalTime;
 
 public class Meal {
 
-<<<<<<< HEAD
-        private String cookName;
-        private String mealName;
-        private String mealDescription;
-        private String ingredients;
-        private String participant;
-        private LocalTime mealStart;
-        private LocalTime cookStart;
-        private String dateTime;
-        private String foodImage;
-
-
-        public String getCookName() {
-                return cookName;
-        }
-
-        public void setCookName(String cookName) {
-                this.cookName = cookName;
-        }
-
-        public String getMealName() {
-                return mealName;
-        }
-
-        public void setMealName(String mealName) {
-                this.mealName = mealName;
-        }
-
-        public String getMealDescription() {
-                return mealDescription;
-        }
-
-        public void setMealDescription(String mealDescription) {
-                this.mealDescription = mealDescription;
-        }
-
-        public String getIngredients() {
-                return ingredients;
-        }
-
-        public void setIngredients(String ingredients) {
-                this.ingredients = ingredients;
-        }
-
-        public String getParticipant() {
-                return participant;
-        }
-
-        public void setParticipant(String participant) {
-                this.participant = participant;
-        }
-
-        public LocalTime getMealStart() {
-                return mealStart;
-        }
-
-        public void setMealStart(LocalTime mealStart) {
-                this.mealStart = mealStart;
-        }
-
-        public LocalTime getCookStart() {
-                return cookStart;
-        }
-
-        public void setCookStart(LocalTime cookStart) {
-                this.cookStart = cookStart;
-        }
-
-        public String getDateTime() {
-                return dateTime;
-        }
-
-        public void setDateTime(String dateTime) {
-                this.dateTime = dateTime;
-        }
-
-        public String getFoodImage() {
-                return foodImage;
-        }
-
-        public void setFoodImage(String foodImage) {
-                this.foodImage = foodImage;
-        }
-=======
     private String id;
     private String cookName;
     private String mealName;
@@ -107,8 +19,10 @@ public class Meal {
     private LocalTime startEatingTime;
     private Long preparationTime;
     private String dateTime;
+    private String foodImage;
 
-    public Meal(String id, String cookName, String mealName, String mealDescription, String ingredients, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime) {
+
+    public Meal(String id, String cookName, String mealName, String mealDescription, String ingredients, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime, String foodImage) {
         this.id = id;
         this.cookName = cookName;
         this.mealName = mealName;
@@ -122,6 +36,7 @@ public class Meal {
         this.startEatingTime = startEatingTime;
         this.preparationTime = preparationTime;
         this.dateTime = dateTime;
+        this.foodImage = foodImage;
     }
 
     public Meal() {
@@ -231,6 +146,14 @@ public class Meal {
         this.dateTime = dateTime;
     }
 
+    public String getFoodImage() {
+        return foodImage;
+    }
+
+    public void setFoodImage(String foodImage) {
+        this.foodImage = foodImage;
+    }
+
     @Override
     public String toString() {
         return "Meal{" +
@@ -247,7 +170,7 @@ public class Meal {
                 ", startEatingTime=" + startEatingTime +
                 ", preparationTime=" + preparationTime +
                 ", dateTime='" + dateTime + '\'' +
+                ", foodImage='" + foodImage + '\'' +
                 '}';
     }
->>>>>>> 8c9a0ce939763ba4670c8e44c5d45715a153772e
 }
