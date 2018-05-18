@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalTime;
+import java.util.Random;
 
 @Controller
 @RequestMapping()
@@ -66,16 +67,32 @@ public class AddMealController {
         meal.setMonth(month);
         meal.setDay(day);
 
+        // Generate a String Name for the Image name
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+                    (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        String generatedString = buffer.toString();
+
         if (!file.isEmpty()) {
             try {
                 // Most change the Path according to your path at least just for now
                 String UPLOADED_FOLDER = "/Users/Wael/Desktop/KitchenChef-frontend/src/main/resources/static/images";
                 byte[] bytes = file.getBytes();
-                File serverFile = new File(UPLOADED_FOLDER + File.separator + file.getOriginalFilename());
+                File serverFile = new File(UPLOADED_FOLDER + File.separator + generatedString + "-" +file.getOriginalFilename());
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                meal.setFoodImage(file.getOriginalFilename());
+                String originalFilename = file.getOriginalFilename();
+                String foodImage = generatedString + "-" + originalFilename;
+                meal.setFoodImage(foodImage);
+
                 redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded");
             } catch (Exception e) {
                 redirectAttributes.addFlashAttribute("flash.message", "Failed to upload");
