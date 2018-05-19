@@ -1,4 +1,4 @@
-package at.refugeesCode.kitchencheffrontend.cotroller;
+package at.refugeesCode.kitchencheffrontend.controller;
 
 
 import at.refugeesCode.kitchencheffrontend.model.Meal;
