@@ -1,6 +1,6 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
-import at.refugeesCode.kitchencheffrontend.cotroller.AddMealService;
+import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
 import at.refugeesCode.kitchencheffrontend.model.Meal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
