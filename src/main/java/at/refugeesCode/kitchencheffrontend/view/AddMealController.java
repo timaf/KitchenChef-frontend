@@ -1,7 +1,11 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
 import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
+import at.refugeesCode.kitchencheffrontend.model.AppUser;
 import at.refugeesCode.kitchencheffrontend.model.Meal;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -104,6 +108,13 @@ public class AddMealController {
         }
         addMealService.createMeal(meal);
         return "redirect:/";
+    }
+
+    @GetMapping("/mealdetail/{id}")
+    String detailPage(@PathVariable("id") String id,Model model){
+        Meal meals = addMealService.detailPage(id);
+        model.addAttribute("mealdetail", meals);
+        return "detail";
     }
 
 }
