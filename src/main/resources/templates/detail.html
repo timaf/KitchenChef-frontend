@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Detail Page</title>
+</head>
+<body>
+<table>
+    <thead>
+    <th>Cook Name</th>
+    <th>Meal Name</th>
+    <th>Description</th>
+    <th>Ingredients</th>
+    <th>Number Of People</th>
+    <th>Start Cooking Time</th>
+    <th>Start Eating Time</th>
+    <th>Preparation Time</th>
+    <th>Date</th>
+    <th>Image</th>
+    </thead>
+    <td th:text="${mealdetail.cookName}"></td>
+    <td th:text="${mealdetail.mealName}"></td>
+    <td th:text="${mealdetail.mealDescription}"></td>
+    <td th:text="${mealdetail.ingredients}"></td>
+    <td th:text="${mealdetail.numberOfPeople}"></td>
+    <td th:text="${mealdetail.startCookingTime}"></td>
+    <td th:text="${mealdetail.startEatingTime}"></td>
+    <td th:text="${mealdetail.preparationTime}"></td>
+    <td th:text="${mealdetail.dateTime}"></td>
+    <img th:src="@{${'/images/' + mealdetail.foodImage}}" height="120" width="150" />
+    </tbody>
+</table>
+
+<a th:href="@{/meals}">back to All meals</a>
+</body>
+</html>

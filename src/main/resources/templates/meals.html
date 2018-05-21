@@ -19,6 +19,7 @@
     <th>Image</th>
     </thead>
     <tbody th:each="meal: ${meals}">
+    <td th:text="${meal.id}" hidden></td>
     <td th:text="${meal.cookName}"></td>
     <td th:text="${meal.mealName}"></td>
     <td th:text="${meal.mealDescription}"></td>
@@ -29,6 +30,7 @@
     <td th:text="${meal.preparationTime}"></td>
     <td th:text="${meal.dateTime}"></td>
     <img th:src="@{${'/images/' + meal.foodImage}}" height="120" width="150" />
+    <a th:href="@{/mealdetail/} + ${meal.id}">view more</a>
     </tbody>
 </table>
 <a th:href="@{/create-meal}">I want to cook</a>

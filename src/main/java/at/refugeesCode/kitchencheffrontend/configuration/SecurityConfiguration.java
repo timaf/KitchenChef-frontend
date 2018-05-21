@@ -24,6 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/create-meal/**").hasRole("USER")
+                .antMatchers("/mealdetail/**").hasRole("USER")
                 .antMatchers("/**").permitAll()
                 .antMatchers("meals/**").permitAll()
                 .anyRequest().fullyAuthenticated()
