@@ -17,6 +17,9 @@ public class AddMealService {
     @Value("${meals.url}")
     private String mealsUrl;
 
+    @Value("${index.url}")
+    private String mainUrl;
+
     @Value("${detail.url}")
     private String detailUrl;
 
@@ -26,16 +29,16 @@ public class AddMealService {
 
 
     public Meal[] mealsList(){
-        ResponseEntity<Meal[]> forEntity = restTemplate.getForEntity(mealsUrl, Meal[].class);
+        ResponseEntity<Meal[]> forEntity = restTemplate.getForEntity(mainUrl + mealsUrl, Meal[].class);
         return forEntity.getBody();
     }
 
     public void createMeal(Meal meal) {
-        restTemplate.postForObject(mealsUrl, meal, Meal.class);
+        restTemplate.postForObject(mainUrl + mealsUrl, meal, Meal.class);
     }
 
     public Meal detailPage(String id){
-        ResponseEntity<Meal> forEntity = restTemplate.getForEntity(detailUrl + "/" + id ,Meal.class);
+        ResponseEntity<Meal> forEntity = restTemplate.getForEntity(mainUrl + detailUrl + "/" + id ,Meal.class);
         return forEntity.getBody();
     }
 
