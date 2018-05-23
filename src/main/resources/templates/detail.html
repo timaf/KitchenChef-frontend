@@ -27,20 +27,20 @@
 <div class="container-fluid">
     <form action="/paticipate" method="post">
         <div class="disabled-button-wrapper">
-            <button type="button" name="register" value="eat" id="eat" class="btn btn-secondary"  th:disabled="${disable}">Just eating
+            <button type="button" name="eat" value="eat" id="eat" class="btn btn-secondary"  th:disabled="${disable}">Join mail
             </button>
         </div>
         <br><br>
         <div class="disabled-button-wrapper">
-            <button type="button" name="register" value="clean" id="clean" class="btn btn-secondary" th:disabled="${disable}">I'll clean
+            <button type="button" name="signup" value="clean" id="clean" class="btn btn-secondary" th:disabled="${disable}">I'll clean
             </button>
         </div>
         <div class="disabled-button-wrapper">
-            <button type="button" name="register" value="shop" id="shop" class="btn btn-secondary" th:disabled="${disable}">I'll shop
+            <button type="button" name="signup" value="shop" id="shop" class="btn btn-secondary" th:disabled="${disable}">I'll shop
             </button>
         </div>
         <div class="disabled-button-wrapper">
-            <button type="button" name="register" value="help" id="help" class="btn btn-secondary" th:disabled="${disable}">I'll help
+            <button type="button" name="signup" value="help" id="help" class="btn btn-secondary" th:disabled="${disable}">I'll help
             </button>
         </div>
     </form>
@@ -55,9 +55,9 @@
             <h5>Ingredients :
                 <table class="table">
                     <tr>
-                        <th>name</th>
-                        <th>quantity</th>
-                        <th>unit</th>
+                        <th>Ingredient's name</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
                     </tr>
                     <tr th:each="ingredient : ${ingredients}">
                         <td th:text="${ingredient.name}">1</td>
@@ -68,19 +68,15 @@
             </h5>
             <h5><a th:href="@{'/detail/mealdetail/shoppinglist/'+${mealdetail.id}}">View Shopping List</a></h5>
             <br>
-            <div class="dropdown">
-                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                    Who's Coming?
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Ali</a>
-                    <a class="dropdown-item" href="#">Nour</a>
-                </div>
-            </div>
+             <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo"><b>Who's Coming?</b></button>
+                   <ul id="demo" class="collapse">
+                       <li>Ali</li>
+                       <li>Nour</li>
+                   </ul>
         </div>
         <div class="col-sm-6" style="background-color:light;"><br><img th:src="@{'/images/'+ ${mealdetail.foodImage}}"></div>
     </div>
-</div>
+   </div>
 <object th:include="fragments/resources :: bottom" th:remove="tag"></object>
 <script th:inline="javascript") >
 /*<![CDATA[*/
@@ -88,19 +84,50 @@
         var notLoged = /*[[${disable}]]*/'default';
         if (notLoged){
          $('.disabled-button-wrapper').tooltip({title: "Please log in first!"});
-        }else{
-        $('#eat').removeClass('btn-secondary').addClass('btn-primary ');
-        $('#clean').removeClass('btn-secondary').addClass('btn-warning ');
-        $('#shop').removeClass('btn-secondary').addClass('btn-danger ');
-        $('#help').removeClass('btn-secondary').addClass('btn-success ');
-        $('.disabled-button-wrapper').tooltip(destroy);
+         }else{
+        $('#eat').toggleClass('btn-secondary btn-primary');
+        $('#clean').toggleClass('btn-secondary btn-warning');
+        $('#shop').toggleClass('btn-secondary btn-danger');
+        $('#help').toggleClass('btn-secondary btn-success');
         }
+
+        $('#clean').on('click', function() {
+        if ($(this).hasClass('btn-warning')){
+           $("div:nth-child(4)").tooltip({title: "Already found"});
+           $('#clean').addClass('btn-secondary').removeClass('btn-warning');
+        }else{
+            $("div:nth-child(4)").tooltip('dispose');
+            $('#clean').addClass('btn-warning').removeClass('btn-secondary');
+        }
+        });
+
+        $('#shop').on('click', function() {
+        if ($(this).hasClass('btn-danger')){
+            $("div:nth-child(5)").tooltip({title: "Already found"});
+            $('#shop').addClass('btn-secondary').removeClass('btn-danger');
+
+        }else{
+            $("div:nth-child(5)").tooltip('dispose');
+            $('#shop').addClass('btn-danger').removeClass('btn-secondary');
+        }
+        });
+
+        $('#help').on('click', function() {
+        if ($(this).hasClass('btn-success')){
+            $("div:nth-child(6)").tooltip({title: "Already found"});
+            $('#help').addClass('btn-secondary').removeClass('btn-success');
+
+        }else{
+            $("div:nth-child(6)").tooltip('dispose');
+            $('#help').addClass('btn-success').removeClass('btn-secondary');
+        }
+        });
+
     });
 /*]]>*/
 </script>
 
 </body>
 </html>
-
 
 

@@ -31,16 +31,15 @@ public class DetailController {
         this.detailService = detailService;
     }
 
-    @ModelAttribute("users")
+  /*  @ModelAttribute("users")
     List<AppUser> users() {
         return userRepository.findAll();
-    }
+    }*/
 
     @ModelAttribute("newUser")
     AppUser newUser() {
         return new AppUser();
     }
-
     @GetMapping
     String page() {
         return "detail";
@@ -61,7 +60,6 @@ public class DetailController {
         model.addAttribute("mealdetail", meal);
         model.addAttribute("ingredients", ingredients);
         model.addAttribute("disable", disable);
-
         return "detail";
     }
 }
