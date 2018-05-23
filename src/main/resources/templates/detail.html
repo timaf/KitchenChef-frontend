@@ -11,6 +11,13 @@
 <header>
     <object th:include="fragments/navigation :: menu" th:remove="tag"></object>
 </header>
+
+<div th:if="${disable}==true" class="alert alert-danger">
+<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+<strong>Please log in first!</strong>
+</div>
+
+
 <div class="container">
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -21,23 +28,23 @@
 <div class="container-fluid">
     <form action="/register" method="post">
         <div><a href="#" data-toggle="tooltip" title="Please log in first!">
-            <button type="button" name="register" value="eat" id="eat" class="btn btn-secondary disabled"
+            <button type="button" name="register" value="eat" id="eat" class="btn btn-secondary" th:disabled="${disable}"
                     data-toggle="collapse" data-target="#demo">Just eating
             </button>
         </a></div>
         <br>
         <a href="#" data-toggle="tooltip" title="Please log in first!!">
-            <button type="button" name="register" value="clean" id="clean" class="btn btn-secondary disabled"
+            <button type="button" name="register" value="clean" id="clean" class="btn btn-secondary" th:disabled="${disable}"
                     data-toggle="collapse" data-target="#demo">I'll clean
             </button>
         </a> &nbsp;
         <a href="#" data-toggle="tooltip" title="Please log in first!!">
-            <button type="button" name="register" value="shop" id="shop" class="btn btn-secondary disabled"
+            <button type="button" name="register" value="shop" id="shop" class="btn btn-secondary " th:disabled="${disable}"
                     data-toggle="collapse" data-target="#demo">I'll shop
             </button>
         </a> &nbsp;
         <a href="#" data-toggle="tooltip" title="Please log in first!!">
-            <button type="button" name="register" value="help" id="help" class="btn btn-secondary disabled"
+            <button type="button" name="register" value="help" id="help" class="btn btn-secondary " th:disabled="${disable}"
                     data-toggle="collapse" data-target="#demo">I'll help
             </button>
         </a>
@@ -50,6 +57,21 @@
             <h5>Eating start at : <span th:text="${mealdetail.startEatingTime}"> 2:30 O'clock </span></h5><br>
             <h5>Cooking start at : <span th:text="${mealdetail.startCookingTime}"> 11:15 O'clock </span></h5><br>
             <h5>Cooking takes a bout : <span th:text="${mealdetail.preparationTime}"> 3 Hours </span></h5><br>
+            <h5>Ingredients :
+                <table class="table">
+                    <tr>
+                        <th>name</th>
+                        <th>quantity</th>
+                        <th>unit</th>
+                    </tr>
+                    <tr th:each="ingredient : ${ingredients}">
+                        <td th:text="${ingredient.name}">1</td>
+                        <td th:text="${ingredient.quantity}">Alex</td>
+                        <td th:text="${ingredient.unit}">secret</td>
+                    </tr>
+                </table>
+            </h5>
+            <br>
             <div class="dropdown">
                 <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
                     Who's Coming?
@@ -68,9 +90,6 @@
     $(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
-
-
-
 </script>
 <object th:include="fragments/resources :: bottom" th:remove="tag"></object>
 </body>
@@ -92,7 +111,6 @@
 <img th:src="@{'/images/'+ ${meal.foodImage}}" height="120" width="150" />
 <a th:href="@{/mealdetail/} + ${meal.id}">view more</a>
 </tbody>
-
        <br>
        <form action="/register" method="post">
            <div><a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register"  value="eat" id="eat" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up for the meal</button></a></div><br>
@@ -153,5 +171,3 @@
        </table>
    </div>
    </div>-->
-
-

@@ -7,24 +7,22 @@ import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import org.springframework.ui.Model;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @Controller
-@RequestMapping("/meal")
+@RequestMapping("/addmeal")
 public class AddMealController {
 
     private AddMealService addMealService;
@@ -42,10 +40,10 @@ public class AddMealController {
         return new Meal();
     }
 
-    @GetMapping("/add-meal")
+    @GetMapping
     String createAMeal(Model model, Meal meal) {
         model.addAttribute("meal", meal);
-        return "addMeal";
+        return "addmeal";
     }
 
     @ModelAttribute("users")
@@ -57,28 +55,24 @@ public class AddMealController {
     AppUser newUser() {
         return new AppUser();
     }
-    @PostMapping
-    String createNewMeal(Meal meal, Ingredient ingredients,@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
-                         @RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
-                         @RequestParam("ingredientName") String ingredientsName, @RequestParam("ingredientsQuantity") Double ingredientsQuantity,
-                         @RequestParam("ingredientsUnit") String ingredientsUnit, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
-                         @RequestParam("preparationTime") Long preparationTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
-        meal.setCookName(cookName);
-        meal.setMealName(mealName);
-        meal.setMealDescription(mealDescription);
-        List<Ingredient> IngredientsList = new ArrayList<>();
-        ingredients.setName(ingredientsName);
-        ingredients.setQuantity(ingredientsQuantity);
-        ingredients.setUnit(ingredientsUnit);
-        IngredientsList.add(ingredients);
-        meal.setIngredients(IngredientsList);
-        meal.setNumberOfPeople(numberOfPeople);
-        meal.setStartCookingTime(startCookingTime);
-        meal.setPreparationTime(preparationTime);
-        meal.setYear(year);
-        meal.setMonth(month);
-        meal.setDay(day);
 
+    @ModelAttribute("newIngredient")
+    Ingredient newIngredient() {
+        return new Ingredient();
+    }
+
+    @ModelAttribute("addNewMeal")
+    Meal addNewMeal() {
+        return new Meal();
+    }
+
+    @PostMapping
+    String createNewMeal(Meal meal, @Validated Ingredient ingredient, @RequestParam("file") MultipartFile file,
+                         RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+        {
+            System.out.println("Error");
+        }
         // Generate a String Name for the Image name
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
@@ -100,7 +94,7 @@ public class AddMealController {
                 String path = context.getRealPath("/");
                 System.out.println(path);
                 byte[] bytes = file.getBytes();
-                File serverFile = new File(path + "../resources/static/images" + File.separator + generatedString + "-" +file.getOriginalFilename());
+                File serverFile = new File(path + "../resources/static/images" + File.separator + generatedString + "-" + file.getOriginalFilename());
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
