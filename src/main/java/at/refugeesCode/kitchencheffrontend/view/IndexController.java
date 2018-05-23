@@ -18,8 +18,14 @@ public class IndexController {
     String page(){
         return "index";
     }
-    @ModelAttribute("appUser")
+
+    @ModelAttribute("regUppUser")
     AppUser newUser(){
+        return new AppUser();
+    }
+
+    @ModelAttribute("logUppUser")
+    AppUser newUser1(){
         return new AppUser();
     }
 
