@@ -1,8 +1,10 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
 import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
+import at.refugeesCode.kitchencheffrontend.persistence.model.AppUser;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Ingredient;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
+import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +28,12 @@ import java.util.Random;
 public class AddMealController {
 
     private AddMealService addMealService;
-
+    private UserRepository userRepository;
     private HttpServletRequest request;
 
-    public AddMealController(AddMealService addMealService, HttpServletRequest request) {
+    public AddMealController(AddMealService addMealService, UserRepository userRepository, HttpServletRequest request) {
         this.addMealService = addMealService;
+        this.userRepository = userRepository;
         this.request = request;
     }
 
@@ -45,6 +48,15 @@ public class AddMealController {
         return "addMeal";
     }
 
+    @ModelAttribute("users")
+    List<AppUser> users() {
+        return userRepository.findAll();
+    }
+
+    @ModelAttribute("newUser")
+    AppUser newUser() {
+        return new AppUser();
+    }
     @PostMapping
     String createNewMeal(Meal meal, Ingredient ingredients,@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
                          @RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
