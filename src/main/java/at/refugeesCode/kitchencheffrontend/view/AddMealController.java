@@ -2,9 +2,7 @@ package at.refugeesCode.kitchencheffrontend.view;
 
 import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
 import at.refugeesCode.kitchencheffrontend.model.Meal;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -13,10 +11,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import org.springframework.ui.Model;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalTime;
 import java.util.Random;
 
@@ -25,9 +21,6 @@ import java.util.Random;
 public class AddMealController {
 
     private AddMealService addMealService;
-
-    @Autowired
-    private HttpServletRequest request;
 
     public AddMealController(AddMealService addMealService) {
         this.addMealService = addMealService;
