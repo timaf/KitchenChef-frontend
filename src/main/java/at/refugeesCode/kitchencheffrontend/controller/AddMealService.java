@@ -1,7 +1,5 @@
 package at.refugeesCode.kitchencheffrontend.controller;
 
-
-import at.refugeesCode.kitchencheffrontend.model.AppUser;
 import at.refugeesCode.kitchencheffrontend.model.Meal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
