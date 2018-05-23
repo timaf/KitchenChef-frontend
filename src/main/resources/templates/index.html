@@ -1,99 +1,22 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Index</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-1/css/bootstrap.min.css} "/>
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}"/>
-
-
-    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.0.0-1/js/bootstrap.min.js}"></script>
+    <object th:include="fragments/resources :: head" th:remove="tag"></object>
 
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-gradient navbar-dark">
+<header>
+    <object th:include="fragments/navigation :: menu" th:remove="tag"></object>
+</header>
 
-    <a class="navbar-brand" href="#">Kitchen Chef</a>
-
-    <!-- Collapsible Navbar -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-
-        <!-- Links -->
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html" th:href="@{/}"> Home</a>
-            </li>
-            <li class="nav-item margin-left10px">
-                <div class="dropdown">
-                    <button class="btn color-white bg-dark  dropdown-toggle" type="button" data-toggle="dropdown">
-                        Register
-                        <span class="caret"></span>&nbsp;
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-custom">
-                        <li>
-                            <form id="register" th:action="@{/}" th:object="${regUppUser}" method="post">
-                                <div class="input-group input-group-custom">
-                                    <input th:field="*{username}" id="username1" type="text" class="form-control" name="userName"
-                                           placeholder="Username" required/>
-                                </div>
-                                <div class="input-group input-group-custom">
-                                    <input id="password1" type="password" class="form-control" name="password"
-                                           placeholder="Password" required>
-                                </div>
-                                <div class="input-group input-group-custom">
-                                    <input th:field="*{password}" id="conPassword1" type="password" class="form-control" name="conPassword1"
-                                           placeholder="Confirm Password" required>
-                                </div>
-                                <div class="inpu">
-                                    <button id="registration" class="btn btn-primary">Submit</button>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item margin-left10px">
-                <div class="dropdown">
-                    <button class="btn color-white bg-dark  dropdown-toggle" type="button" data-toggle="dropdown"> Log In
-                        <span class="caret"></span></button>
-                    <ul class="dropdown-menu dropdown-menu-custom">
-                        <li>
-                            <form id="logIn" th:action="@{/}" th:object="${logUppUser}" method="post">
-                                <div class="input-group input-group-custom">
-                                    <input th:field="*{username}" id="username" type="text" class="form-control" name="userName"
-                                           placeholder="Username" required>
-                                </div>
-                                <div class="input-group input-group-custom">
-                                    <input th:field="*{password}" id="password" type="password" class="form-control" name="password"
-                                           placeholder="Password" required>
-                                </div>
-                                <div>
-                                    <button id="loging" class="btn btn-primary">Submit</button>
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-</nav>
 <div class="container">
 
+    <br>
+    <p th:if="${param.logout}">You have been logged out</p>
+    <p th:if="${param.error}">There was an error, please try again</p>
     <br>
     <img th:src="@{/images/tomato.png}">
     <br>
@@ -106,18 +29,36 @@
             <th>The Date</th>
             <th>The Cook</th>
             <th>Number of Attendances</th>
+            <th>Detail Page</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><a href="detail.html" th:href="@{/meals}">Soup</a></td>
-            <td>9/8/2018</td>
-            <td><a href="detail.html" th:href="@{/meals}">Sarah Baterdouk</a></td>
-            <td>10</td>
+        <tr th:each="meal: ${meals}">
+            <td th:text="${meal.cookName}">Soup</td>
+            <td th:text="${meal.dateTime}">09 May 2018</td>
+            <td th:text="${meal.mealName}">Sarah Baterdouk</td>
+            <td th:text="${meal.numberOfPeople}">10</td>
+            <td><a th:href="@{'/detail/mealdetail/'+${meal.id}}">View Detail</a></td>
         </tr>
         </tbody>
     </table>
+    <br><br>
+    <p>Just for test the user repository</p>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Authorities</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.username}">Alex</td>
+            <td th:text="${user.password}">secret</td>
+            <td th:text="${user.authorities}">user</td>
+        </tr>
+    </table>
 </div>
-
+<object th:include="fragments/resources :: bottom" th:remove="tag"></object>
 </body>
 </html>
