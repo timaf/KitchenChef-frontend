@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/meals")
-public class MealsController {
+public class DetailController {
     @GetMapping
     String page(){
-        return "meals";
+        return "detail";
     }
 }

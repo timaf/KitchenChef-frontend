@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-1/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}" />
 
@@ -18,7 +20,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm ">
 
     <a class="navbar-brand" href="#">Refugees Code Kitchen Chef</a>
 
@@ -79,13 +81,14 @@
 </nav>
 
 <div class="container">
+    <br>
     <img th:src="@{/images/tomato.png}">
     <br><h2>Welcome to our Kitchen</h2>
     <p>See what we have</p>
     <table class="table">
         <thead>
         <tr>
-            <th>The Meal</th>
+            <th >The Meal</th>
             <th>The Date</th>
             <th>The Cook</th>
             <th>Number of Attendances</th>
@@ -93,9 +96,9 @@
         </thead>
         <tbody>
         <tr>
-            <td><a href="meals.html" th:href="@{/meals}">Soup</a></td>
+            <td ><a href="detail.html" th:href="@{/meals}">Soup</a></td>
             <td>9/8/2018</td>
-            <td><a href="meals.html" th:href="@{/meals}">Sarah Baterdouk</a></td>
+            <td><a href="detail.html" th:href="@{/meals}">Sarah Baterdouk</a></td>
             <td>10</td>
         </tr>
         </tbody>
