@@ -30,7 +30,7 @@ public class IndexController {
         this.addMealService = addMealService;
     }
 
-    @ModelAttribute("user")
+    @ModelAttribute("users")
     List<AppUser> users() {
         return userRepository.findAll();
     }
