@@ -28,5 +28,6 @@ public class IndexController {
     String post(AppUser appUser){
         return "redirect:/";
     }
+
 }
 

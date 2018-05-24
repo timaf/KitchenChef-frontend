@@ -3,6 +3,7 @@ package at.refugeesCode.kitchencheffrontend.view;
 import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
 import at.refugeesCode.kitchencheffrontend.model.Meal;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -11,8 +12,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import org.springframework.ui.Model;
-import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalTime;
 import java.util.Random;
 
@@ -22,8 +24,11 @@ public class AddMealController {
 
     private AddMealService addMealService;
 
-    public AddMealController(AddMealService addMealService) {
+    private HttpServletRequest request;
+
+    public AddMealController(AddMealService addMealService, HttpServletRequest request) {
         this.addMealService = addMealService;
+        this.request = request;
     }
 
     @ModelAttribute("meal")
@@ -81,9 +86,12 @@ public class AddMealController {
         if (!file.isEmpty()) {
             try {
                 // Most change the Path according to your path at least just for now
-                String UPLOADED_FOLDER = "/Users/Wael/Desktop/KitchenChef-frontend/src/main/resources/static/images";
+
+                ServletContext context = request.getServletContext();
+                String path = context.getRealPath("/");
+                System.out.println(path);
                 byte[] bytes = file.getBytes();
-                File serverFile = new File(UPLOADED_FOLDER + File.separator + generatedString + "-" +file.getOriginalFilename());
+                File serverFile = new File(path + "../resources/static/images" + File.separator + generatedString + "-" +file.getOriginalFilename());
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();

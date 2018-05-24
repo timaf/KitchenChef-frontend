@@ -1,5 +1,6 @@
 package at.refugeesCode.kitchencheffrontend.controller;
 
+
 import at.refugeesCode.kitchencheffrontend.model.Meal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class AddMealService {
     }
 
 
-    public Meal[] mealsList(){
+    public Meal[] mealsList() {
         ResponseEntity<Meal[]> forEntity = restTemplate.getForEntity(mainUrl + mealsUrl, Meal[].class);
         return forEntity.getBody();
     }
@@ -35,8 +36,8 @@ public class AddMealService {
         restTemplate.postForObject(mainUrl + mealsUrl, meal, Meal.class);
     }
 
-    public Meal detailPage(String id){
-        ResponseEntity<Meal> forEntity = restTemplate.getForEntity(mainUrl + detailUrl + "/" + id ,Meal.class);
+    public Meal detailPage(String id) {
+        ResponseEntity<Meal> forEntity = restTemplate.getForEntity(mainUrl + detailUrl + "/" + id, Meal.class);
         return forEntity.getBody();
     }
 
