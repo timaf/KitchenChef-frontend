@@ -23,23 +23,11 @@ public class IndexController {
         return new AppUser();
     }
 
-    @ModelAttribute("mealsByDate")
-    List<String> dateList(){
-        ArrayList<String> mealsByDate = new ArrayList<String>();
-        mealsByDate.add("rice");
-        mealsByDate.add("soup");
-        return mealsByDate;
-    }
 
-    @ModelAttribute("mealsByCook")
-    List<String> cookList(){
-        ArrayList<String> mealsByCook = new ArrayList<String>();
-        mealsByCook.add("Sara");
-        mealsByCook.add("Ali");
-        return mealsByCook;
-    }
     @PostMapping
     String post(AppUser appUser){
         return "redirect:/";
     }
+
 }
+
