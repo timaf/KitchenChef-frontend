@@ -20,9 +20,9 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-sm">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
-        <a class="navbar-brand" href="#">Refugees Code Kitchen</a>
+        <a class="navbar-brand" href="#">Kitchen Chef</a>
 
         <!-- Collapsible Navbar -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -33,44 +33,48 @@
             <!-- Links -->
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html" th:href="@{/}"> Home&nbsp;&nbsp;</a>
+                    <a class="nav-link" href="index.html" th:href="@{/}"> Home</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item margin-left10px">
                     <div class="dropdown">
-                        <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown"> Register
+                        <button class="btn color-white bg-dark  dropdown-toggle" type="button" data-toggle="dropdown"> Register
                             <span class="caret"></span>&nbsp;</button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-custom">
                             <li>
                                 <form id="register"  method="post">
-                                    <div class="input-group">
+                                    <div class="input-group input-group-custom">
                                         <input id="username1" type="text" class="form-control"  name="userName" placeholder="Username" required/>
-                                    </div><br>
-                                    <div class="input-group">
+                                    </div>
+                                    <div class="input-group input-group-custom">
                                         <input id="password1" type="password" class="form-control"  name="password" placeholder="Password" required>
-                                    </div><br>
-                                    <div class="input-group">
+                                    </div>
+                                    <div class="input-group input-group-custom">
                                         <input id="conPassword1" type="password" class="form-control" name="conPassword1" placeholder="Confirm Password" required>
-                                    </div><br>
-                                    <button id="registration" class="btn btn-primary">Submit</button>
+                                    </div>
+                                    <div>
+                                        <button id="registration" class="btn btn-primary">Submit</button>
+                                    </div>
                                 </form>
                             </li>
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item margin-left10px">
                     <div class="dropdown">
-                        <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown"> Log In
+                        <button class="btn color-white bg-dark  dropdown-toggle" type="button" data-toggle="dropdown"> Log In
                             <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-custom">
                             <li>
                                 <form id="logIn"  method="post">
-                                    <div class="input-group">
+                                    <div class="input-group input-group-custom">
                                         <input id="username" type="text" class="form-control"  name="userName" placeholder="Username" required>
-                                    </div><br>
-                                    <div class="input-group">
+                                    </div>
+                                    <div class="input-group input-group-custom">
                                         <input id="password" type="password" class="form-control"  name="password" placeholder="Password" required>
-                                    </div><br>
-                                    <button id="loging" class="btn btn-primary">Submit</button>
+                                    </div>
+                                    <div class="inpu">
+                                        <button id="loging" class="btn btn-primary">Submit</button>
+                                    </div>
                                 </form>
                             </li>
                         </ul>
