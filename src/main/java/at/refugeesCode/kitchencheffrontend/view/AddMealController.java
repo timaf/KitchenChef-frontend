@@ -19,7 +19,7 @@ import java.time.LocalTime;
 import java.util.Random;
 
 @Controller
-@RequestMapping("/mealllll")
+@RequestMapping("/meal")
 public class AddMealController {
 
     private AddMealService addMealService;

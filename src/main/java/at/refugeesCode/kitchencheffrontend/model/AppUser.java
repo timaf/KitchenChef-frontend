@@ -1,11 +1,17 @@
 package at.refugeesCode.kitchencheffrontend.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AppUser {
 
     private String id;
+
     private String username;
+
     private String password;
 
+    private Set<String> authorities = new HashSet<>();
 
     public String getId() {
         return id;
@@ -31,4 +37,23 @@ public class AppUser {
         this.password = password;
     }
 
-   }
+    public Set<String> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<String> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", authorities=" + authorities +
+                '}';
+    }
+}
+
+
