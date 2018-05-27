@@ -1,6 +1,7 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
 import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
+import at.refugeesCode.kitchencheffrontend.model.Ingredient;
 import at.refugeesCode.kitchencheffrontend.model.Meal;
 import org.springframework.stereotype.Controller;
 
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Random;
 
 @Controller
@@ -36,29 +38,17 @@ public class AddMealController {
         return new Meal();
     }
 
-    @GetMapping("/meals")
-    String getAllMeals(Model model) {
-        Meal[] meal = addMealService.mealsList();
-        model.addAttribute("meals", meal);
-        return "meals";
-    }
-
-    @GetMapping
-    String index() {
-        return "index";
-    }
-
-    @GetMapping("/create-meal")
-    String createAMeal(Model model) {
-        Meal[] meal = addMealService.mealsList();
+    @GetMapping("/add-meal")
+    String createAMeal(Model model, Meal meal) {
         model.addAttribute("meal", meal);
-        return "createmeal";
+        return "addMeal";
     }
+
     @PostMapping("meal")
     String createNewMeal(Meal meal, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
-                        @RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
-                        @RequestParam("ingredients") String ingredients, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
-                        @RequestParam("preparationTime") Long preparationTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
+                         @RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
+                         @RequestParam("ingredients") List<Ingredient> ingredients, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
+                         @RequestParam("preparationTime") Long preparationTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
         meal.setCookName(cookName);
         meal.setMealName(mealName);
         meal.setMealDescription(mealDescription);
@@ -112,11 +102,5 @@ public class AddMealController {
         return "redirect:/";
     }
 
-    @GetMapping("/mealdetail/{id}")
-    String detailPage(@PathVariable("id") String id,Model model){
-        Meal meals = addMealService.detailPage(id);
-        model.addAttribute("mealdetail", meals);
-        return "detail";
-    }
 
 }

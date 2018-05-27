@@ -58,7 +58,7 @@
                                            placeholder="Confirm Password" required>
                                 </div>
                                 <div class="inpu">
-                                    <button id="registration" class="btn btn-primary">Submit</button>
+                                    <button type="submit" id="registration" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </li>
@@ -72,9 +72,9 @@
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-custom">
                         <li>
-                            <form id="logIn" method="post">
+                            <form th:action="@{/login}" id="logIn" method="post">
                                 <div class="input-group input-group-custom">
-                                    <input id="username" type="text" class="form-control" name="userName"
+                                    <input type="text" id="username" name="username" autofocus="autofocus" class="form-control"
                                            placeholder="Username" required>
                                 </div>
                                 <div class="input-group input-group-custom">
@@ -107,14 +107,16 @@
             <th>The Date</th>
             <th>The Cook</th>
             <th>Number of Attendances</th>
+            <th>Detail Page</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><a href="detail.html" th:href="@{/meals}">Soup</a></td>
-            <td>9/8/2018</td>
-            <td><a href="detail.html" th:href="@{/meals}">Sarah Baterdouk</a></td>
-            <td>10</td>
+        <tr th:each="meal: ${meals}">
+            <td th:text="${meal.cookName}">Soup</td>
+            <td th:text="${meal.dateTime}">09 May 2018</td>
+            <td th:text="${meal.mealName}">Sarah Baterdouk</td>
+            <td th:text="${meal.numberOfPeople}">10</td>
+            <td th:text="View Detail"><a th:href="@{/mealdetail/{meal.id}">View Detail</a></td>
         </tr>
         </tbody>
     </table>
