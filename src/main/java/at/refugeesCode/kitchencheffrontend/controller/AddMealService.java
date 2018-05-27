@@ -1,7 +1,7 @@
 package at.refugeesCode.kitchencheffrontend.controller;
 
 
-import at.refugeesCode.kitchencheffrontend.model.Meal;
+import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
