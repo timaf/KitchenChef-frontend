@@ -1,6 +1,6 @@
 package at.refugeesCode.kitchencheffrontend.security;
 
-import at.refugeesCode.kitchencheffrontend.model.AppUser;
+import at.refugeesCode.kitchencheffrontend.persistence.model.AppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

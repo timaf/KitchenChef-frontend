@@ -1,4 +1,4 @@
-package at.refugeesCode.kitchencheffrontend.model;
+package at.refugeesCode.kitchencheffrontend.persistence.model;
 
 public class Ingredient {
 

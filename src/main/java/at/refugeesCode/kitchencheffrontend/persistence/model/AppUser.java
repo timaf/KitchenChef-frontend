@@ -1,10 +1,15 @@
-package at.refugeesCode.kitchencheffrontend.model;
+package at.refugeesCode.kitchencheffrontend.persistence.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Document
 public class AppUser {
 
+    @Id
     private String id;
 
     private String username;

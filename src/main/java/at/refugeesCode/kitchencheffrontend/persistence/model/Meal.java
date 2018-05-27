@@ -1,4 +1,4 @@
-package at.refugeesCode.kitchencheffrontend.model;
+package at.refugeesCode.kitchencheffrontend.persistence.model;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
