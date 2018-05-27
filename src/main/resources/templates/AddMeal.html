@@ -10,7 +10,16 @@
     <input type="text" name="cookName" id="cookName" required>
     <input type="text" name="mealName" id="mealName" required>
     <input type="text" name="mealDescription" id="mealDescription" required>
-    <input type="text" name="ingredients" id="ingredients" required>
+    <input type="text" name="ingredientName" id="ingredientName" required>
+    <input type="text" name="ingredientsQuantity" id="ingredientsQuantity" required>
+    <div >
+        <select id="ingredientsUnit" name="ingredientsUnit">
+            <option value="">Select a Unit</option>
+            <option value="Liter" th:text="Liter">2018</option>
+            <option value="kg" th:text="Kg"></option>
+            <option value="gram" th:text="gram"></option>
+        </select>
+    </div>
     <input type="text" name="numberOfPeople" id="numberOfPeople" placeholder="5" required>
     <input type="text" name="startCookingTime" id="startCookingTime" placeholder="04:30" required>
     <input type="text" name="preparationTime" id="preparationTime" placeholder="30" required>

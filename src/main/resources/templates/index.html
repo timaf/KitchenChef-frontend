@@ -116,7 +116,7 @@
             <td th:text="${meal.dateTime}">09 May 2018</td>
             <td th:text="${meal.mealName}">Sarah Baterdouk</td>
             <td th:text="${meal.numberOfPeople}">10</td>
-            <td th:text="View Detail"><a th:href="@{/mealdetail/{meal.id}">View Detail</a></td>
+            <td><a th:href="@{'/detail/mealdetail/'+${meal.id}}" >View Detail</a></td>
         </tr>
         </tbody>
     </table>

@@ -100,11 +100,11 @@
         <br>
         <div class="row">
             <div class="col-sm-6" style="background-color:lavenderblush;">
-                <h5>Cook : <span th:text="${cookName}"> Sarah </span></h5><br>
-                <h5>Date : <span th:text="${dateTime}"> 4/10/2018 </span></h5><br>
-                <h5>Eating start at : <span th:text="${startEatingTime}"> 2:30 O'clock </span></h5><br>
-                <h5>Cooking start at : <span th:text="${startCookingTime}"> 11:15 O'clock </span></h5><br>
-                <h5>Cooking takes a bout : <span th:text="${preparationTime}"> 3 Hours </span></h5><br>
+                <h5>Cook : <span th:text="${mealdetail.cookName}"> Sarah </span></h5><br>
+                <h5>Date : <span th:text="${mealdetail.dateTime}"> 4/10/2018 </span></h5><br>
+                <h5>Eating start at : <span th:text="${mealdetail.startEatingTime}"> 2:30 O'clock </span></h5><br>
+                <h5>Cooking start at : <span th:text="${mealdetail.startCookingTime}"> 11:15 O'clock </span></h5><br>
+                <h5>Cooking takes a bout : <span th:text="${mealdetail.preparationTime}"> 3 Hours </span></h5><br>
                 <div class="dropdown">
                     <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
                         Who's Coming?
@@ -116,7 +116,7 @@
                  </div>
             </div>
 
-            <div class="col-sm-6" style="background-color:light;"><br><img th:src="@{/images/plate.png}"></div>
+            <div class="col-sm-6" style="background-color:light;"><br><img th:src="@{'/images/'+ ${mealdetail.foodImage}}" height="120" width="150"></div>
         </div>
     </div>
 
