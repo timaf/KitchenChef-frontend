@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -44,15 +45,21 @@ public class AddMealController {
         return "addMeal";
     }
 
-    @PostMapping("meal")
-    String createNewMeal(Meal meal, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
+    @PostMapping
+    String createNewMeal(Meal meal, Ingredient ingredients,@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
                          @RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
-                         @RequestParam("ingredients") List<Ingredient> ingredients, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
+                         @RequestParam("ingredientName") String ingredientsName, @RequestParam("ingredientsQuantity") Double ingredientsQuantity,
+                         @RequestParam("ingredientsUnit") String ingredientsUnit, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
                          @RequestParam("preparationTime") Long preparationTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
         meal.setCookName(cookName);
         meal.setMealName(mealName);
         meal.setMealDescription(mealDescription);
-        meal.setIngredients(ingredients);
+        List<Ingredient> IngredientsList = new ArrayList<>();
+        ingredients.setName(ingredientsName);
+        ingredients.setQuantity(ingredientsQuantity);
+        ingredients.setUnit(ingredientsUnit);
+        IngredientsList.add(ingredients);
+        meal.setIngredients(IngredientsList);
         meal.setNumberOfPeople(numberOfPeople);
         meal.setStartCookingTime(startCookingTime);
         meal.setPreparationTime(preparationTime);

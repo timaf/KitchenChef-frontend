@@ -25,8 +25,8 @@ public class DetailController {
 
     @GetMapping("/mealdetail/{id}")
     String detailPage(@PathVariable("id") String id, Model model){
-        Meal meals = addMealService.detailPage(id);
-        model.addAttribute("mealdetail", meals);
+        Meal meal = addMealService.detailPage(id);
+        model.addAttribute("mealdetail", meal);
         return "detail";
     }
 }
