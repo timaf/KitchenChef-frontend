@@ -1,141 +1,85 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Detail Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-1/css/bootstrap.min.css} "/>
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}" />
-
-
-    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.0.0-1/js/bootstrap.min.js}"  ></script>
+    <object th:include="fragments/resources :: head" th:remove="tag"></object>
 
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-
-        <a class="navbar-brand" href="#">Kitchen Chef</a>
-
-        <!-- Collapsible Navbar -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-
-            <!-- Links -->
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html" th:href="@{/}"> Home</a>
-                </li>
-                <li class="nav-item margin-left10px">
-                    <div class="dropdown">
-                        <button class="btn color-white bg-dark  dropdown-toggle" type="button" data-toggle="dropdown"> Register
-                            <span class="caret"></span>&nbsp;</button>
-                        <ul class="dropdown-menu dropdown-menu-custom">
-                            <li>
-                                <form id="register"  method="post">
-                                    <div class="input-group input-group-custom">
-                                        <input id="username1" type="text" class="form-control"  name="userName" placeholder="Username" required/>
-                                    </div>
-                                    <div class="input-group input-group-custom">
-                                        <input id="password1" type="password" class="form-control"  name="password" placeholder="Password" required>
-                                    </div>
-                                    <div class="input-group input-group-custom">
-                                        <input id="conPassword1" type="password" class="form-control" name="conPassword1" placeholder="Confirm Password" required>
-                                    </div>
-                                    <div>
-                                        <button id="registration" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item margin-left10px">
-                    <div class="dropdown">
-                        <button class="btn color-white bg-dark  dropdown-toggle" type="button" data-toggle="dropdown"> Log In
-                            <span class="caret"></span></button>
-                        <ul class="dropdown-menu dropdown-menu-custom">
-                            <li>
-                                <form th:action="@{/login}" id="logIn"  method="post">
-                                    <div class="input-group input-group-custom">
-                                        <input id="username" type="text" class="form-control"  name="userName" placeholder="Username" required>
-                                    </div>
-                                    <div class="input-group input-group-custom">
-                                        <input id="password" type="password" class="form-control"  name="password" placeholder="Password" required>
-                                    </div>
-                                    <div class="inpu">
-                                        <button type="submit" id="loging" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h5><strong>Info!</strong> Cooking can only take place if we sign up as a Cleaner, Shopper or Helper</h5>
-        </div><br>
+<header>
+    <object th:include="fragments/navigation :: menu" th:remove="tag"></object>
+</header>
+<div class="container">
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h5><strong>Info!</strong> Cooking can only take place if we sign up as a Cleaner, Shopper or Helper</h5>
     </div>
-    <div class="container-fluid">
-        <form action="/register" method="post">
-            <div><a href="#" data-toggle="tooltip" title="Please log in first!"><button type="button" name="register"  value="eat" id="eat" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Just eating</button></a></div><br>
-            <a href="#" data-toggle="tooltip" title="Please log in first!!"><button type="button" name="register" value="clean" id="clean" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >I'll clean</button></a> &nbsp;
-            <a href="#" data-toggle="tooltip" title="Please log in first!!"><button type="button" name="register"  value="shop"id="shop" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >I'll shop</button></a> &nbsp;
-            <a href="#" data-toggle="tooltip" title="Please log in first!!"><button type="button" name="register" value="help" id="help" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >I'll help</button></a>
-        </form>
+    <br>
+</div>
+<div class="container-fluid">
+    <form action="/register" method="post">
+        <div><a href="#" data-toggle="tooltip" title="Please log in first!">
+            <button type="button" name="register" value="eat" id="eat" class="btn btn-secondary disabled"
+                    data-toggle="collapse" data-target="#demo">Just eating
+            </button>
+        </a></div>
         <br>
-        <div class="row">
-            <div class="col-sm-6" style="background-color:lavenderblush;">
-                <h5>Cook : <span th:text="${cookName}"> Sarah </span></h5><br>
-                <h5>Date : <span th:text="${dateTime}"> 4/10/2018 </span></h5><br>
-                <h5>Eating start at : <span th:text="${startEatingTime}"> 2:30 O'clock </span></h5><br>
-                <h5>Cooking start at : <span th:text="${startCookingTime}"> 11:15 O'clock </span></h5><br>
-                <h5>Cooking takes a bout : <span th:text="${preparationTime}"> 3 Hours </span></h5><br>
-                <div class="dropdown">
-                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                        Who's Coming?
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Ali</a>
-                        <a class="dropdown-item" href="#">Nour</a>
-                     </div>
-                 </div>
+        <a href="#" data-toggle="tooltip" title="Please log in first!!">
+            <button type="button" name="register" value="clean" id="clean" class="btn btn-secondary disabled"
+                    data-toggle="collapse" data-target="#demo">I'll clean
+            </button>
+        </a> &nbsp;
+        <a href="#" data-toggle="tooltip" title="Please log in first!!">
+            <button type="button" name="register" value="shop" id="shop" class="btn btn-secondary disabled"
+                    data-toggle="collapse" data-target="#demo">I'll shop
+            </button>
+        </a> &nbsp;
+        <a href="#" data-toggle="tooltip" title="Please log in first!!">
+            <button type="button" name="register" value="help" id="help" class="btn btn-secondary disabled"
+                    data-toggle="collapse" data-target="#demo">I'll help
+            </button>
+        </a>
+    </form>
+    <br>
+    <div class="row">
+        <div class="col-sm-6" style="background-color:lavenderblush;">
+            <h5>Cook : <span th:text="${cookName}"> Sarah </span></h5><br>
+            <h5>Date : <span th:text="${dateTime}"> 4/10/2018 </span></h5><br>
+            <h5>Eating start at : <span th:text="${startEatingTime}"> 2:30 O'clock </span></h5><br>
+            <h5>Cooking start at : <span th:text="${startCookingTime}"> 11:15 O'clock </span></h5><br>
+            <h5>Cooking takes a bout : <span th:text="${preparationTime}"> 3 Hours </span></h5><br>
+            <div class="dropdown">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                    Who's Coming?
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Ali</a>
+                    <a class="dropdown-item" href="#">Nour</a>
+                </div>
             </div>
-
-            <div class="col-sm-6" style="background-color:light;"><br><img th:src="@{/images/plate.png}"></div>
         </div>
-    </div>
 
-    <script>
+        <div class="col-sm-6" style="background-color:light;"><br><img th:src="@{/images/plate.png}"></div>
+    </div>
+</div>
+
+<script>
     $(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
 
-    </script>
 
+
+</script>
+<object th:include="fragments/resources :: bottom" th:remove="tag"></object>
 </body>
 </html>
 
 
-
-
-
- <!--
- <tbody th:each="meal: ${meals}">
+<!--
+<tbody th:each="meal: ${meals}">
 <td th:text="${meal.id}" hidden></td>
 <td th:text="${meal.cookName}"></td>
 <td th:text="${meal.mealName}"></td>
@@ -150,65 +94,65 @@
 <a th:href="@{/mealdetail/} + ${meal.id}">view more</a>
 </tbody>
 
-        <br>
-        <form action="/register" method="post">
-            <div><a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register"  value="eat" id="eat" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up for the meal</button></a></div><br>
-            <a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register" value="clean" id="clean" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up as Cleaner</button></a> &nbsp;
-            <a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register"  value="shop"id="shop" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up as Shopper</button></a> &nbsp;
-            <a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register" value="help" id="help" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up as Helper</button></a>
-        </form>
-        <!-- Normally, all inputs in the form are sent with the form. Since a button's value is submitted only if clicked,
-         you'd have to search the form values for these pre-defined names. I think the other answer (stackoverflow.com/a/21778226/88409)
-         that involves giving them all the same name, with different values, makes more sense.
-         Then you just grab the value under a single known form field name. It also makes it more obvious
-         that only one value (the clicked one) will be sent for the given input name,
-         much like how radio buttons work (same name, different values). -->
- <!--   <br>
-    <h2>Our Meal</h2>
-     <div class="table-responsive">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Cook Name</th>
-                <th>Meal Name</th>
-                <th>Meal Date</th>
-                <th>Meal Description</th>
-                <th>Ingredients</th>
-                <th>Eating Time</th>
-                <th>Names of Attendances</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Sarah Baterdouk</td>
-                <td>Soup</td>
-                <td>9/8/2018</td>
-                <td>very delicious</td>
-                <td><div class="dropdown">
-                    <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
-                       Ingredients
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" >Lentils</a>
-                        <a class="dropdown-item" >salt</a>
-                        <a class="dropdown-item">Carrot</a>
-                    </div>
-                </div></td>
-                <td>2:30 O'clock</td>
-                <td><div class="dropdown">
-                    <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
-                        Names of Attendances
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" >Ali</a>
-                        <a class="dropdown-item" >Nour</a>
-                        <a class="dropdown-item">Wael</a>
-                    </div>
-                </div></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    </div>-->
+       <br>
+       <form action="/register" method="post">
+           <div><a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register"  value="eat" id="eat" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up for the meal</button></a></div><br>
+           <a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register" value="clean" id="clean" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up as Cleaner</button></a> &nbsp;
+           <a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register"  value="shop"id="shop" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up as Shopper</button></a> &nbsp;
+           <a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register" value="help" id="help" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up as Helper</button></a>
+       </form>
+       <!-- Normally, all inputs in the form are sent with the form. Since a button's value is submitted only if clicked,
+        you'd have to search the form values for these pre-defined names. I think the other answer (stackoverflow.com/a/21778226/88409)
+        that involves giving them all the same name, with different values, makes more sense.
+        Then you just grab the value under a single known form field name. It also makes it more obvious
+        that only one value (the clicked one) will be sent for the given input name,
+        much like how radio buttons work (same name, different values). -->
+<!--   <br>
+   <h2>Our Meal</h2>
+    <div class="table-responsive">
+       <table class="table">
+           <thead>
+           <tr>
+               <th>Cook Name</th>
+               <th>Meal Name</th>
+               <th>Meal Date</th>
+               <th>Meal Description</th>
+               <th>Ingredients</th>
+               <th>Eating Time</th>
+               <th>Names of Attendances</th>
+           </tr>
+           </thead>
+           <tbody>
+           <tr>
+               <td>Sarah Baterdouk</td>
+               <td>Soup</td>
+               <td>9/8/2018</td>
+               <td>very delicious</td>
+               <td><div class="dropdown">
+                   <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+                      Ingredients
+                   </button>
+                   <div class="dropdown-menu">
+                       <a class="dropdown-item" >Lentils</a>
+                       <a class="dropdown-item" >salt</a>
+                       <a class="dropdown-item">Carrot</a>
+                   </div>
+               </div></td>
+               <td>2:30 O'clock</td>
+               <td><div class="dropdown">
+                   <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+                       Names of Attendances
+                   </button>
+                   <div class="dropdown-menu">
+                       <a class="dropdown-item" >Ali</a>
+                       <a class="dropdown-item" >Nour</a>
+                       <a class="dropdown-item">Wael</a>
+                   </div>
+               </div></td>
+           </tr>
+           </tbody>
+       </table>
+   </div>
+   </div>-->
 
 

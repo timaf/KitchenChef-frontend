@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
     <title>Create an event</title>
+    <object th:include="fragments/resources :: head" th:remove="tag"></object>
+
 </head>
 <body>
+
+<header>
+    <object th:include="fragments/navigation :: menu" th:remove="tag"></object>
+</header>
 
 <form th:action="@{/meal}" method="post" enctype="multipart/form-data">
     <input type="text" name="cookName" id="cookName" required>
@@ -15,7 +21,7 @@
     <input type="text" name="startCookingTime" id="startCookingTime" placeholder="04:30" required>
     <input type="text" name="preparationTime" id="preparationTime" placeholder="30" required>
     <input type="file" name="file" id="file" placeholder="image">
-    <div >
+    <div>
         <select id="year" name="year">
             <option value="">Select a year</option>
             <option value="2018" th:text="2018">2018</option>
@@ -23,7 +29,7 @@
             <option value="2020" th:text="2020"></option>
         </select>
     </div>
-    <div >
+    <div>
         <select id="month" name="month">
             <option value="">Select a month</option>
             <option value="1" th:text="1"></option>
@@ -40,7 +46,7 @@
             <option value="3" th:text="12"></option>
         </select>
     </div>
-    <div >
+    <div>
         <select id="day" name="day">
             <option value="">Select a day</option>
             <option value="22" th:text="01"></option>
@@ -78,5 +84,6 @@
     <input type="submit">
 </form>
 <p>after uploading this meal, people can sign up as a helper, shopper, or cleaner.</p>
+<object th:include="fragments/resources :: bottom" th:remove="tag"></object>
 </body>
 </html>

@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("meals/**").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
-                .formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
+                .formLogin().loginPage("/login").failureUrl("/?error").permitAll()
                 .and()
                 .logout().permitAll();
     }
