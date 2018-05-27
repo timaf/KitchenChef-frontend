@@ -1,6 +1,7 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
 import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
+import at.refugeesCode.kitchencheffrontend.model.Ingredient;
 import at.refugeesCode.kitchencheffrontend.model.Meal;
 import org.springframework.stereotype.Controller;
 
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Random;
 
 @Controller
@@ -56,9 +58,9 @@ public class AddMealController {
     }
     @PostMapping("meal")
     String createNewMeal(Meal meal, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
-                        @RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
-                        @RequestParam("ingredients") String ingredients, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
-                        @RequestParam("preparationTime") Long preparationTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
+                         @RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
+                         @RequestParam("ingredients") List<Ingredient> ingredients, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
+                         @RequestParam("preparationTime") Long preparationTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
         meal.setCookName(cookName);
         meal.setMealName(mealName);
         meal.setMealDescription(mealDescription);
