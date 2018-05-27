@@ -56,6 +56,7 @@ public class AddMealController {
         model.addAttribute("meal", meal);
         return "createmeal";
     }
+
     @PostMapping("meal")
     String createNewMeal(Meal meal, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
                          @RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,

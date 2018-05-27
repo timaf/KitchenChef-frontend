@@ -1,27 +1,21 @@
 package at.refugeesCode.kitchencheffrontend.controller;
 
-
 import at.refugeesCode.kitchencheffrontend.model.Ingredient;
 import at.refugeesCode.kitchencheffrontend.model.LocalIngredient;
-import at.refugeesCode.kitchencheffrontend.model.Meal;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
-public class AddMealService {
+public class DetailService {
 
     private RestTemplate restTemplate;
 
-    public AddMealService(RestTemplate restTemplate) {
+    public DetailService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
@@ -42,17 +36,16 @@ public class AddMealService {
     @Value("${backend.url}")
     private String mainUrl;
 
-    public Meal[] mealsList() {
-        ResponseEntity<Meal[]> forEntity = restTemplate.getForEntity(mainUrl + mealsUrl, Meal[].class);
-        return forEntity.getBody();
-    }
-
-    public void createMeal(Meal meal) {
-        restTemplate.postForObject(mainUrl + mealsUrl, meal, Meal.class);
-    }
-
-    public Meal detailPage(String id) {
-        ResponseEntity<Meal> forEntity = restTemplate.getForEntity(mainUrl + detailUrl + "/" + id, Meal.class);
-        return forEntity.getBody();
+    public List<LocalIngredient> getIngredients(String id) {
+        List<Ingredient> ingredients = Arrays.asList(restTemplate.getForObject(mainUrl + detailUrl + ingredientsUrl + "/" + id, Ingredient.class));
+        return ingredients.stream()
+                .map(ingredient -> {
+                    LocalIngredient localIngredient = new LocalIngredient();
+                    localIngredient.setName(ingredient.getName());
+                    localIngredient.setQuantity(ingredient.getQuantity());
+                    localIngredient.setUnit(ingredient.getUnit());
+                    return localIngredient;
+                })
+                .collect(Collectors.toList());
     }
 }
