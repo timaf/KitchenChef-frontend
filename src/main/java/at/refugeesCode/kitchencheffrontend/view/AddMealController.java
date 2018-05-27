@@ -99,7 +99,7 @@ public class AddMealController {
             return "You failed to upload " + " because the file was empty.";
         }
         addMealService.createMeal(meal);
-        return "redirect:/";
+        return "redirect:/meals";
     }
 
 
