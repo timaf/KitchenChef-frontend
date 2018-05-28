@@ -1,6 +1,8 @@
-package at.refugeesCode.kitchencheffrontend.model;
+package at.refugeesCode.kitchencheffrontend.persistence.model;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Meal {
 
@@ -8,7 +10,7 @@ public class Meal {
     private String cookName;
     private String mealName;
     private String mealDescription;
-    private String ingredients;
+    private List<Ingredient> ingredients = new ArrayList<>();
 
     private int year;
     private int month;
@@ -22,8 +24,10 @@ public class Meal {
     private String foodImage;
 
 
-    public Meal(String id, String cookName, String mealName, String mealDescription, String ingredients, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime, String foodImage) {
-        this.id = id;
+    public Meal() {
+    }
+
+    public Meal(String cookName, String mealName, String mealDescription, List<Ingredient> ingredients, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime, String foodImage) {
         this.cookName = cookName;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
@@ -37,9 +41,6 @@ public class Meal {
         this.preparationTime = preparationTime;
         this.dateTime = dateTime;
         this.foodImage = foodImage;
-    }
-
-    public Meal() {
     }
 
     public String getId() {
@@ -74,11 +75,11 @@ public class Meal {
         this.mealDescription = mealDescription;
     }
 
-    public String getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -161,7 +162,7 @@ public class Meal {
                 ", cookName='" + cookName + '\'' +
                 ", mealName='" + mealName + '\'' +
                 ", mealDescription='" + mealDescription + '\'' +
-                ", ingredients='" + ingredients + '\'' +
+                ", ingredients=" + ingredients +
                 ", year=" + year +
                 ", month=" + month +
                 ", day=" + day +
