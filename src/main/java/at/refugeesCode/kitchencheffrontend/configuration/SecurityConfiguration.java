@@ -22,10 +22,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .antMatchers("/create-meal/**").hasRole("USER")
-                .antMatchers("/mealdetail/**").hasRole("USER")
+                .antMatchers("/meal/**").hasRole("USER")
                 .antMatchers("/**").permitAll()
-                .antMatchers("meals/**").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin().loginPage("/login").failureUrl("/?error").permitAll()
