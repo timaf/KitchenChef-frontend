@@ -20,19 +20,19 @@
     <!-- Ingredients -->
     <div th:object="${newIngredient}">
 
-        <input type="text" th:field="*{name}" name="ingredientName" id="ingredientName" placeholder="Ingredient Name" required>
-        <input type="text" th:field="*{quantity}" name="ingredientsQuantity" id="ingredientsQuantity"  placeholder="Ingredients Quantity"required>
+        <input type="text" th:field="*{name}" id="ingredientName" placeholder="Ingredient Name" required>
+        <input type="text" th:field="*{quantity}" id="ingredientsQuantity"  placeholder="Ingredients Quantity" required>
 
             <select th:field="*{unit}" id="ingredientsUnit" name="ingredientsUnit">
                 <option value="">Select a Unit</option>
                 <option value="Liter" th:text="Liter">2018</option>
-                <option value="kg" th:text="Kg"></option>
-                <option value="gram" th:text="gram"></option>
+                <option value="Kg" th:text="Kg"></option>
+                <option value="Piece" th:text="Piece"></option>
             </select>
 
 
         <input type="text" th:field="*{name}" placeholder="Ingredient Name" required>
-        <input type="text" th:field="*{quantity}" placeholder="Ingredients Quantity"required>
+        <input type="text" th:field="*{quantity}" placeholder="Ingredients Quantity" required>
 
             <select th:field="*{unit}" >
                 <option value="">Select a Unit</option>
@@ -45,7 +45,7 @@
     <!-- Ingredients End-->
 
     <input type="text" name="numberOfPeople" id="numberOfPeople" placeholder="5" required>
-    <input type="text" name="startCookingTime" id="startCookingTime" placeholder="04:30" required>
+    <input type="time" name="startCookingTime" id="startCookingTime" required>
     <input type="text" name="preparationTime" id="preparationTime" placeholder="30" required>
     <input type="file" name="file" id="file" placeholder="image">
     <div>
