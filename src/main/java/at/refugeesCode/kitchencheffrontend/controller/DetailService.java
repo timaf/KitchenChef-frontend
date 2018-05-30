@@ -1,7 +1,7 @@
 package at.refugeesCode.kitchencheffrontend.controller;
 
-import at.refugeesCode.kitchencheffrontend.model.Ingredient;
-import at.refugeesCode.kitchencheffrontend.model.LocalIngredient;
+import at.refugeesCode.kitchencheffrontend.persistence.model.LocalIngredient;
+import at.refugeesCode.kitchencheffrontend.persistence.model.Ingredient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,27 +14,23 @@ import java.util.stream.Collectors;
 public class DetailService {
 
     private RestTemplate restTemplate;
-
-    public DetailService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
-
     @Value("${meals.url}")
     private String mealsUrl;
+    @Value("${detail.url}")
+    private String detailUrl;
 
 //    For testing purposes this was turned into comment
 
 //    @Value("${index.url}")
 //    private String mainUrl;
-
-    @Value("${detail.url}")
-    private String detailUrl;
-
     @Value("${ingredients.url}")
     private String ingredientsUrl;
-
     @Value("${backend.url}")
     private String mainUrl;
+
+    public DetailService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public List<LocalIngredient> getIngredients(String id) {
         List<Ingredient> ingredients = Arrays.asList(restTemplate.getForObject(mainUrl + detailUrl + ingredientsUrl + "/" + id, Ingredient.class));
