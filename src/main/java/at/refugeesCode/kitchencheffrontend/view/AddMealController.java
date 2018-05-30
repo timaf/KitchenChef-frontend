@@ -70,11 +70,11 @@ public class AddMealController {
     }
 
     @PostMapping
-    String createNewMeal(Meal meal, @Validated Ingredient ingredient, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
-                         BindingResult bindingResult) {
+    String createNewMeal(Meal meal, @Validated Ingredient ingredient, @RequestParam("file") MultipartFile file,
+                         RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
         {
-            System.out.println("to same page to shows error fields");
+            System.out.println("Error");
         }
         // Generate a String Name for the Image name
         int leftLimit = 97; // letter 'a'
