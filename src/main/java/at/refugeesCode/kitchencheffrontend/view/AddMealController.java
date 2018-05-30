@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Random;
 
 @Controller
-@RequestMapping("/mealllll")
+@RequestMapping("/meal")
 public class AddMealController {
 
     private AddMealService addMealService;
@@ -38,23 +38,10 @@ public class AddMealController {
         return new Meal();
     }
 
-    @GetMapping("/meals")
-    String getAllMeals(Model model) {
-        Meal[] meal = addMealService.mealsList();
-        model.addAttribute("meals", meal);
-        return "meals";
-    }
-
-    @GetMapping
-    String index() {
-        return "index";
-    }
-
-    @GetMapping("/create-meal")
-    String createAMeal(Model model) {
-        Meal[] meal = addMealService.mealsList();
+    @GetMapping("/add-meal")
+    String createAMeal(Model model, Meal meal) {
         model.addAttribute("meal", meal);
-        return "createmeal";
+        return "addMeal";
     }
 
     @PostMapping("meal")
@@ -115,11 +102,5 @@ public class AddMealController {
         return "redirect:/";
     }
 
-    @GetMapping("/mealdetail/{id}")
-    String detailPage(@PathVariable("id") String id,Model model){
-        Meal meals = addMealService.detailPage(id);
-        model.addAttribute("mealdetail", meals);
-        return "detail";
-    }
 
 }
