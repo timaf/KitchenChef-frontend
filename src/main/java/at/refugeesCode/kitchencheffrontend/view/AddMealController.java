@@ -42,10 +42,10 @@ public class AddMealController {
         return new Meal();
     }
 
-    @GetMapping("/add-meal")
+    @GetMapping("/addmeal")
     String createAMeal(Model model, Meal meal) {
         model.addAttribute("meal", meal);
-        return "addMeal";
+        return "addmeal";
     }
 
     @ModelAttribute("users")
