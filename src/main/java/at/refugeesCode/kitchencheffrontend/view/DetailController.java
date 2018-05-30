@@ -2,6 +2,7 @@ package at.refugeesCode.kitchencheffrontend.view;
 
 import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
 import at.refugeesCode.kitchencheffrontend.persistence.model.AppUser;
+import at.refugeesCode.kitchencheffrontend.persistence.model.Ingredient;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,9 @@ public class DetailController {
     @GetMapping("/mealdetail/{id}")
     String detailPage(@PathVariable("id") String id, Model model){
         Meal meal = addMealService.detailPage(id);
+        List<Ingredient> ingredients = meal.getIngredients();
         model.addAttribute("mealdetail", meal);
+        model.addAttribute("ingredients", ingredients);
         return "detail";
     }
 }

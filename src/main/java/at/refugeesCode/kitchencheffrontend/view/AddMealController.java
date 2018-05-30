@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Random;
 
 @Controller
-@RequestMapping("/meal")
+@RequestMapping("/addmeal")
 public class AddMealController {
 
     private AddMealService addMealService;
@@ -42,7 +42,7 @@ public class AddMealController {
         return new Meal();
     }
 
-    @GetMapping("/addmeal")
+    @GetMapping
     String createAMeal(Model model, Meal meal) {
         model.addAttribute("meal", meal);
         return "addmeal";
@@ -57,21 +57,24 @@ public class AddMealController {
     AppUser newUser() {
         return new AppUser();
     }
+    @ModelAttribute("newIngredient")
+    Ingredient newIngredient() {
+        return new Ingredient();
+    }
     @PostMapping
-    String createNewMeal(Meal meal, Ingredient ingredients,@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
+    String createNewMeal(Meal meal, Ingredient ingredient,@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
                          @RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
-                         @RequestParam("ingredientName") String ingredientsName, @RequestParam("ingredientsQuantity") Double ingredientsQuantity,
-                         @RequestParam("ingredientsUnit") String ingredientsUnit, @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
+                         @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
                          @RequestParam("preparationTime") Long preparationTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
+
         meal.setCookName(cookName);
         meal.setMealName(mealName);
         meal.setMealDescription(mealDescription);
+
         List<Ingredient> IngredientsList = new ArrayList<>();
-        ingredients.setName(ingredientsName);
-        ingredients.setQuantity(ingredientsQuantity);
-        ingredients.setUnit(ingredientsUnit);
-        IngredientsList.add(ingredients);
+        IngredientsList.add(ingredient);
         meal.setIngredients(IngredientsList);
+
         meal.setNumberOfPeople(numberOfPeople);
         meal.setStartCookingTime(startCookingTime);
         meal.setPreparationTime(preparationTime);
