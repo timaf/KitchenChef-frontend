@@ -7,6 +7,8 @@ import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -61,27 +63,19 @@ public class AddMealController {
     Ingredient newIngredient() {
         return new Ingredient();
     }
+
+    @ModelAttribute("addNewMeal")
+    Meal addNewMeal() {
+        return new Meal();
+    }
+
     @PostMapping
-    String createNewMeal(Meal meal, Ingredient ingredient,@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes,
-                         @RequestParam("cookName") String cookName, @RequestParam("mealName") String mealName, @RequestParam("mealDescription") String mealDescription,
-                         @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("startCookingTime")LocalTime startCookingTime,
-                         @RequestParam("preparationTime") Long preparationTime, @RequestParam("year") int year, @RequestParam("month") int month, @RequestParam("day") int day) {
-
-        meal.setCookName(cookName);
-        meal.setMealName(mealName);
-        meal.setMealDescription(mealDescription);
-
-        List<Ingredient> IngredientsList = new ArrayList<>();
-        IngredientsList.add(ingredient);
-        meal.setIngredients(IngredientsList);
-
-        meal.setNumberOfPeople(numberOfPeople);
-        meal.setStartCookingTime(startCookingTime);
-        meal.setPreparationTime(preparationTime);
-        meal.setYear(year);
-        meal.setMonth(month);
-        meal.setDay(day);
-
+    String createNewMeal(Meal meal, @Validated Ingredient ingredient, @RequestParam("file") MultipartFile file,
+                         RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+        {
+            System.out.println("Error");
+        }
         // Generate a String Name for the Image name
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
