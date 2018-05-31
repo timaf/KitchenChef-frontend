@@ -6,7 +6,7 @@ import at.refugeesCode.kitchencheffrontend.persistence.model.Ingredient;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -69,7 +69,8 @@ public class AddMealController {
     @PostMapping
     String createNewMeal(Meal meal, @Validated Ingredient ingredient, @RequestParam("file") MultipartFile file,
                          RedirectAttributes redirectAttributes, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors())
+        {
             System.out.println("Error");
         }
         // Generate a String Name for the Image name

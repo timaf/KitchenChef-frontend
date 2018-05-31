@@ -11,6 +11,13 @@
 <header>
     <object th:include="fragments/navigation :: menu" th:remove="tag"></object>
 </header>
+
+<div th:if="${disable}==true" class="alert alert-danger">
+<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+<strong>Please log in first!</strong>
+</div>
+
+
 <div class="container">
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -21,23 +28,23 @@
 <div class="container-fluid">
     <form action="/register" method="post">
         <div><a href="#" data-toggle="tooltip" title="Please log in first!">
-            <button type="button" name="register" value="eat" id="eat" class="btn btn-secondary disabled"
+            <button type="button" name="register" value="eat" id="eat" class="btn btn-secondary" th:disabled="${disable}"
                     data-toggle="collapse" data-target="#demo">Just eating
             </button>
         </a></div>
         <br>
         <a href="#" data-toggle="tooltip" title="Please log in first!!">
-            <button type="button" name="register" value="clean" id="clean" class="btn btn-secondary disabled"
+            <button type="button" name="register" value="clean" id="clean" class="btn btn-secondary" th:disabled="${disable}"
                     data-toggle="collapse" data-target="#demo">I'll clean
             </button>
         </a> &nbsp;
         <a href="#" data-toggle="tooltip" title="Please log in first!!">
-            <button type="button" name="register" value="shop" id="shop" class="btn btn-secondary disabled"
+            <button type="button" name="register" value="shop" id="shop" class="btn btn-secondary " th:disabled="${disable}"
                     data-toggle="collapse" data-target="#demo">I'll shop
             </button>
         </a> &nbsp;
         <a href="#" data-toggle="tooltip" title="Please log in first!!">
-            <button type="button" name="register" value="help" id="help" class="btn btn-secondary disabled"
+            <button type="button" name="register" value="help" id="help" class="btn btn-secondary " th:disabled="${disable}"
                     data-toggle="collapse" data-target="#demo">I'll help
             </button>
         </a>

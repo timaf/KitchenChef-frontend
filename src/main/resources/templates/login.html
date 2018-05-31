@@ -8,28 +8,10 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
-    <a class="navbar-brand" href="#">Kitchen Chef</a>
-
-    <!-- Collapsible Navbar -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-
-        <!-- Links -->
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html" th:href="@{/}"> Home</a>
-            </li>
-        </ul>
-    </div>
+    <!-- Links -->
+    <a class="navbar-brand" th:href="@{/}">Kitchen Chef</a>
 </nav>
 
-
-<!--<div th:if="${param.logout}" class="alert alert-success" >-->
-<!--<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
-<!--<strong>Success!</strong> You have been logged out.-->
-<!--</div>-->
 <div th:if="${param.error}" class="alert alert-danger">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Error!</strong> There was an error, please try again.
