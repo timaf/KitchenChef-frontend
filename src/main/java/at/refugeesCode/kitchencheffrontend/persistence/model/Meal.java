@@ -11,12 +11,13 @@ public class Meal {
     private String mealName;
     private String mealDescription;
     private List<Ingredient> ingredients = new ArrayList<>();
+    private List<AppUser> attendants = new ArrayList<>();
 
     private int year;
     private int month;
     private int day;
-
     private int numberOfPeople;
+
     private LocalTime startCookingTime;
     private LocalTime startEatingTime;
     private Long preparationTime;
@@ -27,11 +28,12 @@ public class Meal {
     public Meal() {
     }
 
-    public Meal(String cookName, String mealName, String mealDescription, List<Ingredient> ingredients, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime, String foodImage) {
+    public Meal(String cookName, String mealName, String mealDescription, List<Ingredient> ingredients, List<AppUser> attendants, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime, String foodImage) {
         this.cookName = cookName;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
         this.ingredients = ingredients;
+        this.attendants = attendants;
         this.year = year;
         this.month = month;
         this.day = day;
@@ -81,6 +83,14 @@ public class Meal {
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public List<AppUser> getAttendants() {
+        return attendants;
+    }
+
+    public void setAttendants(List<AppUser> attendants) {
+        this.attendants = attendants;
     }
 
     public int getYear() {
@@ -163,6 +173,7 @@ public class Meal {
                 ", mealName='" + mealName + '\'' +
                 ", mealDescription='" + mealDescription + '\'' +
                 ", ingredients=" + ingredients +
+                ", attendants=" + attendants +
                 ", year=" + year +
                 ", month=" + month +
                 ", day=" + day +

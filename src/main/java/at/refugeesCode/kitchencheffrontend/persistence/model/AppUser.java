@@ -11,12 +11,10 @@ public class AppUser {
 
     @Id
     private String id;
-
     private String username;
-
     private String password;
-
     private Set<String> authorities = new HashSet<>();
+
 
     public String getId() {
         return id;

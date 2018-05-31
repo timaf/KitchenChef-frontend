@@ -15,17 +15,18 @@ public class AddMealService {
 
     @Value("${meals.url}")
     private String mealsUrl;
-
     @Value("${index.url}")
     private String mainUrl;
-
     @Value("${detail.url}")
     private String detailUrl;
+    @Value("${shoppiglist.url}")
+    private String shoppiglistUrl;
+    @Value("${attendantsNumber.url}")
+    private String attendantsNumberUrl;
 
     public AddMealService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
-
 
     public Meal[] mealsList() {
         ResponseEntity<Meal[]> forEntity = restTemplate.getForEntity(mainUrl + mealsUrl, Meal[].class);
@@ -40,5 +41,4 @@ public class AddMealService {
         ResponseEntity<Meal> forEntity = restTemplate.getForEntity(mainUrl + detailUrl + "/" + id, Meal.class);
         return forEntity.getBody();
     }
-
 }

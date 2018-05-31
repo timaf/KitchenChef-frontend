@@ -13,15 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import org.springframework.ui.Model;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -59,6 +55,7 @@ public class AddMealController {
     AppUser newUser() {
         return new AppUser();
     }
+
     @ModelAttribute("newIngredient")
     Ingredient newIngredient() {
         return new Ingredient();
@@ -97,7 +94,7 @@ public class AddMealController {
                 String path = context.getRealPath("/");
                 System.out.println(path);
                 byte[] bytes = file.getBytes();
-                File serverFile = new File(path + "../resources/static/images" + File.separator + generatedString + "-" +file.getOriginalFilename());
+                File serverFile = new File(path + "../resources/static/images" + File.separator + generatedString + "-" + file.getOriginalFilename());
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();

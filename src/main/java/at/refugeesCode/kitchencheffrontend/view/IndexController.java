@@ -21,9 +21,7 @@ import java.util.stream.Stream;
 public class IndexController {
 
     private UserRepository userRepository;
-
     private PasswordEncoder passwordEncoder;
-
     private AddMealService addMealService;
 
     public IndexController(UserRepository userRepository, PasswordEncoder passwordEncoder, AddMealService addMealService) {

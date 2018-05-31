@@ -90,9 +90,6 @@
     $(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
-
-
-
 </script>
 <object th:include="fragments/resources :: bottom" th:remove="tag"></object>
 </body>
@@ -114,7 +111,6 @@
 <img th:src="@{'/images/'+ ${meal.foodImage}}" height="120" width="150" />
 <a th:href="@{/mealdetail/} + ${meal.id}">view more</a>
 </tbody>
-
        <br>
        <form action="/register" method="post">
            <div><a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register"  value="eat" id="eat" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up for the meal</button></a></div><br>
@@ -175,5 +171,3 @@
        </table>
    </div>
    </div>-->
-
-
