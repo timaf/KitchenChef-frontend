@@ -12,41 +12,55 @@
     <object th:include="fragments/navigation :: menu" th:remove="tag"></object>
 </header>
 
-<form th:action="@{/addmeal}" method="post" enctype="multipart/form-data">
-    <input type="text" name="cookName" id="cookName" placeholder="Cook Name" required>
-    <input type="text" name="mealName" id="mealName" placeholder="Meal Name" required>
-    <input type="text" name="mealDescription" id="mealDescription" placeholder="Meal Description" required>
+<form th:action="@{/addmeal}" th:object="${addNewMeal}" method="post" enctype="multipart/form-data">
+    <input type="text" th:field="*{cookName}" name="cookName" id="cookName" placeholder="Cook Name" required>
+    <input type="text" th:field="*{mealName}" name="mealName" id="mealName" placeholder="Meal Name" required>
+    <input type="text" th:field="*{mealDescription}" name="mealDescription" id="mealDescription" placeholder="Meal Description" required>
 
     <!-- Ingredients -->
-    <div th:object="${newIngredient}">
+    <!--<div th:each="ingredient,i  : ${ingredients}">-->
+        <!--<input type="text" th:field="*{ingredients[__${i.index}__].name}" placeholder="Ingredient Name" required>-->
+        <!--<input type="text" th:field="*{ingredients[__${i.index}__].quantity}"  placeholder="Ingredients Quantity" required>-->
 
-        <input type="text" th:field="*{name}" id="ingredientName" placeholder="Ingredient Name" required>
-        <input type="text" th:field="*{quantity}" id="ingredientsQuantity"  placeholder="Ingredients Quantity" required>
+        <!--<select th:field="*{ingredients[__${i.index}__].unit}" name="ingredientsUnit">-->
+            <!--<option value="">Select a Unit</option>-->
+            <!--<option value="Liter" th:text="Liter">2018</option>-->
+            <!--<option value="Kg" th:text="Kg"></option>-->
+            <!--<option value="Piece" th:text="Piece"></option>-->
+        <!--</select>-->
+    <!--</div>-->
+    <div>
 
-            <select th:field="*{unit}" id="ingredientsUnit" name="ingredientsUnit">
+        <div>
+            <input type="text" th:field="*{ingredients[0].name}" placeholder="name" />
+            <input type="text" th:field="*{ingredients[0].quantity}" placeholder="quantity" />
+            <select th:field="*{ingredients[0].unit}">
                 <option value="">Select a Unit</option>
                 <option value="Liter" th:text="Liter">2018</option>
                 <option value="Kg" th:text="Kg"></option>
                 <option value="Piece" th:text="Piece"></option>
             </select>
+        </div>
 
+        <div>
+            <input type="text" th:field="*{ingredients[1].name}" placeholder="name" />
+            <input type="text" th:field="*{ingredients[1].quantity}" placeholder="quantity" />
 
-        <input type="text" th:field="*{name}" placeholder="Ingredient Name" required>
-        <input type="text" th:field="*{quantity}" placeholder="Ingredients Quantity" required>
-
-            <select th:field="*{unit}" >
+            <select th:field="*{ingredients[1].unit}">
                 <option value="">Select a Unit</option>
                 <option value="Liter" th:text="Liter">2018</option>
-                <option value="kg" th:text="Kg"></option>
-                <option value="gram" th:text="gram"></option>
+                <option value="Kg" th:text="Kg"></option>
+                <option value="Piece" th:text="Piece"></option>
             </select>
+        </div>
 
     </div>
+
     <!-- Ingredients End-->
 
-    <input type="text" name="numberOfPeople" id="numberOfPeople" placeholder="5" required>
-    <input type="time" name="startCookingTime" id="startCookingTime" required>
-    <input type="text" name="preparationTime" id="preparationTime" placeholder="30" required>
+    <input type="text" th:field="*{numberOfPeople}" name="numberOfPeople" id="numberOfPeople" placeholder="5" required>
+    <input type="time" th:field="*{startCookingTime}" name="startCookingTime" id="startCookingTime" required>
+    <input type="text" th:field="*{preparationTime}" name="preparationTime" id="preparationTime" placeholder="30" required>
     <input type="file" name="file" id="file" placeholder="image">
     <div>
         <select id="year" name="year">
