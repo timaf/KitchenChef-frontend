@@ -122,6 +122,21 @@
             <h5>Eating start at : <span th:text="${mealdetail.startEatingTime}"> 2:30 O'clock </span></h5><br>
             <h5>Cooking start at : <span th:text="${mealdetail.startCookingTime}"> 11:15 O'clock </span></h5><br>
             <h5>Cooking takes a bout : <span th:text="${mealdetail.preparationTime}"> 3 Hours </span></h5><br>
+            <h5>Ingredients :
+                <table class="table">
+                    <tr>
+                        <th>name</th>
+                        <th>quantity</th>
+                        <th>unit</th>
+                    </tr>
+                    <tr th:each="ingredient : ${ingredients}">
+                        <td th:text="${ingredient.name}">1</td>
+                        <td th:text="${ingredient.quantity}">Alex</td>
+                        <td th:text="${ingredient.unit}">secret</td>
+                    </tr>
+                </table>
+            </h5>
+            <br>
             <div class="dropdown">
                 <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
                     Who's Coming?

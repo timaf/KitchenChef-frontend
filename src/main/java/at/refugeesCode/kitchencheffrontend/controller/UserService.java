@@ -17,11 +17,8 @@ public class UserService {
         this.addMealService = addMealService;
     }
 
-    public List<AppUser> showRegisteredUsers(String id) {
-        AddMealService
-
-        return null;
-    }
-
-
+//    public List<AppUser> showRegisteredUsers(String id) {
+//        AddMealService
+//        return null;
+//    }
 }

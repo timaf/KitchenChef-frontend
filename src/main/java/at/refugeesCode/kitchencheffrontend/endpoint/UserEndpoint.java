@@ -20,11 +20,10 @@ public class UserEndpoint {
         this.addMealService = addMealService;
     }
 
-    @GetMapping(params = {"mealId"})
-    List<AppUser> showAttendants(@RequestParam("mealId") String id, Model model) {
-        model.addAttribute("meal", addMealService.findMeal(id).get());
-        model.addAttribute("attendants", addMealService.showAttendants(id));
-        return
-    }
-
+//    @GetMapping(params = {"mealId"})
+//    List<AppUser> showAttendants(@RequestParam("mealId") String id, Model model) {
+//        model.addAttribute("meal", addMealService.findMeal(id).get());
+//        model.addAttribute("attendants", addMealService.showAttendants(id));
+//        return
+//    }
 }
