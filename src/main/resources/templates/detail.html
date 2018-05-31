@@ -12,9 +12,9 @@
     <object th:include="fragments/navigation :: menu" th:remove="tag"></object>
 </header>
 
-<div th:if="${isLogin}==true" class="alert alert-danger">
+<div th:if="${disable}==true" class="alert alert-danger">
 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-<strong>I logged in!</strong>
+<strong>Please log in first!</strong>
 </div>
 
 
