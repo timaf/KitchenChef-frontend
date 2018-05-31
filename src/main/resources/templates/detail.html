@@ -8,77 +8,6 @@
 </head>
 <body>
 
-<<<<<<< HEAD
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-
-        <a class="navbar-brand" href="#">Kitchen Chef</a>
-
-        <!-- Collapsible Navbar -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-
-            <!-- Links -->
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html" th:href="@{/}"> Home</a>
-                </li>
-                <li class="nav-item margin-left10px">
-                    <div class="dropdown">
-                        <button class="btn color-white bg-dark  dropdown-toggle" type="button" data-toggle="dropdown"> Register
-                            <span class="caret"></span>&nbsp;</button>
-                        <ul class="dropdown-menu dropdown-menu-custom">
-                            <li>
-                                <form id="register"  method="post">
-                                    <div class="input-group input-group-custom">
-                                        <input id="username1" type="text" class="form-control"  name="userName" placeholder="Username" required/>
-                                    </div>
-                                    <div class="input-group input-group-custom">
-                                        <input id="password1" type="password" class="form-control"  name="password" placeholder="Password" required>
-                                    </div>
-                                    <div class="input-group input-group-custom">
-                                        <input id="conPassword1" type="password" class="form-control" name="conPassword1" placeholder="Confirm Password" required>
-                                    </div>
-                                    <div>
-                                        <button id="registration" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item margin-left10px">
-                    <div class="dropdown">
-                        <button class="btn color-white bg-dark  dropdown-toggle" type="button" data-toggle="dropdown"> Log In
-                            <span class="caret"></span></button>
-                        <ul class="dropdown-menu dropdown-menu-custom">
-                            <li>
-                                <form th:action="@{/login}" id="logIn"  method="post">
-                                    <div class="input-group input-group-custom">
-                                        <input id="username" type="text" class="form-control"  name="userName" placeholder="Username" required>
-                                    </div>
-                                    <div class="input-group input-group-custom">
-                                        <input id="password" type="password" class="form-control"  name="password" placeholder="Password" required>
-                                    </div>
-                                    <div class="inpu">
-                                        <button type="submit" id="loging" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h5><strong>Info!</strong> Cooking can only take place if we sign up as a Cleaner, Shopper or Helper</h5>
-        </div><br>
-=======
 <header>
     <object th:include="fragments/navigation :: menu" th:remove="tag"></object>
 </header>
@@ -86,7 +15,6 @@
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <h5><strong>Info!</strong> Cooking can only take place if we sign up as a Cleaner, Shopper or Helper</h5>
->>>>>>> upstream/master
     </div>
     <br>
 </div>
@@ -155,9 +83,6 @@
     $(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
-
-
-
 </script>
 <object th:include="fragments/resources :: bottom" th:remove="tag"></object>
 </body>
@@ -179,7 +104,6 @@
 <img th:src="@{'/images/'+ ${meal.foodImage}}" height="120" width="150" />
 <a th:href="@{/mealdetail/} + ${meal.id}">view more</a>
 </tbody>
-
        <br>
        <form action="/register" method="post">
            <div><a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register"  value="eat" id="eat" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up for the meal</button></a></div><br>
@@ -240,5 +164,3 @@
        </table>
    </div>
    </div>-->
-
-

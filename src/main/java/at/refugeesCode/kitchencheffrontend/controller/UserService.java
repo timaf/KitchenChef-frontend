@@ -16,9 +16,4 @@ public class UserService {
         this.userRepository = userRepository;
         this.addMealService = addMealService;
     }
-
-//    public List<AppUser> showRegisteredUsers(String id) {
-//        AddMealService
-//        return null;
-//    }
 }

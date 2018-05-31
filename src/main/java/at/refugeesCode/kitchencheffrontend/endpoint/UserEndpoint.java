@@ -26,4 +26,5 @@ public class UserEndpoint {
 //        model.addAttribute("attendants", addMealService.showAttendants(id));
 //        return
 //    }
+
 }

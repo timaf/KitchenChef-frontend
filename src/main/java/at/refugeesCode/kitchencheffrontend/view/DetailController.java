@@ -1,11 +1,9 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
 import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
-
 import at.refugeesCode.kitchencheffrontend.controller.DetailService;
 import at.refugeesCode.kitchencheffrontend.persistence.model.AppUser;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Ingredient;
-import at.refugeesCode.kitchencheffrontend.persistence.model.LocalIngredient;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -46,24 +44,9 @@ public class DetailController {
         return "detail";
     }
 
-    @ModelAttribute("ingredients")
-    List<LocalIngredient> showIngredients(String id) {
-        return detailService.getIngredients(id);
-    }
-//
-//    @GetMapping("/mealdetail/{id}")
-//    String detailPage(@PathVariable("id") String id, Model model) {
-//        Meal meals = addMealService.detailPage(id);
-//        model.addAttribute("mealdetail", meals);
-//        return "detail";
-//    }
-
-    @GetMapping("/mealdetail/{id}")
-    String detailPage(@PathVariable("id") String id, Model model){
+    @GetMapping("{id}/mealdetail/shoppinglist/")
+    List<Ingredient> showShoppingList(@PathVariable("id") String id, Model model) {
         Meal meal = addMealService.detailPage(id);
-        List<Ingredient> ingredients = meal.getIngredients();
-        model.addAttribute("mealdetail", meal);
-        model.addAttribute("ingredients", ingredients);
-        return "detail";
+        return detailService.showShoppingList(id);
     }
 }
