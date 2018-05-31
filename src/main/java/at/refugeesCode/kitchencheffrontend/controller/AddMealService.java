@@ -14,10 +14,13 @@ public class AddMealService {
     private RestTemplate restTemplate;
     @Value("${meals.url}")
     private String mealsUrl;
+
     @Value("${index.url}")
     private String mainUrl;
+
     @Value("${detail.url}")
     private String detailUrl;
+
     @Value("${ingredients.url}")
     private String ingredientsUrl;
 
@@ -42,5 +45,9 @@ public class AddMealService {
     public Meal detailPage(String id) {
         ResponseEntity<Meal> forEntity = restTemplate.getForEntity(mainUrl + detailUrl + "/" + id, Meal.class);
         return forEntity.getBody();
+    }
+
+
+    public Meal findMeal(String id) {
     }
 }
