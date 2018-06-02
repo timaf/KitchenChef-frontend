@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Shopping List</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>name</th>
+        <th>quantity</th>
+        <th>unit</th>
+    </tr>
+    <tr th:each="ingredient : ${shoppinglist}">
+        <td th:text="${ingredient.name}">1</td>
+        <td th:text="${ingredient.quantity}">Alex</td>
+        <td th:text="${ingredient.unit}">secret</td>
+    </tr>
+</table>
+</body>
+</html>

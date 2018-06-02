@@ -6,7 +6,6 @@ import at.refugeesCode.kitchencheffrontend.persistence.model.AppUser;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Ingredient;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
-import at.refugeesCode.kitchencheffrontend.security.UserPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,10 +46,12 @@ public class DetailController {
         return "detail";
     }
 
-    @GetMapping("{id}/mealdetail/shoppinglist/")
-    List<Ingredient> showShoppingList(@PathVariable("id") String id, Model model) {
+    @GetMapping("/mealdetail/shoppinglist/{id}")
+    String showShoppingList(@PathVariable("id") String id, Model model) {
         Meal meal = addMealService.detailPage(id);
-        return detailService.showShoppingList(id);
+        model.addAttribute("shoppinglist", meal.getIngredients());
+        return "shoppinglist";
+    }
 
     @GetMapping("/mealdetail/{id}")
     String detailPage(@PathVariable("id") String id, Model model, Principal principal){
