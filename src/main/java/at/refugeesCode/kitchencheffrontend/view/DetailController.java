@@ -60,11 +60,13 @@ public class DetailController {
 
     @GetMapping("/mealdetail/{id}")
     String detailPage(@PathVariable("id") String id, Model model, Principal principal){
-        Meal meal = addMealService.detailPage(id);
+        //Meal meal = addMealService.detailPage(id);
         disable = principal != null ? false : true;
-        List<Ingredient> ingredients = meal.getIngredients();
-        List<Attendees> attendants = meal.getAttendants();
-        model.addAttribute("mealdetail", meal);
+        Optional<Meal> meal = mealRepository.findById(id);
+        List<Ingredient> ingredients = meal.get().getIngredients();
+        List<Attendees> attendants = meal.get().getAttendants();
+
+        model.addAttribute("mealdetail", meal.get());
         model.addAttribute("ingredients", ingredients);
         model.addAttribute("attendants", attendants);
         model.addAttribute("disable", disable);
@@ -80,7 +82,6 @@ public class DetailController {
     @PostMapping("/registration/{userId}/{mealId}")
     String registration(@PathVariable("userId") String userId ,@PathVariable("mealId") String mealId, Model model){
         Idess idess = new Idess();
-        Attendees attendees = new Attendees();
 
         Optional<AppUser> byId = userRepository.findById(userId);
         Meal meal = addMealService.detailPage(mealId);
@@ -93,79 +94,90 @@ public class DetailController {
 
             if (!mealRegistration.isEmpty()){
 
-                for (Idess id: mealRegistration){
+                for (int i = 0; i <= mealRegistration.size(); i++){
 
-                    if(id.getId().equalsIgnoreCase(meal_id)){
+                    if(mealRegistration.get(i) != null)
+                        if(mealRegistration.get(i).getId().equalsIgnoreCase(meal_id)){
 
-//                        ------------ Deregister meal Registration should be bottom here -----------------
-                        mealRegistration.remove(id);
-                        //mealRegistration.add(idess);
-                        byId.get().setMealRegistration(mealRegistration);
-                        userRepository.save(byId.get());
-//                        ------------ Deregister meal Registration should be top here -----------------
-                        if (!attendants.isEmpty()){
+//                        ------------ Deregister meal Registration -----------------
+                            mealRegistration.remove(mealRegistration.get(i));
+                            byId.get().setMealRegistration(mealRegistration);
+                            userRepository.save(byId.get());
+//                        ------------ Deregister meal Registration -----------------
+                            if (!meal.getAttendants().isEmpty()){
+//                              iterate over each attendants id and check if he exist in the Attendants list
+                                for (int j = 0; j<meal.getAttendants().size(); j++){
+//                                    Create new Attendant if is not already exist in the Attendants list
+                                    if(!meal.getAttendants().get(j).getId().equalsIgnoreCase(byId.get().getUsername())){
+//                        ---------------- Create new Attendants ----------
+                                        Attendees attendees = new Attendees();
+                                        attendees.setId(byId.get().getId());
+                                        attendees.setUsername(byId.get().getUsername());
+                                        attendants.add(attendees);
+                                        meal.setAttendants(attendants);
+                                        mealRepository.save(meal);
+//                        ---------------- Create new Attendants ----------
+                                    }
+                                    else {
+//                        ------------ Deregister from Attendants -----------------
+                                        attendants.remove(meal.getAttendants().get(j));
+                                        meal.setAttendants(attendants);
+                                        mealRepository.save(meal);
+//                        ------------ Deregister Attendants -----------------
 
-                            for (Attendees oneAttendes : meal.getAttendants()){
-
-                                if(!oneAttendes.getId().equalsIgnoreCase(byId.get().getUsername())){
-
-                                    oneAttendes.setId(byId.get().getId());
-                                    oneAttendes.setUsername(byId.get().getUsername());
-                                    attendants.add(oneAttendes);
-                                    meal.setAttendants(attendants);
-                                    mealRepository.save(meal);
+                                    }
                                 }
-                                else {
-//                        ------------ Deregister from Attendants should be bottom here -----------------
-                                    attendants.remove(oneAttendes);
-                                    meal.setAttendants(attendants);
-                                    mealRepository.save(meal);
-//                        ------------ Deregister Attendants should be top here -----------------
-
-                                }
+                            }else {
+//                        ---------------- Create new Attendants ----------
+                                Attendees attendees = new Attendees();
+                                attendees.setId(byId.get().getId());
+                                attendees.setUsername(byId.get().getUsername());
+                                attendants.add(attendees);
+                                meal.setAttendants(attendants);
+                                mealRepository.save(meal);
+//                        ---------------- Create new Attendants ----------
                             }
-                        }else {
-                            attendees.setId(byId.get().getId());
-                            attendees.setUsername(byId.get().getUsername());
-                            attendants.add(attendees);
-                            meal.setAttendants(attendants);
-                            mealRepository.save(meal);
                         }
-                    }
-                    else {
-                        idess.setId(meal_id);
-                        mealRegistration.add(idess);
-                        byId.get().setMealRegistration(mealRegistration);
-                        userRepository.save(byId.get());
-                        if (!attendants.isEmpty()){
+                        else {
+                            idess.setId(meal_id);
+                            mealRegistration.add(idess);
+                            byId.get().setMealRegistration(mealRegistration);
+                            userRepository.save(byId.get());
+                            if (!meal.getAttendants().isEmpty()){
+//                              iterate over each attendants id and check if he exist in the Attendants list
+                                for (int j = 0; j<meal.getAttendants().size(); j++){
+//                                    Create new Attendant if is not already exist in the Attendants list
+                                    if(!meal.getAttendants().get(j).getId().equalsIgnoreCase(byId.get().getUsername())){
+//                        ---------------- Create new Attendants ----------
+                                        Attendees attendees = new Attendees();
+                                        attendees.setId(byId.get().getId());
+                                        attendees.setUsername(byId.get().getUsername());
 
-                            for (Attendees oneAttendes : meal.getAttendants()){
+                                        attendants.add(attendees);
+                                        meal.setAttendants(attendants);
+                                        mealRepository.save(meal);
+//                        ---------------- Create new Attendants ----------
+                                    }
+                                    else {
+//                        ------------ Deregister from Attendants-----------------
+                                        attendants.remove(meal.getAttendants().get(j));
+                                        meal.setAttendants(attendants);
+                                        mealRepository.save(meal);
+//                        ------------ Deregister Attendants -----------------
 
-                                if(!oneAttendes.getId().equalsIgnoreCase(byId.get().getUsername())){
-
-                                    oneAttendes.setId(byId.get().getId());
-                                    oneAttendes.setUsername(byId.get().getUsername());
-                                    attendants.add(oneAttendes);
-                                    meal.setAttendants(attendants);
-                                    mealRepository.save(meal);
+                                    }
                                 }
-                                else {
-//                        ------------ Deregister from Attendants should be bottom here -----------------
-                                    attendants.remove(oneAttendes);
-                                    meal.setAttendants(attendants);
-                                    mealRepository.save(meal);
-//                        ------------ Deregister Attendants should be top here -----------------
-
-                                }
+                            }else {
+//                        ---------------- Create new Attendants ----------
+                                Attendees attendees = new Attendees();
+                                attendees.setId(byId.get().getId());
+                                attendees.setUsername(byId.get().getUsername());
+                                attendants.add(attendees);
+                                meal.setAttendants(attendants);
+                                mealRepository.save(meal);
+//                        ---------------- Create new Attendants ----------
                             }
-                        }else {
-                            attendees.setId(byId.get().getId());
-                            attendees.setUsername(byId.get().getUsername());
-                            attendants.add(attendees);
-                            meal.setAttendants(attendants);
-                            mealRepository.save(meal);
                         }
-                    }
                 }
             }
             else {
@@ -173,21 +185,21 @@ public class DetailController {
                 mealRegistration.add(idess);
                 byId.get().setMealRegistration(mealRegistration);
                 userRepository.save(byId.get());
-                if (!attendants.isEmpty()){
-
-                    for (Attendees oneAttendes : meal.getAttendants()){
-
-                        if(!oneAttendes.getId().equalsIgnoreCase(byId.get().getUsername())){
-
-                            oneAttendes.setId(byId.get().getId());
-                            oneAttendes.setUsername(byId.get().getUsername());
-                            attendants.add(oneAttendes);
+                if (!meal.getAttendants().isEmpty()){
+//                  iterate over each attendants id and check if he exist in the Attendants list
+                    for (int j = 0; j<meal.getAttendants().size(); j++){
+//                      Create new Attendant if is not already exist in the Attendants list
+                        if(!meal.getAttendants().get(j).getId().equalsIgnoreCase(byId.get().getUsername())){
+                            Attendees attendees = new Attendees();
+                            attendees.setId(byId.get().getId());
+                            attendees.setUsername(byId.get().getUsername());
+                            attendants.add(meal.getAttendants().get(j));
                             meal.setAttendants(attendants);
                             mealRepository.save(meal);
                         }
                         else {
 //                        ------------ Deregister from Attendants should be bottom here -----------------
-                            attendants.remove(oneAttendes);
+                            attendants.remove(meal.getAttendants().get(j));
                             meal.setAttendants(attendants);
                             mealRepository.save(meal);
 //                        ------------ Deregister Attendants should be top here -----------------
@@ -195,6 +207,7 @@ public class DetailController {
                         }
                     }
                 }else {
+                    Attendees attendees = new Attendees();
                     attendees.setId(byId.get().getId());
                     attendees.setUsername(byId.get().getUsername());
                     attendants.add(attendees);
