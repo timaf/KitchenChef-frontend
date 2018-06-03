@@ -3,7 +3,9 @@ package at.refugeesCode.kitchencheffrontend.persistence.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Document
@@ -14,7 +16,19 @@ public class AppUser {
     private String username;
     private String password;
     private Set<String> authorities = new HashSet<>();
+    private boolean registration = false;
+    private List<Idess> mealRegistration = new ArrayList<>();
 
+    public AppUser(String username, String password, Set<String> authorities, boolean registration, List<Idess> mealRegistration) {
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
+        this.registration = registration;
+        this.mealRegistration = mealRegistration;
+    }
+
+    public AppUser() {
+    }
 
     public String getId() {
         return id;
@@ -48,6 +62,22 @@ public class AppUser {
         this.authorities = authorities;
     }
 
+    public boolean isRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(boolean registration) {
+        this.registration = registration;
+    }
+
+    public List<Idess> getMealRegistration() {
+        return mealRegistration;
+    }
+
+    public void setMealRegistration(List<Idess> mealRegistration) {
+        this.mealRegistration = mealRegistration;
+    }
+
     @Override
     public String toString() {
         return "AppUser{" +
@@ -55,6 +85,8 @@ public class AppUser {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", authorities=" + authorities +
+                ", registration=" + registration +
+                ", mealRegistration=" + mealRegistration +
                 '}';
     }
 }
