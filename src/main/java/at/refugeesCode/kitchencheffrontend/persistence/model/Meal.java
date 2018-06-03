@@ -1,11 +1,14 @@
 package at.refugeesCode.kitchencheffrontend.persistence.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
+@Document
 public class Meal {
-
+    @Id
     private String id;
     private String cookName;
     private String mealName;
