@@ -38,7 +38,7 @@
                     <!--<h1 sec:authentication="name"></h1>-->
                 <!--</h1>-->
                 <span th:each="userRegister : ${user.mealRegistration}">
-                    <h1 th:if="${userRegister.id == mealdetail.id && username == user.username}">you already joined</h1>
+                    <h1 th:if="${userRegister.id == mealdetail.id && username == user.username}">you are already joined</h1>
                 </span>
         </div>
         <br>
@@ -79,15 +79,14 @@
                     </tr>
                 </table>
             </h5>
-            <h5 th:text="${attendants}">1</h5>
 
-            <h5>Attendants :
+            <h5>
                 <table class="table">
                     <tr>
-                        <th>username</th>
+                        <th>Attendants</th>
                     </tr>
                     <tr th:each="attendant : ${attendants}">
-                        <td th:text="${attendant}">1</td>
+                        <td th:text="${attendant.username}">1</td>
                     <!--</tr>-->
                 </table>
             </h5>
