@@ -36,7 +36,7 @@ public class DetailController {
         this.detailService = detailService;
     }
 
-  /*  @ModelAttribute("users")
+   /* @ModelAttribute("users")
     List<AppUser> users() {
         return userRepository.findAll();
     }*/
