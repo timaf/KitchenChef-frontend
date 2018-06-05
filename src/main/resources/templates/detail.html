@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Detail Page</title>
     <object th:include="fragments/resources :: head" th:remove="tag"></object>
@@ -26,12 +26,21 @@
     <br>
 </div>
 <div class="container-fluid">
-    <form action="/register" method="post">
-        <div><a >
-            <button type="button" name="register" value="eat" id="eat" class="btn btn-info" th:disabled="${disable}"
-                    data-toggle="collapse" data-target="#demo">Just eating
-            </button>
-        </a></div>
+        <div th:each="user : ${users}">
+            <form th:action="@{'/detail/registration/'+${user.id}+'/' +${mealdetail.id}}" method="post" >
+                    <button th:if="${username == user.username}"
+                            type="submit" name="register" value="eat" id="eat" class="btn btn-info" th:disabled="${disabled}"
+                            data-toggle="collapse" data-target="#demo">Just eating
+                    </button>
+            </form>
+                <!--<h1 sec:authorize="isAuthenticated()">-->
+                    <!--<h1 th:text="${#request.userPrincipal.principal.username}"></h1>-->
+                    <!--<h1 sec:authentication="name"></h1>-->
+                <!--</h1>-->
+                <span th:each="userRegister : ${user.mealRegistration}">
+                    <h1 th:if="${userRegister.id == mealdetail.id && username == user.username}">you are already joined</h1>
+                </span>
+        </div>
         <br>
         <a>
             <button type="button" name="register" value="clean" id="clean" class="btn btn-warning" th:disabled="${disable}"
@@ -48,7 +57,6 @@
                     data-toggle="collapse" data-target="#demo">I'll help
             </button>
         </a>
-    </form>
     <br>
     <div class="row">
         <div class="col-sm-6" style="background-color:lavenderblush;">
@@ -71,6 +79,18 @@
                     </tr>
                 </table>
             </h5>
+
+            <h5>
+                <table class="table">
+                    <tr>
+                        <th>Attendants</th>
+                    </tr>
+                    <tr th:each="attendant : ${attendants}">
+                        <td th:text="${attendant.username}">1</td>
+                    <!--</tr>-->
+                </table>
+            </h5>
+
             <h5><a th:href="@{'/detail/mealdetail/shoppinglist/'+${mealdetail.id}}">View Shopping List</a></h5>
             <br>
             <div class="dropdown">
@@ -98,6 +118,7 @@
 
 
 <!--
+onclick="$.post('/detail/registration/{id}')"
 <tbody th:each="meal: ${meals}">
 <td th:text="${meal.id}" hidden></td>
 <td th:text="${meal.cookName}"></td>
