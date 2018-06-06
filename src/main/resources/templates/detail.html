@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Detail Page</title>
     <object th:include="fragments/resources :: head" th:remove="tag"></object>
@@ -19,44 +19,31 @@
 
 
 <div class="container">
-    <div class="alert alert-danger alert-dismissible">
+    <div id="banner" class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <h5><strong>Info!</strong> Cooking can only take place if we sign up as a Cleaner, Shopper or Helper</h5>
     </div>
-    <br>
 </div>
 <div class="container-fluid">
-        <div th:each="user : ${users}">
-            <form th:action="@{'/detail/registration/'+${user.id}+'/' +${mealdetail.id}}" method="post" >
-                    <button th:if="${username == user.username}"
-                            type="submit" name="register" value="eat" id="eat" class="btn btn-info" th:disabled="${disabled}"
-                            data-toggle="collapse" data-target="#demo">Just eating
-                    </button>
-            </form>
-                <!--<h1 sec:authorize="isAuthenticated()">-->
-                    <!--<h1 th:text="${#request.userPrincipal.principal.username}"></h1>-->
-                    <!--<h1 sec:authentication="name"></h1>-->
-                <!--</h1>-->
-                <span th:each="userRegister : ${user.mealRegistration}">
-                    <h1 th:if="${userRegister.id == mealdetail.id && username == user.username}">you are already joined</h1>
-                </span>
+    <form action="/paticipate" method="post">
+        <div class="disabled-button-wrapper">
+            <button type="button" name="eat" value="eat" id="eat" class="btn btn-secondary"  th:disabled="${disable}">Join mail
+            </button>
         </div>
-        <br>
-        <a>
-            <button type="button" name="register" value="clean" id="clean" class="btn btn-warning" th:disabled="${disable}"
-                    data-toggle="collapse" data-target="#demo">I'll clean
+        <br><br>
+        <div class="disabled-button-wrapper">
+            <button type="button" name="signup" value="clean" id="clean" class="btn btn-secondary" th:disabled="${disable}">I'll clean
             </button>
-        </a> &nbsp;
-        <a >
-            <button type="button" name="register" value="shop" id="shop" class="btn btn-danger" th:disabled="${disable}"
-                    data-toggle="collapse" data-target="#demo">I'll shop
+        </div>
+        <div class="disabled-button-wrapper">
+            <button type="button" name="signup" value="shop" id="shop" class="btn btn-secondary" th:disabled="${disable}">I'll shop
             </button>
-        </a> &nbsp;
-        <a >
-            <button type="button" name="register" value="help" id="help" class="btn btn-success" th:disabled="${disable}"
-                    data-toggle="collapse" data-target="#demo">I'll help
+        </div>
+        <div class="disabled-button-wrapper">
+            <button type="button" name="signup" value="help" id="help" class="btn btn-secondary" th:disabled="${disable}">I'll help
             </button>
-        </a>
+        </div>
+    </form>
     <br>
     <div class="row">
         <div class="col-sm-6" style="background-color:lavenderblush;">
@@ -68,9 +55,9 @@
             <h5>Ingredients :
                 <table class="table">
                     <tr>
-                        <th>name</th>
-                        <th>quantity</th>
-                        <th>unit</th>
+                        <th>Ingredient's name</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
                     </tr>
                     <tr th:each="ingredient : ${ingredients}">
                         <td th:text="${ingredient.name}">1</td>
@@ -79,117 +66,86 @@
                     </tr>
                 </table>
             </h5>
-
-            <h5>
-                <table class="table">
-                    <tr>
-                        <th>Attendants</th>
-                    </tr>
-                    <tr th:each="attendant : ${attendants}">
-                        <td th:text="${attendant.username}">1</td>
-                    <!--</tr>-->
-                </table>
-            </h5>
-
             <h5><a th:href="@{'/detail/mealdetail/shoppinglist/'+${mealdetail.id}}">View Shopping List</a></h5>
             <br>
-            <div class="dropdown">
-                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                    Who's Coming?
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Ali</a>
-                    <a class="dropdown-item" href="#">Nour</a>
-                </div>
-            </div>
+             <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo"><b>Who's Coming?</b></button>
+                   <ul id="demo" class="collapse">
+                       <li>Ali</li>
+                       <li>Nour</li>
+                   </ul>
         </div>
         <div class="col-sm-6" style="background-color:light;"><br><img th:src="@{'/images/'+ ${mealdetail.foodImage}}"></div>
     </div>
-</div>
-
-<script>
-    $(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
+   </div>
 <object th:include="fragments/resources :: bottom" th:remove="tag"></object>
+<script th:inline="javascript") >
+/*<![CDATA[*/
+    $(function(){
+        $("#banner").hide();
+        var notLoged = /*[[${disable}]]*/'default';
+        if (notLoged){
+         $('.disabled-button-wrapper').tooltip({title: "Please log in first!"});
+         }else{
+        $('#eat').toggleClass('btn-secondary btn-primary');
+        $('#clean').toggleClass('btn-secondary btn-warning');
+        $('#shop').toggleClass('btn-secondary btn-danger');
+        $('#help').toggleClass('btn-secondary btn-success');
+        }
+
+        $('#clean').on('click', function() {
+        if ($(this).hasClass('btn-warning')){
+           $("div:nth-child(4)").tooltip({title: "Already found"});
+           $('#clean').addClass('btn-secondary').removeClass('btn-warning');
+        }else{
+             $("#banner").show();
+            setTimeout(function() {
+            $("#banner").hide();
+            }, 10000);
+            $("div:nth-child(4)").tooltip('dispose');
+            $('#clean').addClass('btn-warning').removeClass('btn-secondary');
+        }
+        });
+
+        $('#shop').on('click', function() {
+        if ($(this).hasClass('btn-danger')){
+            $("div:nth-child(5)").tooltip({title: "Already found"});
+            $('#shop').addClass('btn-secondary').removeClass('btn-danger');
+
+        }else{
+             $("#banner").show();
+            setTimeout(function() {
+            $("#banner").hide();
+            }, 10000);
+            $("div:nth-child(5)").tooltip('dispose');
+            $('#shop').addClass('btn-danger').removeClass('btn-secondary');
+        }
+        });
+
+        $('#help').on('click', function() {
+        if ($(this).hasClass('btn-success')){
+            $("div:nth-child(6)").tooltip({title: "Already found"});
+            $('#help').addClass('btn-secondary').removeClass('btn-success');
+
+        }else{
+            $("#banner").show();
+            setTimeout(function() {
+            $("#banner").hide();
+            }, 10000);
+            $("div:nth-child(6)").tooltip('dispose');
+            $('#help').addClass('btn-success').removeClass('btn-secondary');
+        }
+        });
+
+         if ($('#clean').hasClass('btn-warning') || $('#shop').hasClass('btn-danger') || $('#help').hasClass('btn-success')){
+            $("#banner").show();
+            setTimeout(function() {
+            $("#banner").hide();
+            }, 15000);
+         }
+    });
+/*]]>*/
+</script>
+
 </body>
 </html>
 
-
-<!--
-onclick="$.post('/detail/registration/{id}')"
-<tbody th:each="meal: ${meals}">
-<td th:text="${meal.id}" hidden></td>
-<td th:text="${meal.cookName}"></td>
-<td th:text="${meal.mealName}"></td>
-<td th:text="${meal.mealDescription}"></td>
-<td th:text="${meal.ingredients}"></td>
-<td th:text="${meal.numberOfPeople}"></td>
-<td th:text="${meal.startCookingTime}"></td>
-<td th:text="${meal.startEatingTime}"></td>
-<td th:text="${meal.preparationTime}"></td>
-<td th:text="${meal.dateTime}"></td>
-<img th:src="@{'/images/'+ ${meal.foodImage}}" height="120" width="150" />
-<a th:href="@{/mealdetail/} + ${meal.id}">view more</a>
-</tbody>
-       <br>
-       <form action="/register" method="post">
-           <div><a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register"  value="eat" id="eat" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up for the meal</button></a></div><br>
-           <a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register" value="clean" id="clean" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up as Cleaner</button></a> &nbsp;
-           <a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register"  value="shop"id="shop" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up as Shopper</button></a> &nbsp;
-           <a href="#" data-toggle="tooltip" title="Hooray!"><button type="button" name="register" value="help" id="help" class="btn btn-secondary disabled" data-toggle="collapse" data-target="#demo" >Sign up as Helper</button></a>
-       </form>
-       <!-- Normally, all inputs in the form are sent with the form. Since a button's value is submitted only if clicked,
-        you'd have to search the form values for these pre-defined names. I think the other answer (stackoverflow.com/a/21778226/88409)
-        that involves giving them all the same name, with different values, makes more sense.
-        Then you just grab the value under a single known form field name. It also makes it more obvious
-        that only one value (the clicked one) will be sent for the given input name,
-        much like how radio buttons work (same name, different values). -->
-<!--   <br>
-   <h2>Our Meal</h2>
-    <div class="table-responsive">
-       <table class="table">
-           <thead>
-           <tr>
-               <th>Cook Name</th>
-               <th>Meal Name</th>
-               <th>Meal Date</th>
-               <th>Meal Description</th>
-               <th>Ingredients</th>
-               <th>Eating Time</th>
-               <th>Names of Attendances</th>
-           </tr>
-           </thead>
-           <tbody>
-           <tr>
-               <td>Sarah Baterdouk</td>
-               <td>Soup</td>
-               <td>9/8/2018</td>
-               <td>very delicious</td>
-               <td><div class="dropdown">
-                   <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
-                      Ingredients
-                   </button>
-                   <div class="dropdown-menu">
-                       <a class="dropdown-item" >Lentils</a>
-                       <a class="dropdown-item" >salt</a>
-                       <a class="dropdown-item">Carrot</a>
-                   </div>
-               </div></td>
-               <td>2:30 O'clock</td>
-               <td><div class="dropdown">
-                   <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
-                       Names of Attendances
-                   </button>
-                   <div class="dropdown-menu">
-                       <a class="dropdown-item" >Ali</a>
-                       <a class="dropdown-item" >Nour</a>
-                       <a class="dropdown-item">Wael</a>
-                   </div>
-               </div></td>
-           </tr>
-           </tbody>
-       </table>
-   </div>
-   </div>-->

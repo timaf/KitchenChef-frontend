@@ -36,16 +36,15 @@ public class DetailController {
         this.detailService = detailService;
     }
 
-    @ModelAttribute("users")
+  /*  @ModelAttribute("users")
     List<AppUser> users() {
         return userRepository.findAll();
-    }
+    }*/
 
     @ModelAttribute("newUser")
     AppUser newUser() {
         return new AppUser();
     }
-
     @GetMapping
     String page() {
         return "detail";
@@ -74,6 +73,7 @@ public class DetailController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         model.addAttribute("username", username);
+
 
 
         return "detail";
