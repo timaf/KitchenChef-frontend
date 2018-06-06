@@ -25,11 +25,18 @@
     </div>
 </div>
 <div class="container-fluid">
-    <form action="/paticipate" method="post">
+  <div th:each="user : ${users}">
+    <form th:action="@{'/detail/registration/'+${user.id}+'/' +${mealdetail.id}}" method="post" >
         <div class="disabled-button-wrapper">
-            <button type="button" name="eat" value="eat" id="eat" class="btn btn-secondary"  th:disabled="${disable}">Join mail
+            <button  name="eat" value="eat" id="eat" class="btn btn-secondary"  th:disabled="${disable}">Join mail
             </button>
         </div>
+    </form>
+
+      <span th:each="userRegister : ${user.mealRegistration}">
+-                    <h1 th:if="${userRegister.id == mealdetail.id && username == user.username}">you are already joined</h1>
+-     </span>
+  </div>
         <br><br>
         <div class="disabled-button-wrapper">
             <button type="button" name="signup" value="clean" id="clean" class="btn btn-secondary" th:disabled="${disable}">I'll clean
@@ -66,6 +73,17 @@
                     </tr>
                 </table>
             </h5>
+
+            <h5>
+                                <table class="table">
+                                    <tr>
+                                        <th>Attendants</th>
+                                    </tr>
+                                    <tr th:each="attendant : ${attendants}">
+                                        <td th:text="${attendant.username}">1</td>
+                                    <!--</tr>-->
+                                </table>
+                            </h5>
             <h5><a th:href="@{'/detail/mealdetail/shoppinglist/'+${mealdetail.id}}">View Shopping List</a></h5>
             <br>
              <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo"><b>Who's Coming?</b></button>
