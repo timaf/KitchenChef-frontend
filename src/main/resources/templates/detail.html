@@ -114,6 +114,7 @@
                 $("#choosing div:nth-child(4)").tooltip({title: "Someone else already signed up for this."});
                 if (cleaning == /*[[${#request.userPrincipal.principal.username}]]*/){
                     $('#clean').html('&#10003;' +' You are cleaning');
+                    $("#choosing div:nth-child(4)").attr("data-original-title", "You already signed up for this.");
                 }
             }else{
                 $('#clean').addClass('btn-warning').removeClass('btn-secondary');
@@ -123,6 +124,7 @@
                 $("#choosing div:nth-child(5)").tooltip({title: "Someone else already signed up for this."});
                 if (shopping == /*[[${#request.userPrincipal.principal.username}]]*/){
                     $('#shop').html('&#10003;'+' You are shopping');
+                    $("#choosing div:nth-child(5)").attr("data-original-title", "You already signed up for this.");
                 }
             }else{
                 $('#shop').addClass('btn-danger').removeClass('btn-secondary');
@@ -132,6 +134,7 @@
                 $("#choosing div:nth-child(6)").tooltip({title: "Someone else already signed up for this."});
                 if (helping == /*[[${#request.userPrincipal.principal.username}]]*/){
                     $('#help').html('&#10003;'+' You are helping');
+                    $("#choosing div:nth-child(6)").attr("data-original-title", "You already signed up for this.");
                 }
             }else{
                 $('#help').addClass('btn-info').removeClass('btn-secondary');
@@ -142,7 +145,7 @@
         if ($(this).hasClass('btn-warning')){
            $("#choosing div:nth-child(4)").tooltip('dispose');
            $('#clean').addClass('btn-success').removeClass('btn-warning');
-           $('#shop').attr('disabled','disabled');
+           $('#shop').prop('disabled', true);
            $('#shop').addClass('btn-secodary').removeClass('btn-danger');
            $("#choosing div:nth-child(5)").tooltip({title: "You already signed up for something else."});
            $('#help').prop('disabled', true);
@@ -159,7 +162,7 @@
         if ($(this).hasClass('btn-danger')){
            $("#choosing div:nth-child(5)").tooltip('dispose');
            $('#shop').addClass('btn-success').removeClass('btn-danger');
-           $('#clean').attr('disabled','disabled');
+           $('#clean').prop('disabled', true);
            $('#clean').addClass('btn-secodary').removeClass('btn-warning');
            $("#choosing div:nth-child(4)").tooltip({title: "You already signed up for something else."});
            $('#help').prop('disabled', true);
@@ -175,7 +178,7 @@
         if ($(this).hasClass('btn-info')){
            $("#choosing div:nth-child(6)").tooltip('dispose');
            $('#help').addClass('btn-success').removeClass('btn-info');
-           $('#shop').attr('disabled','disabled');
+           $('#shop').prop('disabled', true);
            $('#shop').addClass('btn-secodary').removeClass('btn-danger');
            $("#choosing div:nth-child(5)").tooltip({title: "You already signed up for something else."});
            $('#clean').prop('disabled', true);
