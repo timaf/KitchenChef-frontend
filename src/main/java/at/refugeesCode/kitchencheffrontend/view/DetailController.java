@@ -26,6 +26,8 @@ public class DetailController {
     private MealRepository mealRepository;
     private DetailService detailService;
     private String mealId;
+    private Boolean joind;
+    private String volunteerName;
 
     public DetailController(AddMealService addMealService, UserRepository userRepository, MealRepository mealRepository, DetailService detailService) {
         this.addMealService = addMealService;
@@ -56,10 +58,14 @@ public class DetailController {
         disable = principal != null ? false : true;
         mealRepository.findById(id).ifPresent(meal->{
         List<Ingredient> ingredients = meal.getIngredients();
-
+        if(principal != null) {
+            volunteerName = principal.getName();
+            joind = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
+        }
         model.addAttribute("mealdetail", meal);
         model.addAttribute("ingredients", ingredients);
         model.addAttribute("disable", disable);
+        model.addAttribute("joindEating", joind);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -70,13 +76,17 @@ public class DetailController {
 
     @PostMapping(value="/mealdetail/{id}/signUp", params="signup=eat")
     String saveAttendance(Principal principal, Model model) {
+        System.out.println("KKKKbbbbKKKKk");
         mealRepository.findById(mealId).ifPresent(meal -> {
-            String volunteerName = principal.getName();
-            boolean joind = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
+            System.out.println("KKKKKKKKk");
+            joind = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
+            System.out.println(joind);
             if(joind){
                 meal.getAttendees().remove(volunteerName);
+                joind =false;
             }else {
                 meal.getAttendees().add(volunteerName);
+                joind =true;
             }
             model.addAttribute("joindEating", joind);
             model.addAttribute("mealdetail", meal);
@@ -88,11 +98,12 @@ public class DetailController {
     @PostMapping(value="/mealdetail/{id}/signUp", params="signup=cleaner")
     String saveCleaner(Principal principal,Model model) {
          mealRepository.findById(mealId).ifPresent(meal -> {
-            String volunteerName = principal.getName();
              if(meal.getCleaner()== null){
                  meal.setCleaner(volunteerName);
+                 meal.getAttendees().add(volunteerName);
              }else if (meal.getCleaner().equals(volunteerName)){
                  meal.setCleaner(null);
+                 meal.getAttendees().remove(volunteerName);
              }else {
              }
             model.addAttribute("mealdetail", meal);
@@ -104,11 +115,12 @@ public class DetailController {
     @PostMapping(value="/mealdetail/{id}/signUp", params="signup=helper")
     String saveHelper(Principal principal, Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
-            String volunteerName = principal.getName();
             if(meal.getHelper()== null){
                 meal.setHelper(volunteerName);
+                meal.getAttendees().add(volunteerName);
             }else if (meal.getHelper().equals(volunteerName)){
                 meal.setHelper(null);
+                meal.getAttendees().remove(volunteerName);
             }else {
             }
             model.addAttribute("mealdetail", meal);
@@ -120,11 +132,12 @@ public class DetailController {
     @PostMapping(value="/mealdetail/{id}/signUp", params="signup=shopper")
     String saveShoper(Principal principal, Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
-            String volunteerName = principal.getName();
             if(meal.getShopper()== null){
                 meal.setShopper(volunteerName);
+                meal.getAttendees().add(volunteerName);
             }else if (meal.getShopper().equals(volunteerName)){
                 meal.setShopper(null);
+                meal.getAttendees().remove(volunteerName);
             }else {
              }
 

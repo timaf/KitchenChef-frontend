@@ -98,21 +98,38 @@
         var cleaning = /*[[${mealdetail.cleaner}]]*/
         var shopping = /*[[${mealdetail.shopper}]]*/
         var helping = /*[[${mealdetail.helper}]]*/
-        var eating = /*[[${joinedEating}]]*/
+        var eating = /*[[${joindEating}]]*/
         var notLoged = /*[[${disable}]]*/'default';
 
          if (notLoged){
             $('.disabled-button-wrapper').tooltip({title: "Please log in first!"});
          }else {
-            $('#eat').addClass('btn-primary').removeClass('btn-secondary');
+             if (eating){
+                $('#eat').addClass('btn-success').removeClass('btn-secondary');
+                $('#eat').html('&#10003;' +' Joind');
+                if (cleaning == null){
+                    $('#clean').prop('disabled', true);
+                }
+                if (shopping == null){
+                    $('#shop').prop('disabled', true);
+                }
+                if (helping == null){
+                    $('#help').prop('disabled', true);
+                }
+            }else{
+                $('#eat').addClass('btn-primary').removeClass('btn-secondary');
+            }
+
+
             if (cleaning != null){
-                $('#clean').addClass('btn-success').removeClass('btn-secondary');
-                $("#choosing div:nth-child(4)").tooltip({title: "Someone else already signed up for this."});
-                $('#clean').html(cleaning +' is cleaning');
-                if (cleaning == name){
+            if (cleaning == name){
                     $('#clean').html('&#10003;' +' You are cleaning');
                     $("#choosing div:nth-child(4)").attr("data-original-title", "You already signed up for this.");
                 }
+                $('#clean').addClass('btn-success').removeClass('btn-secondary');
+                $("#choosing div:nth-child(4)").tooltip({title: "Someone else already signed up for this."});
+                $('#clean').html(cleaning +' is cleaning');
+
             }else{
                 $('#clean').addClass('btn-warning').removeClass('btn-secondary');
             }
