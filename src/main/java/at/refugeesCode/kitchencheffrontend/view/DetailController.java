@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/detail")
@@ -34,11 +34,6 @@ public class DetailController {
         this.detailService = detailService;
     }
 
-   /* @ModelAttribute("users")
-    List<AppUser> users() {
-        return userRepository.findAll();
-    }*/
-
     @ModelAttribute("newUser")
     AppUser newUser() {
         return new AppUser();
@@ -57,22 +52,35 @@ public class DetailController {
 
     @GetMapping("/mealdetail/{id}")
     String detailPage(@PathVariable("id") String id, Model model, Principal principal){
-        //Meal meal = addMealService.detailPage(id);
-        mealId = id;
+         mealId = id;
         disable = principal != null ? false : true;
         mealRepository.findById(id).ifPresent(meal->{
         List<Ingredient> ingredients = meal.getIngredients();
-       // List<Attendees> attendants = meal.get().getAttendants();
 
         model.addAttribute("mealdetail", meal);
-
         model.addAttribute("ingredients", ingredients);
-       // model.addAttribute("attendants", attendants);
         model.addAttribute("disable", disable);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         model.addAttribute("username", username);
+        });
+        return "detail";
+    }
+
+    @PostMapping(value="/mealdetail/{id}/signUp", params="signup=eat")
+    String saveAttendance(Principal principal, Model model) {
+        mealRepository.findById(mealId).ifPresent(meal -> {
+            String volunteerName = principal.getName();
+            boolean joind = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
+            if(joind){
+                meal.getAttendees().remove(volunteerName);
+            }else {
+                meal.getAttendees().add(volunteerName);
+            }
+            model.addAttribute("joindEating", joind);
+            model.addAttribute("mealdetail", meal);
+            Meal updatedMeal = save(meal);
         });
         return "detail";
     }
@@ -132,7 +140,7 @@ public class DetailController {
     }
 
 
-    @PostMapping("/registration/{userId}/{mealId}")
+   /* @PostMapping("/registration/{userId}/{mealId}")
     String registration(@PathVariable("userId") String userId ,@PathVariable("mealId") String mealId, Model model){
         Idess idess = new Idess();
 
@@ -271,7 +279,7 @@ public class DetailController {
         }
         else {
             return "error";
-        }*/
+        }
         return "redirect:/";
-    }
+    }*/
 }
