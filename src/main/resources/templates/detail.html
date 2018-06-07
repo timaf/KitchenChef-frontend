@@ -112,21 +112,27 @@
             if (cleaning != null){
                 $('#clean').addClass('btn-success').removeClass('btn-secondary');
                 $("#choosing div:nth-child(4)").tooltip({title: "Someone else already signed up for this."});
-                $('#clean').attr('disabled','disabled');
+                if (cleaning == /*[[${#request.userPrincipal.principal.username}]]*/){
+                    $('#clean').html('&#10003;' +' You are cleaning');
+                }
             }else{
                 $('#clean').addClass('btn-warning').removeClass('btn-secondary');
             }
             if (shopping != null){
                 $('#shop').addClass('btn-success').removeClass('btn-secondary');
                 $("#choosing div:nth-child(5)").tooltip({title: "Someone else already signed up for this."});
-                $('#shop').attr('disabled','disabled');
+                if (shopping == /*[[${#request.userPrincipal.principal.username}]]*/){
+                    $('#shop').html('&#10003;'+' You are shopping');
+                }
             }else{
                 $('#shop').addClass('btn-danger').removeClass('btn-secondary');
                 }
             if (helping != null){
                 $('#help').addClass('btn-success').removeClass('btn-secondary');
                 $("#choosing div:nth-child(6)").tooltip({title: "Someone else already signed up for this."});
-                $('#help').attr('disabled','disabled');
+                if (helping == /*[[${#request.userPrincipal.principal.username}]]*/){
+                    $('#help').html('&#10003;'+' You are helping');
+                }
             }else{
                 $('#help').addClass('btn-info').removeClass('btn-secondary');
                  }

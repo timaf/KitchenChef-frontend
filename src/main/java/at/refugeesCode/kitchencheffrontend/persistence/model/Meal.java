@@ -25,12 +25,12 @@ public class Meal {
     private String cleaner;
     private String shopper;
     private String helper;
-    private List<Attendees> attendees = new ArrayList<>();
+    private List<String> attendees = new ArrayList<>();
 
     public Meal() {
     }
 
-    public Meal(String cookName, String mealName, String mealDescription, List <Ingredient> ingredients, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime, String foodImage, String cleaner, String shopper, String helper) {
+    public Meal(String cookName, String mealName, String mealDescription, List <Ingredient> ingredients, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime, String foodImage, String cleaner, String shopper, String helper, List <String> attendees) {
         this.cookName = cookName;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
@@ -47,6 +47,7 @@ public class Meal {
         this.cleaner = cleaner;
         this.shopper = shopper;
         this.helper = helper;
+        this.attendees = attendees;
     }
 
     public String getId() {
@@ -185,10 +186,19 @@ public class Meal {
         this.helper = helper;
     }
 
+    public List <String> getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(List <String> attendees) {
+        this.attendees = attendees;
+    }
+
     @Override
     public String toString() {
         return "Meal{" +
-                "cookName='" + cookName + '\'' +
+                "id='" + id + '\'' +
+                ", cookName='" + cookName + '\'' +
                 ", mealName='" + mealName + '\'' +
                 ", mealDescription='" + mealDescription + '\'' +
                 ", ingredients=" + ingredients +
@@ -204,6 +214,7 @@ public class Meal {
                 ", cleaner='" + cleaner + '\'' +
                 ", shopper='" + shopper + '\'' +
                 ", helper='" + helper + '\'' +
+                ", attendees=" + attendees +
                 '}';
     }
 

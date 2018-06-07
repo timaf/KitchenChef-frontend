@@ -81,11 +81,12 @@ public class DetailController {
     String saveCleaner(Principal principal,Model model) {
          mealRepository.findById(mealId).ifPresent(meal -> {
             String volunteerName = principal.getName();
-            if(meal.getCleaner().equals(volunteerName)){
-                meal.setCleaner(null);
-            }else {
-                meal.setCleaner(volunteerName);
-            }
+             if(meal.getCleaner()== null){
+                 meal.setCleaner(volunteerName);
+             }else if (meal.getCleaner().equals(volunteerName)){
+                 meal.setCleaner(null);
+             }else {
+             }
             model.addAttribute("mealdetail", meal);
             Meal updatedMeal = save(meal);
          });
@@ -96,10 +97,11 @@ public class DetailController {
     String saveHelper(Principal principal, Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             String volunteerName = principal.getName();
-            if(meal.getHelper().equals(volunteerName)){
+            if(meal.getHelper()== null){
+                meal.setHelper(volunteerName);
+            }else if (meal.getHelper().equals(volunteerName)){
                 meal.setHelper(null);
             }else {
-                meal.setHelper(volunteerName);
             }
             model.addAttribute("mealdetail", meal);
             Meal updatedMeal = save(meal);
@@ -111,11 +113,13 @@ public class DetailController {
     String saveShoper(Principal principal, Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             String volunteerName = principal.getName();
-            if(meal.getShopper().equals(volunteerName)){
+            if(meal.getShopper()== null){
+                meal.setShopper(volunteerName);
+            }else if (meal.getShopper().equals(volunteerName)){
                 meal.setShopper(null);
             }else {
-                meal.setShopper(volunteerName);
-            }
+             }
+
             model.addAttribute("mealdetail", meal);
             Meal updatedMeal = save(meal);
         });
