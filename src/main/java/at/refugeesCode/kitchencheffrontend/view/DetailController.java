@@ -108,7 +108,7 @@ public class DetailController {
     }
 
     @PostMapping(value="/mealdetail/{id}/signUp", params="signup=shopper")
-    String saveshoper(Principal principal, Model model) {
+    String saveShoper(Principal principal, Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             String volunteerName = principal.getName();
             if(meal.getShopper().equals(volunteerName)){
