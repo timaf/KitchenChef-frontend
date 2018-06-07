@@ -1,42 +1,40 @@
 package at.refugeesCode.kitchencheffrontend.persistence.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-@Document
+
 public class Meal {
-    @Id
+
     private String id;
     private String cookName;
     private String mealName;
     private String mealDescription;
     private List<Ingredient> ingredients = new ArrayList<>();
-    private List<Attendees> attendants = new ArrayList<>();
 
     private int year;
     private int month;
     private int day;
-    private int numberOfPeople;
 
+    private int numberOfPeople;
     private LocalTime startCookingTime;
     private LocalTime startEatingTime;
     private Long preparationTime;
     private String dateTime;
     private String foodImage;
-
+    private String cleaner;
+    private String shopper;
+    private String helper;
+    private List<Attendees> attendees = new ArrayList<>();
 
     public Meal() {
     }
 
-    public Meal(String cookName, String mealName, String mealDescription, List<Ingredient> ingredients, List<Attendees> attendants, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime, String foodImage) {
+    public Meal(String cookName, String mealName, String mealDescription, List <Ingredient> ingredients, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime, String foodImage, String cleaner, String shopper, String helper) {
         this.cookName = cookName;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
         this.ingredients = ingredients;
-        this.attendants = attendants;
         this.year = year;
         this.month = month;
         this.day = day;
@@ -46,6 +44,9 @@ public class Meal {
         this.preparationTime = preparationTime;
         this.dateTime = dateTime;
         this.foodImage = foodImage;
+        this.cleaner = cleaner;
+        this.shopper = shopper;
+        this.helper = helper;
     }
 
     public String getId() {
@@ -86,14 +87,6 @@ public class Meal {
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
-    }
-
-    public List<Attendees> getAttendants() {
-        return attendants;
-    }
-
-    public void setAttendants(List<Attendees> attendants) {
-        this.attendants = attendants;
     }
 
     public int getYear() {
@@ -168,15 +161,37 @@ public class Meal {
         this.foodImage = foodImage;
     }
 
+    public String getCleaner() {
+        return cleaner;
+    }
+
+    public void setCleaner(String cleaner) {
+        this.cleaner = cleaner;
+    }
+
+    public String getShopper() {
+        return shopper;
+    }
+
+    public void setShopper(String shopper) {
+        this.shopper = shopper;
+    }
+
+    public String getHelper() {
+        return helper;
+    }
+
+    public void setHelper(String helper) {
+        this.helper = helper;
+    }
+
     @Override
     public String toString() {
         return "Meal{" +
-                "id='" + id + '\'' +
-                ", cookName='" + cookName + '\'' +
+                "cookName='" + cookName + '\'' +
                 ", mealName='" + mealName + '\'' +
                 ", mealDescription='" + mealDescription + '\'' +
                 ", ingredients=" + ingredients +
-                ", attendants=" + attendants +
                 ", year=" + year +
                 ", month=" + month +
                 ", day=" + day +
@@ -186,6 +201,10 @@ public class Meal {
                 ", preparationTime=" + preparationTime +
                 ", dateTime='" + dateTime + '\'' +
                 ", foodImage='" + foodImage + '\'' +
+                ", cleaner='" + cleaner + '\'' +
+                ", shopper='" + shopper + '\'' +
+                ", helper='" + helper + '\'' +
                 '}';
     }
+
 }
