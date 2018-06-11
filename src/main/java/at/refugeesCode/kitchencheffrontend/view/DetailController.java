@@ -26,7 +26,7 @@ public class DetailController {
     private MealRepository mealRepository;
     private DetailService detailService;
     private String mealId;
-    private Boolean joind;
+    private Boolean joined;
     private String volunteerName;
 
     public DetailController(AddMealService addMealService, UserRepository userRepository, MealRepository mealRepository, DetailService detailService) {
@@ -61,12 +61,12 @@ public class DetailController {
             List <Ingredient> ingredients = meal.getIngredients();
             if (principal != null) {
                 volunteerName = principal.getName();
-                joind = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
+                joined = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
             }
             model.addAttribute("mealdetail", meal);
             model.addAttribute("ingredients", ingredients);
             model.addAttribute("disable", disable);
-            model.addAttribute("joindEating", joind);
+            model.addAttribute("joinedEating", joined);
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String username = authentication.getName();
@@ -80,16 +80,16 @@ public class DetailController {
         System.out.println("KKKKbbbbKKKKk");
         mealRepository.findById(mealId).ifPresent(meal -> {
             System.out.println("KKKKKKKKk");
-            joind = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
-            System.out.println(joind);
-            if (joind) {
+            joined = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
+            System.out.println(joined);
+            if (joined) {
                 meal.getAttendees().remove(volunteerName);
-                joind = false;
+                joined = false;
             } else {
                 meal.getAttendees().add(volunteerName);
-                joind = true;
+                joined = true;
             }
-            model.addAttribute("joindEating", joind);
+            model.addAttribute("joinedEating", joined);
             model.addAttribute("mealdetail", meal);
             Meal updatedMeal = save(meal);
         });

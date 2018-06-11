@@ -29,7 +29,7 @@
         <form th:action="@{'/detail/mealdetail/{id}/signUp'}" method="post" >
             <div id="choosing">
                 <div class="disabled-button-wrapper">
-            <button name="signup" value="eat" id="eat" class="btn btn-secondary"  th:disabled="${disable}">Join mail
+            <button name="signup" value="eat" id="eat" class="btn btn-secondary"  th:disabled="${disable}">Join meal
             </button>
         </div>
         <br><br>
@@ -98,7 +98,7 @@
         var cleaning = /*[[${mealdetail.cleaner}]]*/
         var shopping = /*[[${mealdetail.shopper}]]*/
         var helping = /*[[${mealdetail.helper}]]*/
-        var eating = /*[[${joindEating}]]*/
+        var eating = /*[[${joinedEating}]]*/
         var notLoged = /*[[${disable}]]*/'default';
 
          if (notLoged){
@@ -106,7 +106,7 @@
          }else {
              if (eating){
                 $('#eat').addClass('btn-success').removeClass('btn-secondary');
-                $('#eat').html('&#10003;' +' Joind');
+                $('#eat').html('&#10003;' +' Joined');
                 if (cleaning == null){
                     $('#clean').prop('disabled', true);
                 }
