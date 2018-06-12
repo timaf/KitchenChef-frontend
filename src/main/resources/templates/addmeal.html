@@ -62,7 +62,7 @@
                     <label for="quantity" ><b> Quantity :&nbsp;</b> </label>
                     <input type="number" class="form-control"  id="quantity" name="quantity" required>
 
-                    <label for="exampleSelect1"><b> Unit&nbsp;</b> </label>
+                    <label for="exampleSelect1"><b>&nbsp; Unit&nbsp;</b> </label>
                     <select class="form-control" id="exampleSelect1">
                         <option value="">Select a Unit</option>
                         <option value="Liter" th:text="Liter"></option>
@@ -74,7 +74,7 @@
         <!-- Ingredients End-->
 
             <div class="form-inline">
-                <input type="text" class="form-control" id="datepicker">
+                <input type="text" class="form-control" id="datepicker" th:field="*{dateTime}" required> Meal date :&nbsp;
             </div><br>
 
             <input type="file" name="file" id="file"  placeholder="image"><br><br>
@@ -85,6 +85,8 @@
 
 </form>
     </div>
+
+<p th:text="${#dates.format(meal.dateTime, 'dd-MM-yyyy')}"></p>
 
 <object th:include="fragments/resources :: bottom" th:remove="tag"></object>
 <script type="text/javascript" th:inline="javascript" >
