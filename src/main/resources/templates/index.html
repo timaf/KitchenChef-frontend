@@ -45,7 +45,7 @@
         <tbody>
         <tr th:each="meal: ${meals}">
             <td th:text="${meal.cookName}">Soup</td>
-            <td th:text="${meal.dateTime}">09 May 2018</td>
+            <td th:text="${meal.mealDate}">09 May 2018</td>
             <td th:text="${meal.mealName}">Sarah Baterdouk</td>
             <td th:text="${meal.numberOfPeople}">10</td>
             <td><a th:href="@{'/detail/mealdetail/'+${meal.id}}">View Detail</a></td>

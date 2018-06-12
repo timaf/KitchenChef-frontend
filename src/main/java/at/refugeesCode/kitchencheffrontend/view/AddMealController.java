@@ -1,13 +1,13 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
-import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
+
 import at.refugeesCode.kitchencheffrontend.persistence.model.AppUser;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Ingredient;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
+import at.refugeesCode.kitchencheffrontend.persistence.repository.MealRepository;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,19 +19,23 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/addmeal")
 public class AddMealController {
 
-    private AddMealService addMealService;
+   private MealRepository mealRepository;
     private UserRepository userRepository;
     private HttpServletRequest request;
 
-    public AddMealController(AddMealService addMealService, UserRepository userRepository, HttpServletRequest request) {
-        this.addMealService = addMealService;
+    public AddMealController(MealRepository mealRepository, UserRepository userRepository, HttpServletRequest request) {
+        this.mealRepository = mealRepository;
         this.userRepository = userRepository;
         this.request = request;
     }
@@ -42,8 +46,7 @@ public class AddMealController {
     }
 
     @GetMapping
-    String createAMeal(Model model, Meal meal) {
-        model.addAttribute("meal", meal);
+    String createAMeal() {
         return "addmeal";
     }
 
@@ -57,18 +60,37 @@ public class AddMealController {
         return new AppUser();
     }
 
-    @ModelAttribute("newIngredient")
+    @ModelAttribute("ingredient")
     Ingredient newIngredient() {
         return new Ingredient();
     }
 
-    @ModelAttribute("newMeal")
-    Meal addNewMeal() {
-        return new Meal();
+    @ModelAttribute("unitList")
+    List<String> symptomsList(){
+        return Stream.of("Liter" ,"Kg" ,"g" , "Piece").collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "add")
+    public String add(Meal meal) {
+        return "meal/add";
+    }
+
+
+    @RequestMapping(value="add", params={"addIngredient"})
+    public String addIngredient(Meal meal, BindingResult bindingResult) {
+        meal.getIngredients().add(new Ingredient());
+        return "meal/add";
+    }
+
+    @RequestMapping(value="/addmeal", params={"removeIngredient"})
+    public String removeIngredient(Meal meal, BindingResult bindingResult,HttpServletRequest req) {
+        final Integer rowId = Integer.valueOf(req.getParameter("removeIngredient"));
+        meal.getIngredients().remove(rowId.intValue());
+        return "addmeal";
     }
 
     @PostMapping
-    String createNewMeal(Meal meal, @Validated Ingredient ingredient, @RequestParam("file") MultipartFile file,
+    String createNewMeal(Meal meal,Ingredient ingredient, @RequestParam("file") MultipartFile file,
                          RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
         {
@@ -112,9 +134,11 @@ public class AddMealController {
         } else {
             return "You failed to upload " + " because the file was empty.";
         }
-        addMealService.createMeal(meal);
-        return "redirect:/";
+
+        mealRepository.save(meal);
+        return "redirect:/addmeal";
     }
+
 
 
 }
