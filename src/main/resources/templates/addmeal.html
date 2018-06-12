@@ -117,7 +117,7 @@
 
             <div class="form-inline">
                 <input type="text" class="form-control" id="datepicker" th:field="*{mealDate}"
-                       th:value="${#dates.format(meal.mealDate, 'dd-MMM-yyyy')}"required> Meal date :&nbsp;
+                       th:value="${#dates.format(meal.mealDate, 'yyyy-MM-dd')}"required> Meal date :&nbsp;
             </div><br>
 
             <input type="file" name="file" id="file"  placeholder="image"><br><br>
