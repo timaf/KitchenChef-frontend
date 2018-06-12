@@ -12,57 +12,69 @@
     <object th:include="fragments/navigation :: menu" th:remove="tag"></object>
 </header>
 
-<form th:action="@{/addmeal}" th:object="${addNewMeal}" method="post" enctype="multipart/form-data">
-    <input type="text" th:field="*{cookName}" name="cookName" id="cookName" placeholder="Cook Name" required>
-    <input type="text" th:field="*{mealName}" name="mealName" id="mealName" placeholder="Meal Name" required>
-    <input type="text" th:field="*{mealDescription}" name="mealDescription" id="mealDescription" placeholder="Meal Description" required>
+<div class="container">
+    <div id="banner" class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h5><strong>Info!</strong> After uploading this meal, people can sign up as a Cleaner, Shopper or Helper</h5>
+    </div><br>
+</div>
 
+<div class="container-fluid">
+    <form th:action="@{/addmeal}" th:object="${newMeal}" method="post" enctype="multipart/form-data">
+    <div class="row">
+
+        <div class="col-sm-6" style="background-color:lavenderblush;"><br>
+            <div class="form-inline">
+                <label for="cookName" ><b> Cook name :&nbsp;</b> </label>
+                <input type="text" class="form-control" th:field="*{cookName}" id="cookName" name="cookName" required><br>
+            </div><br>
+            <div class="form-inline">
+                <label for="mealName" ><b> Meal name :&nbsp;</b> </label>
+                <input type="text" class="form-control" th:field="*{mealName}" id="mealName" name="mealName" required><br>
+            </div><br>
+            <div class="form-inline">
+                <label for="mealDescription" ><b> Meal description :&nbsp;</b> </label>
+                <input type="text" class="form-control" th:field="*{mealDescription}" id="mealDescription" name="mealDescription" required><br>
+            </div><br>
+
+            <div class="form-inline">
+                <label for="preparationTime" ><b> Meal preparation takes about :&nbsp;</b> </label>
+                <input type="number" class="form-control" th:field="*{preparationTime}" id="preparationTime" name="preparationTime" required><br>
+            </div><br>
+            <div class="form-inline">
+                <label for="startCookingTime" ><b> Cooking start at :&nbsp;</b> </label>
+                <input type="time" class="form-control" th:field="*{startCookingTime}" id="startCookingTime" name="startCookingTime" required><br>
+            </div><br>
+            <div class="form-inline">
+                <label for="startEatingTime" ><b> Eating start at :&nbsp; </b></label>
+                <input type="time" class="form-control" th:field="*{startEatingTime}" id="startEatingTime" name="startEatingTime" required><br>
+            </div><br>
+        </div>
     <!-- Ingredients -->
-    <!--<div th:each="ingredient,i  : ${ingredients}">-->
-        <!--<input type="text" th:field="*{ingredients[__${i.index}__].name}" placeholder="Ingredient Name" required>-->
-        <!--<input type="text" th:field="*{ingredients[__${i.index}__].quantity}"  placeholder="Ingredients Quantity" required>-->
 
-        <!--<select th:field="*{ingredients[__${i.index}__].unit}" name="ingredientsUnit">-->
-            <!--<option value="">Select a Unit</option>-->
-            <!--<option value="Liter" th:text="Liter">2018</option>-->
-            <!--<option value="Kg" th:text="Kg"></option>-->
-            <!--<option value="Piece" th:text="Piece"></option>-->
-        <!--</select>-->
-    <!--</div>-->
-    <div>
+        <div class="col-sm-6" style="background-color:lavenderblush;"><br>
+                <h4>Please put the ingredients needed for one person! </h4>
+                <div class="form-inline">
+                    <label for="ingredient" ><b> Ingredients :&nbsp;</b> </label>
+                    <input type="text" class="form-control" th:field="*{mealName}" id="ingredient" name="ingredient" required><br>
 
-        <div>
-            <input type="text" th:field="*{ingredients[0].name}" placeholder="name" />
-            <input type="text" th:field="*{ingredients[0].quantity}" placeholder="quantity" />
-            <select th:field="*{ingredients[0].unit}">
-                <option value="">Select a Unit</option>
-                <option value="Liter" th:text="Liter">2018</option>
-                <option value="Kg" th:text="Kg"></option>
-                <option value="Piece" th:text="Piece"></option>
-            </select>
-        </div>
+                    <label for="quantity" ><b> Quantity :&nbsp;</b> </label>
+                    <input type="number" class="form-control"  id="quantity" name="quantity" required>
 
-        <div>
-            <input type="text" th:field="*{ingredients[1].name}" placeholder="name" />
-            <input type="text" th:field="*{ingredients[1].quantity}" placeholder="quantity" />
 
-            <select th:field="*{ingredients[1].unit}">
-                <option value="">Select a Unit</option>
-                <option value="Liter" th:text="Liter">2018</option>
-                <option value="Kg" th:text="Kg"></option>
-                <option value="Piece" th:text="Piece"></option>
-            </select>
-        </div>
+                    <label for="exampleSelect1"><b> Unit&nbsp;</b> </label>
+                    <select class="form-control" id="exampleSelect1">
+                        <option value="">Select a Unit</option>
+                        <option value="Liter" th:text="Liter">2018</option>
+                        <option value="Kg" th:text="Kg"></option>
+                        <option value="Piece" th:text="Piece"></option>
+                    </select>
+                </div>
 
-    </div>
+        <!-- Ingredients End-->
 
-    <!-- Ingredients End-->
-
-    <input type="text" th:field="*{numberOfPeople}" name="numberOfPeople" id="numberOfPeople" placeholder="5" required>
-    <input type="time" th:field="*{startCookingTime}" name="startCookingTime" id="startCookingTime" required>
-    <input type="text" th:field="*{preparationTime}" name="preparationTime" id="preparationTime" placeholder="30" required>
     <input type="file" name="file" id="file" placeholder="image">
-    <div>
+    <div class="form-inline">
         <select id="year" name="year">
             <option value="">Select a year</option>
             <option value="2018" th:text="2018">2018</option>
@@ -72,7 +84,7 @@
     </div>
     <div>
         <select id="month" name="month">
-            <option value="">Select a month</option>
+            <option value=""> Select a month </option>
             <option value="1" th:text="1"></option>
             <option value="2" th:text="2"></option>
             <option value="3" th:text="3"></option>
@@ -123,8 +135,31 @@
         </select>
     </div>
     <input type="submit">
+        </div>
+        </div>
+
+
+
+        <div id="datepicker" width="276">
+            <input type="text" class="form-control">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
 </form>
-<p>after uploading this meal, people can sign up as a helper, shopper, or cleaner.</p>
+    </div>
+
 <object th:include="fragments/resources :: bottom" th:remove="tag"></object>
+<script type="text/javascript" th:inline="javascript" >
+/*<![CDATA[*/
+    $(function(){
+         $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+});
+/*]]>*/
+</script>
+
 </body>
+
 </html>
