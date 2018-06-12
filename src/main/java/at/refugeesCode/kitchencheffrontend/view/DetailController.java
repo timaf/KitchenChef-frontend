@@ -59,6 +59,8 @@ public class DetailController {
         disable = principal != null ? false : true;
         mealRepository.findById(id).ifPresent(meal -> {
             List <Ingredient> ingredients = meal.getIngredients();
+            System.out.println(ingredients);
+
             if (principal != null) {
                 volunteerName = principal.getName();
                 joined = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));

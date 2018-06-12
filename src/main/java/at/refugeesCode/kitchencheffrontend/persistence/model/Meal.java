@@ -21,7 +21,7 @@ public class Meal {
     private String cookName;
     private String mealName;
     private String mealDescription;
-    private List<Ingredient> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 
     private int numberOfPeople;
     private String startCookingTime;
