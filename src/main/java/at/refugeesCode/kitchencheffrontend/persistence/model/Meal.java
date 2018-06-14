@@ -2,6 +2,7 @@ package at.refugeesCode.kitchencheffrontend.persistence.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class Meal {
     private LocalTime startCookingTime;
     private LocalTime startEatingTime;
     private Long preparationTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String dateTime;
     private String foodImage;
     private String cleaner;

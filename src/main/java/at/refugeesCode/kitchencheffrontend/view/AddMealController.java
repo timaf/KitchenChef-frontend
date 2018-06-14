@@ -62,7 +62,7 @@ public class AddMealController {
         return new Ingredient();
     }
 
-    @ModelAttribute("addNewMeal")
+    @ModelAttribute("newMeal")
     Meal addNewMeal() {
         return new Meal();
     }
