@@ -4,9 +4,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static java.util.Calendar.DATE;
 
 @Document
 public class Meal {
@@ -18,17 +22,12 @@ public class Meal {
     private String mealDescription;
     private List<Ingredient> ingredients = new ArrayList<>();
 
-    private int year;
-    private int month;
-    private int day;
-
     private int numberOfPeople;
-    private LocalTime startCookingTime;
-    private LocalTime startEatingTime;
-    private Long preparationTime;
+    private String startCookingTime;
+    private String startEatingTime;
+    private String preparationTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private String dateTime;
+    private String mealDate;
     private String foodImage;
     private String cleaner;
     private String shopper;
@@ -38,19 +37,16 @@ public class Meal {
     public Meal() {
     }
 
-    public Meal(String cookName, String mealName, String mealDescription, List <Ingredient> ingredients, int year, int month, int day, int numberOfPeople, LocalTime startCookingTime, LocalTime startEatingTime, Long preparationTime, String dateTime, String foodImage, String cleaner, String shopper, String helper, List <String> attendees) {
+    public Meal(String cookName, String mealName, String mealDescription, List <Ingredient> ingredients, int numberOfPeople, String startCookingTime, String startEatingTime, String preparationTime, String mealDate, String foodImage, String cleaner, String shopper, String helper, List <String> attendees) {
         this.cookName = cookName;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
         this.ingredients = ingredients;
-        this.year = year;
-        this.month = month;
-        this.day = day;
         this.numberOfPeople = numberOfPeople;
         this.startCookingTime = startCookingTime;
         this.startEatingTime = startEatingTime;
         this.preparationTime = preparationTime;
-        this.dateTime = dateTime;
+        this.mealDate = mealDate;
         this.foodImage = foodImage;
         this.cleaner = cleaner;
         this.shopper = shopper;
@@ -90,36 +86,12 @@ public class Meal {
         this.mealDescription = mealDescription;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List <Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List <Ingredient> ingredients) {
         this.ingredients = ingredients;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
     }
 
     public int getNumberOfPeople() {
@@ -130,36 +102,36 @@ public class Meal {
         this.numberOfPeople = numberOfPeople;
     }
 
-    public LocalTime getStartCookingTime() {
+    public String getStartCookingTime() {
         return startCookingTime;
     }
 
-    public void setStartCookingTime(LocalTime startCookingTime) {
+    public void setStartCookingTime(String startCookingTime) {
         this.startCookingTime = startCookingTime;
     }
 
-    public LocalTime getStartEatingTime() {
+    public String getStartEatingTime() {
         return startEatingTime;
     }
 
-    public void setStartEatingTime(LocalTime startEatingTime) {
+    public void setStartEatingTime(String startEatingTime) {
         this.startEatingTime = startEatingTime;
     }
 
-    public Long getPreparationTime() {
+    public String getPreparationTime() {
         return preparationTime;
     }
 
-    public void setPreparationTime(Long preparationTime) {
+    public void setPreparationTime(String preparationTime) {
         this.preparationTime = preparationTime;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public String getMealDate() {
+        return mealDate;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setMealDate(String mealDate) {
+        this.mealDate = mealDate;
     }
 
     public String getFoodImage() {
@@ -205,19 +177,15 @@ public class Meal {
     @Override
     public String toString() {
         return "Meal{" +
-                "id='" + id + '\'' +
-                ", cookName='" + cookName + '\'' +
+                "cookName='" + cookName + '\'' +
                 ", mealName='" + mealName + '\'' +
                 ", mealDescription='" + mealDescription + '\'' +
                 ", ingredients=" + ingredients +
-                ", year=" + year +
-                ", month=" + month +
-                ", day=" + day +
                 ", numberOfPeople=" + numberOfPeople +
                 ", startCookingTime=" + startCookingTime +
                 ", startEatingTime=" + startEatingTime +
                 ", preparationTime=" + preparationTime +
-                ", dateTime='" + dateTime + '\'' +
+                ", mealDate=" + mealDate +
                 ", foodImage='" + foodImage + '\'' +
                 ", cleaner='" + cleaner + '\'' +
                 ", shopper='" + shopper + '\'' +

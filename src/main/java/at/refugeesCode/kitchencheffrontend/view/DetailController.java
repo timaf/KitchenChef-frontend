@@ -46,12 +46,12 @@ public class DetailController {
         return "detail";
     }
 
-    @GetMapping("/mealdetail/shoppinglist/{id}")
+   /* @GetMapping("/mealdetail/shoppinglist/{id}")
     String showShoppingList(@PathVariable("id") String id, Model model) {
         Meal meal = addMealService.detailPage(id);
         model.addAttribute("shoppinglist", meal.getIngredients());
         return "shoppinglist";
-    }
+    }*/
 
     @GetMapping("/mealdetail/{id}")
     String detailPage(@PathVariable("id") String id, Model model, Principal principal) {
@@ -77,11 +77,8 @@ public class DetailController {
 
     @PostMapping(value = "/mealdetail/{id}/signUp", params = "signup=eat")
     String saveAttendance(Principal principal, Model model) {
-        System.out.println("KKKKbbbbKKKKk");
         mealRepository.findById(mealId).ifPresent(meal -> {
-            System.out.println("KKKKKKKKk");
             joined = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
-            System.out.println(joined);
             if (joined) {
                 meal.getAttendees().remove(volunteerName);
                 joined = false;
