@@ -34,12 +34,12 @@
             </div><br>
             <div class="form-inline">
                 <label for="mealDescription" ><b> Meal description :&nbsp;</b> </label>
-                <input type="text" class="form-control" th:field="*{mealDescription}" id="mealDescription" name="mealDescription" required><br>
+                <textarea class="form-control" th:field="*{mealDescription}" rows="3" id="mealDescription" name="mealDescription" required></textarea><br>
             </div><br>
-
             <div class="form-inline">
-                <label for="preparationTime" ><b> Meal preparation takes about :&nbsp;</b> </label>
-                <input type="time" class="form-control" th:field="*{preparationTime}" id="preparationTime" name="preparationTime" required><br>
+                <label ><b> Meal date :&nbsp;</b> </label>
+                <input type="text" class="form-control" id="datepicker" th:field="*{mealDate}"
+                       th:value="${#dates.format(meal.mealDate, 'yyyy-MM-dd')}"required>
             </div><br>
             <div class="form-inline">
                 <label for="startCookingTime" ><b> Cooking start at :&nbsp;</b> </label>
@@ -49,51 +49,46 @@
                 <label for="startEatingTime" ><b> Eating start at :&nbsp; </b></label>
                 <input type="time" class="form-control" th:field="*{startEatingTime}" id="startEatingTime" name="startEatingTime" required><br>
                 &nbsp;O'clock</div><br>
+            <div class="form-inline">
+                <label for="preparationTime" ><b> Meal preparation takes about :&nbsp;</b> </label>
+                <input type="time" class="form-control" th:field="*{preparationTime}" id="preparationTime" name="preparationTime" required><br>
+            </div><br>
+
         </div>
     <!-- Ingredients -->
 
         <div class="col-sm-6" style="background-color:lavenderblush;"><br>
                 <h4>Please put the ingredients needed for one person! </h4><br>
 
-            <table>
+            <table id="ingredientTable" class="table">
                 <thead>
                 <tr>
-                    <th >Row</th>
-                    <th >Variety</th>
-                    <th >Seeds per cell</th>
-                    <th>
-                        <button type="submit" name="addIngredient" >Add ingredient</button>
-                    </th>
+                    <th >Ingredient's name</th>
+                    <th >Quantity</th>
+                    <th >Unit</th>
+                    <th> <button  class="btn btn-info btn-sm" type="submit" id="insert_row" name="removeIngredient">Add ingredient</button></th>
                 </tr>
                 </thead>
                 <tbody>
-               <!-- <tr th:each="ingredient,rowStat : *{ingredients}">
-                    <td th:text="${rowStat.count}">1</td>
+                <tr th:each="ingredient, rowStat : *{ingredients}">
+                    <td><input type="text" th:field="*{ingredients[__${rowStat.index}__].name}" > sugar</td>
+                    <td><input type="text" th:field="*{ingredients[__${rowStat.index}__].quantity}" > 2</td>
                     <td>
-                        <select th:field="*{ingredients[__${rowStat.index}__].unit}">
-                            <option th:each="unit : ${unitList}"
-                                    th:value="${unit}"
-                                    th:text="${unit}">Thymus Thymi</option>
+                        <select class="form-control" th:field="*{ingredients[__${rowStat.index}__].unit}" id="exampleSelect1">
+                            <option th:each="unite : ${unitList}"
+                                    th:value="${unite}"
+                                    th:text="${unite}">
+                            </option>Kg
                         </select>
                     </td>
                     <td>
-                        <input type="text" th:field="*{ingredients[__${rowStat.index}__].name}" />
+                        <button  class="btn btn-info btn-sm" type="submit" th:value="${rowStat.index}"  name="removeIngredient">Remove ingredient</button>
                     </td>
-                    <td>
-                        <button type="submit" name="removeIngredient"
-                                th:value="${rowStat.index}" th:text="#{meal.row.remove}">Remove ingredient</button>
-                    </td>
-                </tr>-->
-
-               <tr th:each="ingredient, rowStat : *{ingredients}">
-                   <td><input type="text" th:field="*{ingredients[__${rowStat.index}__].name}" ></td>
-               </tr>
-
+                </tr>
                 </tbody>
             </table>
 
-
-
+           
            <!--
 
                 <div class="form-inline">
@@ -115,12 +110,9 @@
 
         <!-- Ingredients End-->
 
-            <div class="form-inline">
-                <input type="text" class="form-control" id="datepicker" th:field="*{mealDate}"
-                       th:value="${#dates.format(meal.mealDate, 'dd-MMM-yyyy')}"required> Meal date :&nbsp;
-            </div><br>
 
-            <input type="file" name="file" id="file"  placeholder="image"><br><br>
+
+            <br><input class="btn btn-outline-danger" type="file" name="file" id="file"  placeholder="image"><br><br>
 
             <button class="btn btn-warning">Add the meal</button>
         </div>
@@ -134,12 +126,40 @@
 <script type="text/javascript" th:inline="javascript" >
 /*<![CDATA[*/
     $(function(){
-         $('#datepicker').datepicker();
 
+
+
+        $('#datepicker').datepicker();
 });
 /*]]>*/
 </script>
-
 </body>
-
 </html>
+
+
+
+<!--<tbody>
+                    <tr th:each="ingredient, rowStat : *{ingredients}">
+                        <td><input type="text" th:field="*{ingredients[__${rowStat.index}__].name}" >Sugar</td>
+                        <td><input type="text" th:field="*{ingredients[__${rowStat.index}__].quantity}" >2</td>
+                        <td>
+                            <select class="form-control" th:field="*{ingredients[__${rowStat.index}__].unit}" id="exampleSelect1">
+                                <option th:each="unite : ${unitList}"
+                                    th:value="${unite}"
+                                    th:text="${unite}">Choose a unit
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <button  class="btn btn-info" type="button" name="removeIngredient">Remove ingredient</button>
+                        </td>
+                    </tr>
+                </tbody>-->
+
+<!--  $('#ingredientTable').on('click', 'button', function () {
+            $(this).closest('tr').remove();
+        });
+
+        $('#insert_row').click(function () {
+            $('#ingredientTable').append('<tr th:each="ingredient, rowStat : *{ingredients}"><td><input type="text" th:field="*{ingredients[__${rowStat.index}__].name}" ></td><td><input type="text" th:field="*{ingredients[__${rowStat.index}__].quantity}" ></td><td><select class="form-control" th:field="*{ingredients[__${rowStat.index}__].unit}" id="exampleSelect1"><option th:each="unit : ${unitList}" th:value="${unit}" th:text="${unit}"></option></select></td><td><button  class="btn btn-info btn-sm" type="button" name="removeIngredient">Remove ingredient</button></td></tr>');
+        });-->

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -55,7 +55,12 @@ public class IndexController {
     @GetMapping
     String page(Model model) {
         List <Meal> meals = mealRepository.findAll();
-        model.addAttribute("meals", meals);
+        List <Meal> ourMeals = meals.stream().filter(meal -> meal.getMealDate().isAfter(LocalDate.now()))
+                .collect(Collectors.toList());
+
+        ourMeals.stream().forEach(meal -> meal.setNumberOfPeople(meal.getAttendees().size()));
+        ourMeals.stream().forEach(meal -> mealRepository.save(meal));
+        model.addAttribute("ourMeals", ourMeals);
         return "index";
     }
 }

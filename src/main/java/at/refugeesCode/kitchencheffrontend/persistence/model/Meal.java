@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,14 +21,15 @@ public class Meal {
     private String cookName;
     private String mealName;
     private String mealDescription;
-    private List<Ingredient> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 
     private int numberOfPeople;
     private String startCookingTime;
     private String startEatingTime;
     private String preparationTime;
 
-    private String mealDate;
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    private LocalDate mealDate;
     private String foodImage;
     private String cleaner;
     private String shopper;
@@ -37,7 +39,7 @@ public class Meal {
     public Meal() {
     }
 
-    public Meal(String cookName, String mealName, String mealDescription, List <Ingredient> ingredients, int numberOfPeople, String startCookingTime, String startEatingTime, String preparationTime, String mealDate, String foodImage, String cleaner, String shopper, String helper, List <String> attendees) {
+    public Meal(String cookName, String mealName, String mealDescription, List <Ingredient> ingredients, int numberOfPeople, String startCookingTime, String startEatingTime, String preparationTime, LocalDate mealDate, String foodImage, String cleaner, String shopper, String helper, List <String> attendees) {
         this.cookName = cookName;
         this.mealName = mealName;
         this.mealDescription = mealDescription;
@@ -126,11 +128,11 @@ public class Meal {
         this.preparationTime = preparationTime;
     }
 
-    public String getMealDate() {
+    public LocalDate getMealDate() {
         return mealDate;
     }
 
-    public void setMealDate(String mealDate) {
+    public void setMealDate(LocalDate mealDate) {
         this.mealDate = mealDate;
     }
 
