@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
-@RequestMapping("/addmeal")
 public class AddMealController {
 
     private MealRepository mealRepository;
@@ -42,50 +41,40 @@ public class AddMealController {
         return new Meal();
     }
 
-    @GetMapping
+    @GetMapping(value="/addmeal")
     String createAMeal() {
         return "addmeal";
     }
-
-    /*@ModelAttribute("users")
-    List<AppUser> users() {
-        return userRepository.findAll();
-    }*/
 
     @ModelAttribute("newUser")
     AppUser newUser() {
         return new AppUser();
     }
 
-    @ModelAttribute("ingredient")
+   /* @ModelAttribute("ingredient")
     Ingredient newIngredient() {
         return new Ingredient();
-    }
+    }*/
 
     @ModelAttribute("unitList")
     List<String> symptomsList(){
         return Stream.of("Liter" ,"Kg" ,"g" , "Piece").collect(Collectors.toList());
     }
 
-   /* @RequestMapping(value = "addmeal")
-    public String add(Meal meal) {
-        return "meal/addmeal";
-    }*/
-
-    @RequestMapping(params={"addIngredient"})
+    @RequestMapping(value="/addmeal", params={"addIngredient"})
     public String addIngredient( final Meal meal,final BindingResult bindingResult) {
         meal.getIngredients().add(new Ingredient());
         return "addmeal";
     }
 
-    @RequestMapping(params={"removeIngredient"})
+    @RequestMapping(value="/addmeal", params={"removeIngredient"})
     public String removeIngredient(final Meal meal,final BindingResult bindingResult,final HttpServletRequest req) {
         final Integer rowId = Integer.valueOf(req.getParameter("removeIngredient"));
         meal.getIngredients().remove(rowId.intValue());
         return "addmeal";
     }
 
-    @PostMapping
+    @PostMapping(value="/addmeal")
     String createNewMeal(Meal meal, @RequestParam("file") MultipartFile file,
                          RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -130,7 +119,7 @@ public class AddMealController {
         } else {
             return "You failed to upload " + " because the file was empty.";
         }
-        System.out.println(meal.getIngredients());
+
         mealRepository.save(meal);
         return "redirect:/addmeal";
     }
