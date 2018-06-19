@@ -1,6 +1,5 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
-import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
 import at.refugeesCode.kitchencheffrontend.persistence.model.AppUser;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.MealRepository;
@@ -25,13 +24,11 @@ public class IndexController {
     private MealRepository mealRepository;
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-    private AddMealService addMealService;
 
-    public IndexController(MealRepository mealRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, AddMealService addMealService) {
+    public IndexController(MealRepository mealRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.mealRepository = mealRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.addMealService = addMealService;
     }
 
     @ModelAttribute("users")

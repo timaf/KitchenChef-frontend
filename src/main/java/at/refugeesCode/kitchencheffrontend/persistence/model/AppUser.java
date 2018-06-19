@@ -3,9 +3,7 @@ package at.refugeesCode.kitchencheffrontend.persistence.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Document
@@ -17,14 +15,13 @@ public class AppUser {
     private String password;
     private Set<String> authorities = new HashSet<>();
     private boolean registration = false;
-    private List<Idess> mealRegistration = new ArrayList<>();
 
-    public AppUser(String username, String password, Set<String> authorities, boolean registration, List<Idess> mealRegistration) {
+    public AppUser(String id, String username, String password, Set <String> authorities, boolean registration) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.authorities = authorities;
         this.registration = registration;
-        this.mealRegistration = mealRegistration;
     }
 
     public AppUser() {
@@ -70,15 +67,7 @@ public class AppUser {
         this.registration = registration;
     }
 
-    public List<Idess> getMealRegistration() {
-        return mealRegistration;
-    }
-
-    public void setMealRegistration(List<Idess> mealRegistration) {
-        this.mealRegistration = mealRegistration;
-    }
-
-    @Override
+   @Override
     public String toString() {
         return "AppUser{" +
                 "id='" + id + '\'' +
@@ -86,7 +75,6 @@ public class AppUser {
                 ", password='" + password + '\'' +
                 ", authorities=" + authorities +
                 ", registration=" + registration +
-                ", mealRegistration=" + mealRegistration +
                 '}';
     }
 }

@@ -1,7 +1,5 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
-import at.refugeesCode.kitchencheffrontend.controller.AddMealService;
-import at.refugeesCode.kitchencheffrontend.controller.DetailService;
 import at.refugeesCode.kitchencheffrontend.persistence.model.*;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.MealRepository;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
@@ -21,19 +19,15 @@ import java.util.List;
 public class DetailController {
 
     private Boolean disable;
-    private AddMealService addMealService;
     private UserRepository userRepository;
     private MealRepository mealRepository;
-    private DetailService detailService;
     private String mealId;
     private Boolean joined;
     private String volunteerName;
 
-    public DetailController(AddMealService addMealService, UserRepository userRepository, MealRepository mealRepository, DetailService detailService) {
-        this.addMealService = addMealService;
+    public DetailController(UserRepository userRepository, MealRepository mealRepository) {
         this.userRepository = userRepository;
         this.mealRepository = mealRepository;
-        this.detailService = detailService;
     }
 
     @ModelAttribute("newUser")
