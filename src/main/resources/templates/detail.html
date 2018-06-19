@@ -92,7 +92,9 @@
 <object th:include="fragments/resources :: bottom" th:remove="tag"></object>
 <script type="text/javascript" th:inline="javascript">
 /*<![CDATA[*/
-    $(function(){
+    $.noConflict();
+    jQuery( document ).ready(function( $ ) {
+
         $("#banner").hide();
         var name = /*[[${username}]]*/
         var cleaning = /*[[${mealdetail.cleaner}]]*/
@@ -100,7 +102,6 @@
         var helping = /*[[${mealdetail.helper}]]*/
         var eating = /*[[${joinedEating}]]*/
         var notLoged = /*[[${disable}]]*/'default';
-
          if (notLoged){
             $('.disabled-button-wrapper').tooltip({title: "Please log in first!"});
          }else {
@@ -119,8 +120,6 @@
             }else{
                 $('#eat').addClass('btn-primary').removeClass('btn-secondary');
             }
-
-
             if (cleaning != null){
                 if (cleaning == name){
                     $('#clean').html('&#10003;' +' You are cleaning');
@@ -129,7 +128,6 @@
                 $('#clean').addClass('btn-success').removeClass('btn-secondary');
                 $("#choosing div:nth-child(4)").tooltip({title: "Someone else already signed up for this."});
                 $('#clean').html(cleaning +' is cleaning');
-
             }else{
                 $('#clean').addClass('btn-warning').removeClass('btn-secondary');
             }
@@ -156,7 +154,6 @@
                 $('#help').addClass('btn-info').removeClass('btn-secondary');
                  }
          }
-
         $('#clean').on('click', function() {
         if ($(this).hasClass('btn-warning')){
            $("#choosing div:nth-child(4)").tooltip('dispose');
@@ -172,8 +169,6 @@
            $("#choosing div:nth-child(1)").tooltip({title: "You can join the meal for free."});
           }
         });
-
-
          $('#shop').on('click', function() {
         if ($(this).hasClass('btn-danger')){
            $("#choosing div:nth-child(5)").tooltip('dispose');
@@ -189,7 +184,6 @@
            $("#choosing div:nth-child(1)").tooltip({title: "You can join the meal for free."});
            }
         });
-
          $('#help').on('click', function() {
         if ($(this).hasClass('btn-info')){
            $("#choosing div:nth-child(6)").tooltip('dispose');
@@ -205,8 +199,6 @@
            $("#choosing div:nth-child(1)").tooltip({title: "You can join the meal for free."});
            }
         });
-
-
          if ($('#clean').hasClass('btn-warning') || $('#shop').hasClass('btn-danger') || $('#help').hasClass('btn-info')){
             $("#banner").show();
             setTimeout(function() {
