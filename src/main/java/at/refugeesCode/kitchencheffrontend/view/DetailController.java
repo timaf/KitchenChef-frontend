@@ -88,9 +88,9 @@ public class DetailController {
                 meal.getAttendees().add(volunteerName);
                 joined = true;
             }
-            model.addAttribute("joinedEating", joined);
-            model.addAttribute("mealdetail", meal);
             Meal updatedMeal = save(meal);
+            model.addAttribute("joinedEating", joined);
+            model.addAttribute("mealdetail", updatedMeal);
         });
         return "detail";
     }
@@ -101,13 +101,17 @@ public class DetailController {
             if (meal.getCleaner() == null) {
                 meal.setCleaner(volunteerName);
                 meal.getAttendees().add(volunteerName);
+                joined = true;
             } else if (meal.getCleaner().equals(volunteerName)) {
                 meal.setCleaner(null);
                 meal.getAttendees().remove(volunteerName);
+                joined = false;
             } else {
             }
-            model.addAttribute("mealdetail", meal);
             Meal updatedMeal = save(meal);
+            model.addAttribute("joinedEating", joined);
+            model.addAttribute("mealdetail", updatedMeal);
+
         });
         return "detail";
     }
@@ -118,13 +122,17 @@ public class DetailController {
             if (meal.getHelper() == null) {
                 meal.setHelper(volunteerName);
                 meal.getAttendees().add(volunteerName);
+                joined = true;
             } else if (meal.getHelper().equals(volunteerName)) {
                 meal.setHelper(null);
                 meal.getAttendees().remove(volunteerName);
+                joined = false;
             } else {
             }
-            model.addAttribute("mealdetail", meal);
             Meal updatedMeal = save(meal);
+            model.addAttribute("joinedEating", joined);
+            model.addAttribute("mealdetail", updatedMeal);
+
         });
         return "detail";
     }
@@ -135,14 +143,17 @@ public class DetailController {
             if (meal.getShopper() == null) {
                 meal.setShopper(volunteerName);
                 meal.getAttendees().add(volunteerName);
+                joined = true;
             } else if (meal.getShopper().equals(volunteerName)) {
                 meal.setShopper(null);
                 meal.getAttendees().remove(volunteerName);
+                joined = false;
             } else {
             }
-
-            model.addAttribute("mealdetail", meal);
             Meal updatedMeal = save(meal);
+            model.addAttribute("joinedEating", joined);
+            model.addAttribute("mealdetail", updatedMeal);
+
         });
         return "detail";
     }
