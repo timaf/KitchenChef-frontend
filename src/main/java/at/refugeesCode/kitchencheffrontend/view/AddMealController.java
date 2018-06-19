@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 @RequestMapping("/addmeal")
 public class AddMealController {
 
-   private MealRepository mealRepository;
+    private MealRepository mealRepository;
     private UserRepository userRepository;
     private HttpServletRequest request;
 
@@ -37,7 +37,7 @@ public class AddMealController {
         this.request = request;
     }
 
-   @ModelAttribute("meal")
+    @ModelAttribute("meal")
     Meal meal() {
         return new Meal();
     }
