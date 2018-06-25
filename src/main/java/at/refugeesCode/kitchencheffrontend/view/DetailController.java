@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/detail")
+@RequestMapping("/mealDetail")
 public class DetailController {
 
     private Boolean disable;
@@ -35,25 +35,20 @@ public class DetailController {
         return new AppUser();
     }
 
-    @GetMapping
-    String page() {
-        return "detail";
-    }
 
-   /* @GetMapping("/mealdetail/shoppinglist/{id}")
+   /* @GetMapping("/shoppinglist/{id}")
     String showShoppingList(@PathVariable("id") String id, Model model) {
         Meal meal = addMealService.detailPage(id);
         model.addAttribute("shoppinglist", meal.getIngredients());
         return "shoppinglist";
     }*/
 
-    @GetMapping("/mealdetail/{id}")
+    @GetMapping("/{id}")
     String detailPage(@PathVariable("id") String id, Model model, Principal principal) {
         mealId = id;
         disable = principal != null ? false : true;
         mealRepository.findById(id).ifPresent(meal -> {
             List <Ingredient> ingredients = meal.getIngredients();
-            System.out.println(ingredients);
 
             if (principal != null) {
                 volunteerName = principal.getName();
@@ -71,7 +66,7 @@ public class DetailController {
         return "detail";
     }
 
-    @PostMapping(value = "/mealdetail/{id}/signUp", params = "signup=eat")
+    @PostMapping(value = "/{id}/signUp", params = "signup=eat")
     String saveAttendance(Principal principal, Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             joined = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
@@ -89,7 +84,7 @@ public class DetailController {
         return "detail";
     }
 
-    @PostMapping(value = "/mealdetail/{id}/signUp", params = "signup=cleaner")
+    @PostMapping(value = "/{id}/signUp", params = "signup=cleaner")
     String saveCleaner(Principal principal, Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             if (meal.getCleaner() == null) {
@@ -110,7 +105,7 @@ public class DetailController {
         return "detail";
     }
 
-    @PostMapping(value = "/mealdetail/{id}/signUp", params = "signup=helper")
+    @PostMapping(value = "/{id}/signUp", params = "signup=helper")
     String saveHelper(Principal principal, Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             if (meal.getHelper() == null) {
@@ -131,8 +126,8 @@ public class DetailController {
         return "detail";
     }
 
-    @PostMapping(value = "/mealdetail/{id}/signUp", params = "signup=shopper")
-    String saveShoper(Principal principal, Model model) {
+    @PostMapping(value = "/{id}/signUp", params = "signup=shopper")
+    String saveShopper(Principal principal, Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             if (meal.getShopper() == null) {
                 meal.setShopper(volunteerName);

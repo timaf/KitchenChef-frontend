@@ -31,11 +31,6 @@ public class IndexController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @ModelAttribute("users")
-    List<AppUser> users() {
-        return userRepository.findAll();
-    }
-
     @ModelAttribute("newUser")
     AppUser newUser() {
         return new AppUser();

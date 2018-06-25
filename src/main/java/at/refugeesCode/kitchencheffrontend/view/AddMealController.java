@@ -51,13 +51,8 @@ public class AddMealController {
         return new AppUser();
     }
 
-   /* @ModelAttribute("ingredient")
-    Ingredient newIngredient() {
-        return new Ingredient();
-    }*/
-
     @ModelAttribute("unitList")
-    List<String> symptomsList(){
+    List<String> chooseUnit(){
         return Stream.of("Liter" ,"Kg" ,"g" , "Piece").collect(Collectors.toList());
     }
 
@@ -123,7 +118,5 @@ public class AddMealController {
         mealRepository.save(meal);
         return "redirect:/addmeal";
     }
-
-
 
 }

@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="container-fluid">
-        <form th:action="@{'/detail/mealdetail/{id}/signUp'}" method="post" >
+        <form th:action="@{'/mealDetail/{id}/signUp'}" method="post" >
             <div id="choosing">
                 <div class="disabled-button-wrapper">
             <button name="signup" value="eat" id="eat" class="btn btn-secondary"  th:disabled="${disable}">Join meal
@@ -74,7 +74,7 @@
                 </table>
             </h5>
 
-            <h5><a th:href="@{'/detail/mealdetail/shoppinglist/'+${mealdetail.id}}">View Shopping List</a></h5>
+            <h5><a th:href="@{'/mealDetail/shoppinglist/'+${mealdetail.id}}">View Shopping List</a></h5>
             <br>
 
         </div>
