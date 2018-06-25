@@ -52,12 +52,7 @@ class DetailControllerTest {
        this.attendees.addAll(Arrays.asList("Sami","Fatima","Mosleh","Suha","Tamara"));
        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
        LocalDate date = LocalDate.parse("2018-07-15",df);
-       System.out.println(date);
        this.meal = new Meal("1","Samar","cake","tasty",ingredients,"2:0","3:30","1.0",date,"Rami","kasem","Hani",attendees);
-    }
-
-    @Test
-    void page() {
     }
 
     @Test
