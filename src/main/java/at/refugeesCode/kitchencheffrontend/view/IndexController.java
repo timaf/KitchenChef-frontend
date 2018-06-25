@@ -4,6 +4,7 @@ import at.refugeesCode.kitchencheffrontend.persistence.model.AppUser;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.MealRepository;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
+import at.refugeesCode.kitchencheffrontend.service.IndexService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +21,12 @@ import java.util.stream.Stream;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-
-    private MealRepository mealRepository;
+    private IndexService indexService;
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
-    public IndexController(MealRepository mealRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.mealRepository = mealRepository;
+    public IndexController(IndexService indexService, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.indexService = indexService;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -46,12 +46,7 @@ public class IndexController {
 
     @GetMapping
     String page(Model model) {
-        List <Meal> meals = mealRepository.findAll();
-        List <Meal> ourMeals = meals.stream().filter(meal -> meal.getMealDate().isAfter(LocalDate.now()))
-                .collect(Collectors.toList());
-
-        ourMeals.stream().forEach(meal -> meal.setNumberOfPeople(meal.getAttendees().size()));
-        ourMeals.stream().forEach(meal -> mealRepository.save(meal));
+        List <Meal> ourMeals = indexService.showUpdatedEvents();
         model.addAttribute("ourMeals", ourMeals);
         return "index";
     }

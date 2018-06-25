@@ -1,5 +1,7 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
+
+import at.refugeesCode.kitchencheffrontend.exception.MealNotFoundException;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Ingredient;
 import at.refugeesCode.kitchencheffrontend.persistence.model.Meal;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.MealRepository;
@@ -32,34 +34,54 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class DetailControllerTest {
 
     private MockMvc mockMvc;
-    private Meal meal;
     private List<Ingredient> ingredients;
     private List<String> attendees;
-
-    @Mock
+    private DetailController detail;
     private MealRepository mealRepositoryMock;
-    @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepositoryMock;
 
     @BeforeEach
     public void setUp() {
-       Ingredient ingredient1 = new Ingredient("sugar",0.5,"g");
-       Ingredient ingredient2 = new Ingredient("egg",0.53,"piece");
-       Ingredient ingredient3 = new Ingredient("milk",1.0,"liter");
-       ingredients = new LinkedList <Ingredient>();
-       this.ingredients.addAll(Arrays.asList(ingredient1,ingredient2,ingredient3));
-       attendees = new LinkedList<String>();
-       this.attendees.addAll(Arrays.asList("Sami","Fatima","Mosleh","Suha","Tamara"));
-       DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-       LocalDate date = LocalDate.parse("2018-07-15",df);
-       this.meal = new Meal("1","Samar","cake","tasty",ingredients,"2:0","3:30","1.0",date,"Rami","kasem","Hani",attendees);
+     /*   mealRepositoryMock = mock(MealRepository.class);
+        userRepositoryMock = mock(UserRepository.class);
+        detail = new DetailController(userRepositoryMock,mealRepositoryMock);
+*/
+        Ingredient ingredient1 = new Ingredient("sugar",0.5,"g");
+        Ingredient ingredient2 = new Ingredient("egg",0.53,"piece");
+        Ingredient ingredient3 = new Ingredient("milk",1.0,"liter");
+        ingredients = new LinkedList <Ingredient>();
+        this.ingredients.addAll(Arrays.asList(ingredient1,ingredient2,ingredient3));
+        attendees = new LinkedList<String>();
+        this.attendees.addAll(Arrays.asList("Sami","Fatima","Mosleh","Suha","Tamara"));
+    }
+
+    @Test
+    public void detailPage_MealEntryNotFound_ShouldRender404View()throws Exception {
+        when(mealRepositoryMock.findById("2")).thenThrow(new MealNotFoundException("vv"));
+        try {
+            mockMvc.perform(get("/{id}", "2"))
+            .andExpect(status().isNotFound())
+                    //.andExpect(view().name("error/404"))
+                    .andExpect(forwardedUrl("/templates/error"));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        verify(mealRepositoryMock,times(1)).findById("2");
+        verifyNoMoreInteractions(mealRepositoryMock);
     }
 
     @Test
     void detailPage() {
-        when(mealRepositoryMock.findById("1")).thenReturn(java.util.Optional.ofNullable(meal));
-        try {
-            mockMvc.perform(get("/mealdetail/{id}", "1"))
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse("2018-07-15",df);
+         Meal meal = new Meal("1","Samar","cake","tasty",ingredients,"2:0","3:30","1.0",date,"Rami","kasem","Hani",attendees);
+
+
+        when(mealRepositoryMock.findById("2")).thenReturn(java.util.Optional.ofNullable(meal));
+            try {
+                 mockMvc.perform(get("/{id}", "1"))
                     .andExpect(status().isOk())
                     .andExpect(view().name("detail"))
                     .andExpect(model().attribute("mealdetail", hasProperty("id", is("1"))))

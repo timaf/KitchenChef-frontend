@@ -1,5 +1,6 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
+import at.refugeesCode.kitchencheffrontend.exception.MealNotFoundException;
 import at.refugeesCode.kitchencheffrontend.persistence.model.*;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.MealRepository;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
@@ -44,7 +45,7 @@ public class DetailController {
     }*/
 
     @GetMapping("/{id}")
-    String detailPage(@PathVariable("id") String id, Model model, Principal principal) {
+     public String detailPage(@PathVariable("id") String id, Model model, Principal principal)throws MealNotFoundException {
         mealId = id;
         disable = principal != null ? false : true;
         mealRepository.findById(id).ifPresent(meal -> {
@@ -67,7 +68,7 @@ public class DetailController {
     }
 
     @PostMapping(value = "/{id}/signUp", params = "signup=eat")
-    String saveAttendance(Principal principal, Model model) {
+     public  String saveAttendance(Principal principal, Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             joined = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
             if (joined) {

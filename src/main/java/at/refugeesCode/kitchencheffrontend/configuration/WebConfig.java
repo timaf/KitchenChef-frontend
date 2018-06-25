@@ -1,12 +1,15 @@
 package at.refugeesCode.kitchencheffrontend.configuration;
 
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
+import java.util.Properties;
 
 
 @Configuration
@@ -32,27 +35,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/login?error").setViewName("error");
     }
 
+
 }
 
-/*package at.refugeesCode.kitchencheffrontend.configuration;
-
-        import org.springframework.context.annotation.Configuration;
-        import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-        import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-        import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-@Configuration
-@EnableWebSecurity
-public class WebMvcConfiguration implements WebMvcConfigurer {
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-
-        //registry.addViewController("/").setViewName("index");
-        //registry.addViewController("/detail").setViewName("detail");
-        //registry.addViewController("/addmeal").setViewName("addmeal");
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/login?error").setViewName("error");
-    }
-
-}*/
