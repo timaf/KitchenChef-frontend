@@ -11,16 +11,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.hamcrest.Matchers.hasProperty;
@@ -36,50 +39,34 @@ class DetailControllerTest {
     private MockMvc mockMvc;
     private List<Ingredient> ingredients;
     private List<String> attendees;
-    private DetailController detail;
+    private LocalDate date;
+    private Meal meal;
     private MealRepository mealRepositoryMock;
     private UserRepository userRepositoryMock;
+    private DetailController detailController;
 
     @BeforeEach
     public void setUp() {
-     /*   mealRepositoryMock = mock(MealRepository.class);
+        mealRepositoryMock = mock(MealRepository.class);
         userRepositoryMock = mock(UserRepository.class);
-        detail = new DetailController(userRepositoryMock,mealRepositoryMock);
-*/
+
         Ingredient ingredient1 = new Ingredient("sugar",0.5,"g");
-        Ingredient ingredient2 = new Ingredient("egg",0.53,"piece");
-        Ingredient ingredient3 = new Ingredient("milk",1.0,"liter");
+        Ingredient ingredient2 = new Ingredient("egg",2.0,"piece");
+        Ingredient ingredient3 = new Ingredient("milk",1.5,"liter");
         ingredients = new LinkedList <Ingredient>();
         this.ingredients.addAll(Arrays.asList(ingredient1,ingredient2,ingredient3));
         attendees = new LinkedList<String>();
         this.attendees.addAll(Arrays.asList("Sami","Fatima","Mosleh","Suha","Tamara"));
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.date = LocalDate.parse("2018-07-15",df);
+        this.meal = new Meal("1","Samar","cake","tasty",ingredients,"2:0","3:30","1.0",date,"Rami","kasem","Hani",attendees);
+
     }
 
-    @Test
-    public void detailPage_MealEntryNotFound_ShouldRender404View()throws Exception {
-        when(mealRepositoryMock.findById("2")).thenThrow(new MealNotFoundException("vv"));
-        try {
-            mockMvc.perform(get("/{id}", "2"))
-            .andExpect(status().isNotFound())
-                    //.andExpect(view().name("error/404"))
-                    .andExpect(forwardedUrl("/templates/error"));
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        verify(mealRepositoryMock,times(1)).findById("2");
-        verifyNoMoreInteractions(mealRepositoryMock);
-    }
 
     @Test
     void detailPage() {
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate date = LocalDate.parse("2018-07-15",df);
-         Meal meal = new Meal("1","Samar","cake","tasty",ingredients,"2:0","3:30","1.0",date,"Rami","kasem","Hani",attendees);
-
-
-        when(mealRepositoryMock.findById("2")).thenReturn(java.util.Optional.ofNullable(meal));
+        when(mealRepositoryMock.findById("1")).thenReturn(Optional.of(meal));
             try {
                  mockMvc.perform(get("/{id}", "1"))
                     .andExpect(status().isOk())
@@ -95,10 +82,13 @@ class DetailControllerTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-                   }
+}
 
     @Test
     void saveAttendance() {
+        String attendance = "Fatima";
+        OngoingStubbing <Optional <Meal>> optionalOngoingStubbing = when(mealRepositoryMock.findById("1")).thenReturn(Optional.of(meal));
+
     }
 
     @Test

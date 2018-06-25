@@ -1,9 +1,7 @@
 package at.refugeesCode.kitchencheffrontend.view;
 
-import at.refugeesCode.kitchencheffrontend.exception.MealNotFoundException;
 import at.refugeesCode.kitchencheffrontend.persistence.model.*;
 import at.refugeesCode.kitchencheffrontend.persistence.repository.MealRepository;
-import at.refugeesCode.kitchencheffrontend.persistence.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 
 @Controller
@@ -20,14 +17,12 @@ import java.util.List;
 public class DetailController {
 
     private Boolean disable;
-    private UserRepository userRepository;
     private MealRepository mealRepository;
     private String mealId;
     private Boolean joined;
     private String volunteerName;
 
-    public DetailController(UserRepository userRepository, MealRepository mealRepository) {
-        this.userRepository = userRepository;
+    public DetailController(MealRepository mealRepository) {
         this.mealRepository = mealRepository;
     }
 
@@ -44,19 +39,18 @@ public class DetailController {
         return "shoppinglist";
     }*/
 
-    @GetMapping("/{id}")
-     public String detailPage(@PathVariable("id") String id, Model model, Principal principal)throws MealNotFoundException {
+
+   @GetMapping("/{id}")
+    public String detailPage(@PathVariable("id") String id, Model model, Principal principal){
         mealId = id;
         disable = principal != null ? false : true;
         mealRepository.findById(id).ifPresent(meal -> {
-            List <Ingredient> ingredients = meal.getIngredients();
-
             if (principal != null) {
                 volunteerName = principal.getName();
                 joined = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
             }
             model.addAttribute("mealdetail", meal);
-            model.addAttribute("ingredients", ingredients);
+            model.addAttribute("ingredients", meal.getIngredients());
             model.addAttribute("disable", disable);
             model.addAttribute("joinedEating", joined);
 
@@ -67,8 +61,9 @@ public class DetailController {
         return "detail";
     }
 
+
     @PostMapping(value = "/{id}/signUp", params = "signup=eat")
-     public  String saveAttendance(Principal principal, Model model) {
+     public  String saveAttendance(Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             joined = meal.getAttendees().stream().anyMatch(e -> e.equals(volunteerName));
             if (joined) {
@@ -86,7 +81,7 @@ public class DetailController {
     }
 
     @PostMapping(value = "/{id}/signUp", params = "signup=cleaner")
-    String saveCleaner(Principal principal, Model model) {
+    String saveCleaner(Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             if (meal.getCleaner() == null) {
                 meal.setCleaner(volunteerName);
@@ -107,7 +102,7 @@ public class DetailController {
     }
 
     @PostMapping(value = "/{id}/signUp", params = "signup=helper")
-    String saveHelper(Principal principal, Model model) {
+    String saveHelper(Model model) {
         mealRepository.findById(mealId).ifPresent(meal -> {
             if (meal.getHelper() == null) {
                 meal.setHelper(volunteerName);

@@ -40,7 +40,7 @@ class IndexControllerTest {
         @Mock
         private IndexService indexServiceMock;
         private UserRepository userRepository;
-         private PasswordEncoder passwordEncoder;
+        private PasswordEncoder passwordEncoder;
 
     @BeforeEach
         public void setUp() {
